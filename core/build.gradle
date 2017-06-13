@@ -1,0 +1,32 @@
+group 'org.tenkiv.physikal'
+version '1.0-SNAPSHOT'
+
+buildscript {
+    ext.kotlin_version = '1.1.2-2'
+
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+apply plugin: 'kotlin'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+
+    //Units of Measurement Library until Java 9 release.
+    compile "tec.uom:uom-se:1.0.4"
+
+    compile "com.tenkiv.coral.jdk:core:0.13.0.0"
+}
+
+artifacts{
+    
+}
