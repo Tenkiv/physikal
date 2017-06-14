@@ -4,7 +4,6 @@ import tec.uom.se.ComparableQuantity
 import tec.uom.se.quantity.Quantities
 import javax.measure.Quantity
 import javax.measure.Unit
-import javax.measure.quantity.Dimensionless
 
 // Number operators
 operator fun <Q : Quantity<Q>> Number.invoke(unit: Unit<Q>): ComparableQuantity<Q> =
@@ -86,14 +85,14 @@ infix fun <Q : Quantity<Q>> ComparableQuantity<Q>.qeq(comparate: Quantity<Q>) = 
 fun <Q : Quantity<Q>> ComparableQuantity<Q>.apeq(comparate: Quantity<Q>, plusOrMinus: ComparableQuantity<Q>) =
         (this - comparate).abs() <= plusOrMinus
 
-//TODO: Consider using ComparableQuantity<Dimensionless> with Percent instead of Double for the plusOrMinusPercent
+//TODO: Consider using ComparableQuantity<Dimensionless> with Percent instead of Double for the plusOrMinusRatio
 fun <Q : Quantity<Q>> ComparableQuantity<Q>.apeq(comparate: ComparableQuantity<Q>,
-                                                 plusOrMinusPercent: ComparableQuantity<Dimensionless>): Boolean {
+                                                 plusOrMinusRatio: Double): Boolean {
     val plusOrMinus: ComparableQuantity<Q> =
             if (this < comparate)
-                (this * plusOrMinusPercent)
+                (this * plusOrMinusRatio)
             else
-                (comparate * plusOrMinusPercent)
+                (comparate * plusOrMinusRatio)
     return apeq(this, plusOrMinus)
 }
 
