@@ -5,7 +5,6 @@ import tec.uom.se.quantity.Quantities
 import tec.uom.se.unit.Units.*
 import javax.measure.quantity.*
 
-//
 val Number.ampere: ComparableQuantity<ElectricCurrent>
     get() = Quantities.getQuantity<ElectricCurrent>(this, AMPERE)
 

@@ -9,16 +9,32 @@ buildscript {
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.0-M4'
     }
 }
 
 apply plugin: 'kotlin'
 
+apply plugin: 'org.junit.platform.gradle.plugin'
+
+junitPlatform {
+    filters {
+        engines {
+            include 'spek'
+        }
+    }
+}
+
 repositories {
     mavenCentral()
+    maven { url "http://dl.bintray.com/jetbrains/spek" }
 }
 
 dependencies {
+    testCompile 'org.jetbrains.spek:spek-api:1.1.2'
+
+    testRuntime 'org.jetbrains.spek:spek-junit-platform-engine:1.1.2'
+
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
 
     //Units of Measurement Library until Java 9 release.

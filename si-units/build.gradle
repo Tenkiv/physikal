@@ -15,23 +15,18 @@ buildscript {
 apply plugin: 'kotlin'
 
 repositories {
+    jcenter()
     mavenCentral()
 }
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
 
-    compile 'systems.uom:systems-parent:0.7'
+    compile 'si.uom:si-parent:0.7'
 
-    compile 'systems.uom:systems-quantity:0.7'
+    compile 'si.uom:si-units-java8:0.7'
 
-    compile 'systems.uom:systems-common-java8:0.7'
-
-    compile 'systems.uom:systems-unicode-java8:0.7'
-
-    compile 'systems.uom:systems-ucum-java8:0.7'
+    compile 'si.uom:si-quantity:0.7'
 
     compile project(':core')
-
-    compile project(':si-units')
 }
