@@ -3,6 +3,8 @@ package org.tenkiv.physikal.additional
 import org.tenkiv.physikal.core.MetricPrefixedNumber
 import org.tenkiv.physikal.core.invoke
 import si.uom.quantity.*
+import systems.uom.quantity.*
+import systems.uom.ucum.UCUM
 import systems.uom.ucum.UCUM.*
 import tec.uom.se.ComparableQuantity
 import tec.uom.se.quantity.Quantities
@@ -901,4 +903,284 @@ val Number.cicero: ComparableQuantity<Length>
 val MetricPrefixedNumber.cicero: ComparableQuantity<Length>
     get() = number(CICERO.transform(prefix.converter))
 
+val Number.rankine: ComparableQuantity<Temperature>
+    get() = Quantities.getQuantity<Temperature>(this, RANKINE)
 
+val MetricPrefixedNumber.rankine: ComparableQuantity<Temperature>
+    get() = number(RANKINE.transform(prefix.converter))
+
+val Number.fahrenheit: ComparableQuantity<Temperature>
+    get() = Quantities.getQuantity<Temperature>(this, FAHRENHEIT)
+
+val MetricPrefixedNumber.fahrenheit: ComparableQuantity<Temperature>
+    get() = number(FAHRENHEIT.transform(prefix.converter))
+
+val Number.reaumur: ComparableQuantity<Temperature>
+    get() = Quantities.getQuantity<Temperature>(this, REAUMUR)
+
+val MetricPrefixedNumber.reaumur: ComparableQuantity<Temperature>
+    get() = number(REAUMUR.transform(prefix.converter))
+
+val Number.calorie_at_15C: ComparableQuantity<Energy>
+    get() = Quantities.getQuantity<Energy>(this, CALORIE_AT_15C)
+
+val MetricPrefixedNumber.calorie_at_15C: ComparableQuantity<Energy>
+    get() = number(CALORIE_AT_15C.transform(prefix.converter))
+
+val Number.calorie_at_20C: ComparableQuantity<Energy>
+    get() = Quantities.getQuantity<Energy>(this, CALORIE_AT_20C)
+
+val MetricPrefixedNumber.calorie_at_20C: ComparableQuantity<Energy>
+    get() = number(CALORIE_AT_20C.transform(prefix.converter))
+
+val Number.calorie_mean: ComparableQuantity<Energy>
+    get() = Quantities.getQuantity<Energy>(this, CALORIE_MEAN)
+
+val MetricPrefixedNumber.calorie_mean: ComparableQuantity<Energy>
+    get() = number(CALORIE_MEAN.transform(prefix.converter))
+
+val Number.calorie_international_table: ComparableQuantity<Energy>
+    get() = Quantities.getQuantity<Energy>(this, CALORIE_INTERNATIONAL_TABLE)
+
+val MetricPrefixedNumber.calorie_international_table: ComparableQuantity<Energy>
+    get() = number(CALORIE_INTERNATIONAL_TABLE.transform(prefix.converter))
+
+val Number.calorie_thermochemical: ComparableQuantity<Energy>
+    get() = Quantities.getQuantity<Energy>(this, CALORIE_THERMOCHEMICAL)
+
+val MetricPrefixedNumber.calorie_thermochemical: ComparableQuantity<Energy>
+    get() = number(CALORIE_THERMOCHEMICAL.transform(prefix.converter))
+
+val Number.calorie: ComparableQuantity<Energy>
+    get() = Quantities.getQuantity<Energy>(this, CALORIE)
+
+val MetricPrefixedNumber.calorie: ComparableQuantity<Energy>
+    get() = number(CALORIE.transform(prefix.converter))
+
+val Number.calorie_food: ComparableQuantity<Energy>
+    get() = Quantities.getQuantity<Energy>(this, CALORIE_FOOD)
+
+val MetricPrefixedNumber.calorie_food: ComparableQuantity<Energy>
+    get() = number(CALORIE_FOOD.transform(prefix.converter))
+
+val Number.btu_at_39F: ComparableQuantity<Energy>
+    get() = Quantities.getQuantity<Energy>(this, BTU_AT_39F)
+
+val MetricPrefixedNumber.btu_at_39F: ComparableQuantity<Energy>
+    get() = number(BTU_AT_39F.transform(prefix.converter))
+
+val Number.btu_at_59F: ComparableQuantity<Energy>
+    get() = Quantities.getQuantity<Energy>(this, BTU_AT_59F)
+
+val MetricPrefixedNumber.btu_at_59F: ComparableQuantity<Energy>
+    get() = number(BTU_AT_59F.transform(prefix.converter))
+
+val Number.btu_at_60F: ComparableQuantity<Energy>
+    get() = Quantities.getQuantity<Energy>(this, BTU_AT_60F)
+
+val MetricPrefixedNumber.btu_at_60F: ComparableQuantity<Energy>
+    get() = number(BTU_AT_60F.transform(prefix.converter))
+
+val Number.btu_mean: ComparableQuantity<Energy>
+    get() = Quantities.getQuantity<Energy>(this, BTU_MEAN)
+
+val MetricPrefixedNumber.btu_mean: ComparableQuantity<Energy>
+    get() = number(BTU_MEAN.transform(prefix.converter))
+
+val Number.btu_international_table: ComparableQuantity<Energy>
+    get() = Quantities.getQuantity<Energy>(this, BTU_INTERNATIONAL_TABLE)
+
+val MetricPrefixedNumber.btu_international_table: ComparableQuantity<Energy>
+    get() = number(BTU_INTERNATIONAL_TABLE.transform(prefix.converter))
+
+val Number.btu_thermochemical: ComparableQuantity<Energy>
+    get() = Quantities.getQuantity<Energy>(this, BTU_THERMOCHEMICAL)
+
+val MetricPrefixedNumber.btu_thermochemical: ComparableQuantity<Energy>
+    get() = number(BTU_THERMOCHEMICAL.transform(prefix.converter))
+
+val Number.btu: ComparableQuantity<Energy>
+    get() = Quantities.getQuantity<Energy>(this, BTU)
+
+val MetricPrefixedNumber.btu: ComparableQuantity<Energy>
+    get() = number(BTU.transform(prefix.converter))
+
+val Number.horsepower: ComparableQuantity<Power>
+    get() = Quantities.getQuantity<Power>(this, HORSEPOWER)
+
+val MetricPrefixedNumber.horsepower: ComparableQuantity<Power>
+    get() = number(HORSEPOWER.transform(prefix.converter))
+
+val Number.meter_of_water_column: ComparableQuantity<Pressure>
+    get() = Quantities.getQuantity<Pressure>(this, METER_OF_WATER_COLUMN)
+
+val MetricPrefixedNumber.meter_of_water_column: ComparableQuantity<Pressure>
+    get() = number(METER_OF_WATER_COLUMN.transform(prefix.converter))
+
+val Number.meter_of_mercury_column: ComparableQuantity<Pressure>
+    get() = Quantities.getQuantity<Pressure>(this, METER_OF_MERCURY_COLUMN)
+
+val MetricPrefixedNumber.meter_of_mercury_column: ComparableQuantity<Pressure>
+    get() = number(METER_OF_MERCURY_COLUMN.transform(prefix.converter))
+
+val Number.inch_of_water_column: ComparableQuantity<Pressure>
+    get() = Quantities.getQuantity<Pressure>(this, INCH_OF_WATER_COLUMN)
+
+val MetricPrefixedNumber.inch_of_water_column: ComparableQuantity<Pressure>
+    get() = number(INCH_OF_WATER_COLUMN.transform(prefix.converter))
+
+val Number.inch_of_mercury_column: ComparableQuantity<Pressure>
+    get() = Quantities.getQuantity<Pressure>(this, INCH_OF_MERCURY_COLUMN)
+
+val MetricPrefixedNumber.inch_of_mercury_column: ComparableQuantity<Pressure>
+    get() = number(INCH_OF_MERCURY_COLUMN.transform(prefix.converter))
+
+val Number.drop: ComparableQuantity<Volume>
+    get() = Quantities.getQuantity<Volume>(this, DROP)
+
+val MetricPrefixedNumber.drop: ComparableQuantity<Volume>
+    get() = number(DROP.transform(prefix.converter))
+
+val Number.ph: ComparableQuantity<Acidity>
+    get() = Quantities.getQuantity<Acidity>(this, PH)
+
+val MetricPrefixedNumber.ph: ComparableQuantity<Acidity>
+    get() = number(PH.transform(prefix.converter))
+
+val Number.gram_percent: ComparableQuantity<Concentration<Mass>>
+    get() = Quantities.getQuantity<Concentration<Mass>>(this, GRAM_PERCENT)
+
+val MetricPrefixedNumber.gram_percent: ComparableQuantity<Concentration<Mass>>
+    get() = number(GRAM_PERCENT.transform(prefix.converter))
+
+val Number.high_power_feild: ComparableQuantity<Dimensionless>
+    get() = Quantities.getQuantity<Dimensionless>(this, HIGH_POWER_FIELD)
+
+val MetricPrefixedNumber.high_power_feild: ComparableQuantity<Dimensionless>
+    get() = number(HIGH_POWER_FIELD.transform(prefix.converter))
+
+val Number.low_power_feild: ComparableQuantity<Dimensionless>
+    get() = Quantities.getQuantity<Dimensionless>(this, LOW_POWER_FIELD)
+
+val MetricPrefixedNumber.low_power_feild: ComparableQuantity<Dimensionless>
+    get() = number(LOW_POWER_FIELD.transform(prefix.converter))
+
+val Number.neper: ComparableQuantity<Level<Dimensionless>>
+    get() = Quantities.getQuantity<Level<Dimensionless>>(this, NEPER)
+
+val MetricPrefixedNumber.neper: ComparableQuantity<Level<Dimensionless>>
+    get() = number(NEPER.transform(prefix.converter))
+
+val Number.bel: ComparableQuantity<Level<Dimensionless>>
+    get() = Quantities.getQuantity<Level<Dimensionless>>(this, BEL)
+
+val MetricPrefixedNumber.bel: ComparableQuantity<Level<Dimensionless>>
+    get() = number(BEL.transform(prefix.converter))
+
+val Number.bel_sound: ComparableQuantity<Level<Pressure>>
+    get() = Quantities.getQuantity<Level<Pressure>>(this, BEL_SOUND)
+
+val MetricPrefixedNumber.bel_sound: ComparableQuantity<Level<Pressure>>
+    get() = number(BEL_SOUND.transform(prefix.converter))
+
+val Number.bel_volt: ComparableQuantity<Level<ElectricPotential>>
+    get() = Quantities.getQuantity<Level<ElectricPotential>>(this, BEL_VOLT)
+
+val MetricPrefixedNumber.bel_volt: ComparableQuantity<Level<ElectricPotential>>
+    get() = number(BEL_VOLT.transform(prefix.converter))
+
+val Number.bel_10_nanovolt: ComparableQuantity<Level<ElectricPotential>>
+    get() = Quantities.getQuantity<Level<ElectricPotential>>(this, BEL_10_NANOVOLT)
+
+val MetricPrefixedNumber.bel_10_nanovolt: ComparableQuantity<Level<ElectricPotential>>
+    get() = number(BEL_10_NANOVOLT.transform(prefix.converter))
+
+val Number.bel_watt: ComparableQuantity<Level<ElectricPotential>>
+    get() = Quantities.getQuantity<Level<ElectricPotential>>(this, BEL_WATT)
+
+val MetricPrefixedNumber.bel_watt: ComparableQuantity<Level<ElectricPotential>>
+    get() = number(BEL_WATT.transform(prefix.converter))
+
+val Number.stere: ComparableQuantity<Volume>
+    get() = Quantities.getQuantity<Volume>(this, STERE)
+
+val MetricPrefixedNumber.stere: ComparableQuantity<Volume>
+    get() = number(STERE.transform(prefix.converter))
+
+val Number.angstrom: ComparableQuantity<Length>
+    get() = Quantities.getQuantity<Length>(this, ANGSTROM)
+
+val MetricPrefixedNumber.angstrom: ComparableQuantity<Length>
+    get() = number(ANGSTROM.transform(prefix.converter))
+
+val Number.barn: ComparableQuantity<Area>
+    get() = Quantities.getQuantity<Area>(this, BARN)
+
+val MetricPrefixedNumber.barn: ComparableQuantity<Area>
+    get() = number(BARN.transform(prefix.converter))
+
+val Number.atmosphere_technical: ComparableQuantity<Pressure>
+    get() = Quantities.getQuantity<Pressure>(this, ATMOSPHERE_TECHNICAL)
+
+val MetricPrefixedNumber.atmosphere_technical: ComparableQuantity<Pressure>
+    get() = number(ATMOSPHERE_TECHNICAL.transform(prefix.converter))
+
+val Number.mho: ComparableQuantity<ElectricConductance>
+    get() = Quantities.getQuantity<ElectricConductance>(this, MHO)
+
+val MetricPrefixedNumber.mho: ComparableQuantity<ElectricConductance>
+    get() = number(MHO.transform(prefix.converter))
+
+val Number.pound_per_square_inch: ComparableQuantity<Pressure>
+    get() = Quantities.getQuantity<Pressure>(this, POUND_PER_SQUARE_INCH)
+
+val MetricPrefixedNumber.pound_per_square_inch: ComparableQuantity<Pressure>
+    get() = number(POUND_PER_SQUARE_INCH.transform(prefix.converter))
+
+val Number.circle: ComparableQuantity<Angle>
+    get() = Quantities.getQuantity<Angle>(this, CIRCLE)
+
+val MetricPrefixedNumber.circle: ComparableQuantity<Angle>
+    get() = number(CIRCLE.transform(prefix.converter))
+
+val Number.sphere: ComparableQuantity<SolidAngle>
+    get() = Quantities.getQuantity<SolidAngle>(this, SPHERE)
+
+val MetricPrefixedNumber.sphere: ComparableQuantity<SolidAngle>
+    get() = number(SPHERE.transform(prefix.converter))
+
+val Number.carat_metric: ComparableQuantity<Mass>
+    get() = Quantities.getQuantity<Mass>(this, CARAT_METRIC)
+
+val MetricPrefixedNumber.carat_metric: ComparableQuantity<Mass>
+    get() = number(CARAT_METRIC.transform(prefix.converter))
+
+val Number.carat_gold: ComparableQuantity<Dimensionless>
+    get() = Quantities.getQuantity<Dimensionless>(this, CARAT_GOLD)
+
+val MetricPrefixedNumber.carat_gold: ComparableQuantity<Dimensionless>
+    get() = number(CARAT_GOLD.transform(prefix.converter))
+
+val Number.smoot: ComparableQuantity<Length>
+    get() = Quantities.getQuantity<Length>(this, SMOOT)
+
+val MetricPrefixedNumber.smoot: ComparableQuantity<Length>
+    get() = number(SMOOT.transform(prefix.converter))
+
+val Number.bit: ComparableQuantity<Information>
+    get() = Quantities.getQuantity<Information>(this, BIT)
+
+val MetricPrefixedNumber.bit: ComparableQuantity<Information>
+    get() = number(BIT.transform(prefix.converter))
+
+val Number.byte: ComparableQuantity<Information>
+    get() = Quantities.getQuantity<Information>(this, BYTE)
+
+val MetricPrefixedNumber.byte: ComparableQuantity<Information>
+    get() = number(BYTE.transform(prefix.converter))
+
+val Number.baud: ComparableQuantity<InformationRate>
+    get() = Quantities.getQuantity<InformationRate>(this, BAUD)
+
+val MetricPrefixedNumber.baud: ComparableQuantity<InformationRate>
+    get() = number(BAUD.transform(prefix.converter))
