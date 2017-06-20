@@ -1,5 +1,5 @@
 group 'org.tenkiv.physikal'
-version '1.0-SNAPSHOT'
+version '0.0.0.1-SNAPSHOT'
 
 buildscript {
     ext.kotlin_version = '1.1.2-5'
@@ -13,8 +13,11 @@ buildscript {
     }
 }
 
-apply plugin: 'kotlin'
+def isReleaseBuild() {
+    return version.contains("SNAPSHOT") == false
+}
 
+apply plugin: 'kotlin'
 apply plugin: 'org.junit.platform.gradle.plugin'
 
 junitPlatform {
@@ -43,6 +46,5 @@ dependencies {
     compile "com.tenkiv.coral.jdk:core:0.13.0.0"
 }
 
-artifacts{
-    
-}
+
+apply from:'../maven_push.gradle'

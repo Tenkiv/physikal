@@ -50,9 +50,6 @@ val MetricPrefixedNumber.mole: ComparableQuantity<AmountOfSubstance>
 val Number.second: ComparableQuantity<Time>
     get() = Quantities.getQuantity<Time>(this, SECOND)
 
-val MetricPrefixedNumber.second: ComparableQuantity<Time>
-    get() = number(SECOND.transform(prefix.converter))
-
 val Number.radian: ComparableQuantity<Angle>
     get() = Quantities.getQuantity<Angle>(this, RADIAN)
 
@@ -146,9 +143,6 @@ val MetricPrefixedNumber.henry: ComparableQuantity<ElectricInductance>
 val Number.celsius: ComparableQuantity<Temperature>
     get() = Quantities.getQuantity<Temperature>(this, CELSIUS)
 
-val MetricPrefixedNumber.celsius: ComparableQuantity<Temperature>
-    get() = number(CELSIUS.transform(prefix.converter))
-
 val Number.lumen: ComparableQuantity<LuminousFlux>
     get() = Quantities.getQuantity<LuminousFlux>(this, LUMEN)
 
@@ -185,71 +179,53 @@ val Number.katal: ComparableQuantity<CatalyticActivity>
 val MetricPrefixedNumber.katal: ComparableQuantity<CatalyticActivity>
     get() = number(KATAL.transform(prefix.converter))
 
-val Number.metre_per_second: ComparableQuantity<Speed>
+val Number.metrePerSecond: ComparableQuantity<Speed>
     get() = Quantities.getQuantity<Speed>(this, METRE_PER_SECOND)
 
-val MetricPrefixedNumber.metre_per_second: ComparableQuantity<Speed>
+val MetricPrefixedNumber.metrePerSecond: ComparableQuantity<Speed>
     get() = number(METRE_PER_SECOND.transform(prefix.converter))
 
-val Number.metre_per_square_second: ComparableQuantity<Acceleration>
+val Number.metrePerSquareSecond: ComparableQuantity<Acceleration>
     get() = Quantities.getQuantity<Acceleration>(this, METRE_PER_SQUARE_SECOND)
 
-val MetricPrefixedNumber.metre_per_square_second: ComparableQuantity<Acceleration>
+val MetricPrefixedNumber.metrePerSquareSecond: ComparableQuantity<Acceleration>
     get() = number(METRE_PER_SQUARE_SECOND.transform(prefix.converter))
 
-val Number.square_metre: ComparableQuantity<Area>
+val Number.squareMetre: ComparableQuantity<Area>
     get() = Quantities.getQuantity<Area>(this, SQUARE_METRE)
 
-val MetricPrefixedNumber.square_metre: ComparableQuantity<Area>
+val MetricPrefixedNumber.squareMetre: ComparableQuantity<Area>
     get() = number(SQUARE_METRE.transform(prefix.converter))
 
-val Number.cubic_metre: ComparableQuantity<Volume>
+val Number.cubicMetre: ComparableQuantity<Volume>
     get() = Quantities.getQuantity<Volume>(this, CUBIC_METRE)
 
-val MetricPrefixedNumber.cubic_metre: ComparableQuantity<Volume>
+val MetricPrefixedNumber.cubicMetre: ComparableQuantity<Volume>
     get() = number(CUBIC_METRE.transform(prefix.converter))
 
-val Number.kilometre_per_hour: ComparableQuantity<Speed>
+val Number.kilometrePerHour: ComparableQuantity<Speed>
     get() = Quantities.getQuantity<Speed>(this, KILOMETRE_PER_HOUR)
 
-val MetricPrefixedNumber.kilometre_per_hour: ComparableQuantity<Speed>
+val MetricPrefixedNumber.kilometrePerHour: ComparableQuantity<Speed>
     get() = number(KILOMETRE_PER_HOUR.transform(prefix.converter))
 
 val Number.percent: ComparableQuantity<Dimensionless>
     get() = Quantities.getQuantity<Dimensionless>(this, PERCENT)
 
-val MetricPrefixedNumber.percent: ComparableQuantity<Dimensionless>
-    get() = number(PERCENT.transform(prefix.converter))
-
 val Number.minute: ComparableQuantity<Time>
     get() = Quantities.getQuantity<Time>(this, MINUTE)
-
-val MetricPrefixedNumber.minute: ComparableQuantity<Time>
-    get() = number(MINUTE.transform(prefix.converter))
 
 val Number.hour: ComparableQuantity<Time>
     get() = Quantities.getQuantity<Time>(this, HOUR)
 
-val MetricPrefixedNumber.hour: ComparableQuantity<Time>
-    get() = number(HOUR.transform(prefix.converter))
-
 val Number.day: ComparableQuantity<Time>
     get() = Quantities.getQuantity<Time>(this, DAY)
-
-val MetricPrefixedNumber.day: ComparableQuantity<Time>
-    get() = number(DAY.transform(prefix.converter))
 
 val Number.week: ComparableQuantity<Time>
     get() = Quantities.getQuantity<Time>(this, WEEK)
 
-val MetricPrefixedNumber.week: ComparableQuantity<Time>
-    get() = number(WEEK.transform(prefix.converter))
-
 val Number.year: ComparableQuantity<Time>
     get() = Quantities.getQuantity<Time>(this, YEAR)
-
-val MetricPrefixedNumber.year: ComparableQuantity<Time>
-    get() = number(YEAR.transform(prefix.converter))
 
 val Number.litre: ComparableQuantity<Volume>
     get() = Quantities.getQuantity<Volume>(this, LITRE)

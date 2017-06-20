@@ -12,6 +12,10 @@ buildscript {
     }
 }
 
+def isReleaseBuild() {
+    return version.contains("SNAPSHOT") == false
+}
+
 apply plugin: 'kotlin'
 
 repositories {
@@ -30,3 +34,5 @@ dependencies {
 
     compile project(':core')
 }
+
+apply from:'../maven_push.gradle'
