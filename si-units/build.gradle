@@ -1,5 +1,5 @@
 group 'org.tenkiv.physikal'
-version '1.0-SNAPSHOT'
+version '0.0.1.0-SNAPSHOT'
 
 buildscript {
     ext.kotlin_version = '1.1.2-5'
@@ -26,13 +26,15 @@ repositories {
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
 
-    compile 'si.uom:si-parent:0.7'
+    compile ("tec.uom:uom-se:1.0.7")
 
-    compile 'si.uom:si-units-java8:0.7'
+    compile ('si.uom:si-parent:0.7')
 
-    compile 'si.uom:si-quantity:0.7'
+    compile ('si.uom:si-units-java8:0.7')
 
-    compile project(':core')
+    compile ('si.uom:si-quantity:0.7')
+
+    compile (project(':core'))
 }
 
 apply from:'../maven_push.gradle'

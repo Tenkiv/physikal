@@ -32,7 +32,7 @@ def getRepositoryPassword() {
 }
 
 boolean isRelease() {
-    return /*VERSION_NAME.contains("SNAPSHOT") == false*/ false
+    return false
 }
 
 afterEvaluate { project ->

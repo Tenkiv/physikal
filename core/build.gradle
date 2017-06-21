@@ -1,5 +1,5 @@
 group 'org.tenkiv.physikal'
-version '0.0.0.1-SNAPSHOT'
+version '0.0.1.0-SNAPSHOT'
 
 buildscript {
     ext.kotlin_version = '1.1.2-5'
@@ -30,6 +30,7 @@ junitPlatform {
 
 repositories {
     mavenCentral()
+    jcenter()
     maven { url "http://dl.bintray.com/jetbrains/spek" }
 }
 
@@ -41,7 +42,7 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
 
     //Units of Measurement Library until Java 9 release.
-    compile "tec.uom:uom-se:1.0.4"
+    compile ("tec.uom:uom-se:1.0.7")
 
     compile "com.tenkiv.coral.jdk:core:0.13.0.0"
 }

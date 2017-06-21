@@ -90,9 +90,6 @@ val Number.protonMass: ComparableQuantity<Mass>
 val MetricPrefixedNumber.protonMass: ComparableQuantity<Mass>
     get() = number(PROTON_MASS.transform(prefix.converter))
 
-val Number.accellerationOfFreefall: ComparableQuantity<Acceleration>
-    get() = Quantities.getQuantity<Acceleration>(this, ACCELLERATION_OF_FREEFALL)
-
 val Number.atmosphere: ComparableQuantity<Pressure>
     get() = Quantities.getQuantity<Pressure>(this, ATMOSPHERE)
 
@@ -182,18 +179,6 @@ val Number.roentgen: ComparableQuantity<IonizingRadiation>
 
 val MetricPrefixedNumber.roentgen: ComparableQuantity<IonizingRadiation>
     get() = number(ROENTGEN.transform(prefix.converter))
-
-val Number.rad: ComparableQuantity<RadiationDoseAbsorbed>
-    get() = Quantities.getQuantity<RadiationDoseAbsorbed>(this, RAD)
-
-val MetricPrefixedNumber.rad: ComparableQuantity<RadiationDoseAbsorbed>
-    get() = number(RAD.transform(prefix.converter))
-
-val Number.rem: ComparableQuantity<RadiationDoseEffective>
-    get() = Quantities.getQuantity<RadiationDoseEffective>(this, REM)
-
-val MetricPrefixedNumber.rem: ComparableQuantity<RadiationDoseEffective>
-    get() = number(REM.transform(prefix.converter))
 
 val Number.inchInternational: ComparableQuantity<Length>
     get() = Quantities.getQuantity<Length>(this, INCH_INTERNATIONAL)
@@ -668,12 +653,6 @@ val Number.stere: ComparableQuantity<Volume>
 
 val MetricPrefixedNumber.stere: ComparableQuantity<Volume>
     get() = number(STERE.transform(prefix.converter))
-
-val Number.angstrom: ComparableQuantity<Length>
-    get() = Quantities.getQuantity<Length>(this, ANGSTROM)
-
-val MetricPrefixedNumber.angstrom: ComparableQuantity<Length>
-    get() = number(ANGSTROM.transform(prefix.converter))
 
 val Number.barn: ComparableQuantity<Area>
     get() = Quantities.getQuantity<Area>(this, BARN)

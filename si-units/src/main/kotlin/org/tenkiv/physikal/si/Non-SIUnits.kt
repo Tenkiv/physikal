@@ -1,4 +1,4 @@
-package org.tenkiv.physikal.`si-units`
+package org.tenkiv.physikal.si
 
 import org.tenkiv.physikal.core.MetricPrefixedNumber
 import org.tenkiv.physikal.core.invoke
@@ -14,9 +14,6 @@ import javax.measure.quantity.*
 val Number.pi: ComparableQuantity<Dimensionless>
     get() = Quantities.getQuantity<Dimensionless>(this, PI)
 
-val MetricPrefixedNumber.pi: ComparableQuantity<Dimensionless>
-    get() = number(PI.transform(prefix.converter))
-
 val Number.atom: ComparableQuantity<AmountOfSubstance>
     get() = Quantities.getQuantity<AmountOfSubstance>(this, ATOM)
 
@@ -29,29 +26,17 @@ val Number.angstrom: ComparableQuantity<Length>
 val MetricPrefixedNumber.angstrom: ComparableQuantity<Length>
     get() = number(ANGSTROM.transform(prefix.converter))
 
-val Number.day_sideral: ComparableQuantity<Time>
+val Number.daySideral: ComparableQuantity<Time>
     get() = Quantities.getQuantity<Time>(this, DAY_SIDEREAL)
 
-val MetricPrefixedNumber.day_sideral: ComparableQuantity<Time>
-    get() = number(DAY_SIDEREAL.transform(prefix.converter))
-
-val Number.year_calendar: ComparableQuantity<Time>
+val Number.yearCalendar: ComparableQuantity<Time>
     get() = Quantities.getQuantity<Time>(this, YEAR_CALENDAR)
 
-val MetricPrefixedNumber.year_calendar: ComparableQuantity<Time>
-    get() = number(YEAR_CALENDAR.transform(prefix.converter))
-
-val Number.year_sidereal: ComparableQuantity<Time>
+val Number.yearSidereal: ComparableQuantity<Time>
     get() = Quantities.getQuantity<Time>(this, YEAR_SIDEREAL)
 
-val MetricPrefixedNumber.year_sidereal: ComparableQuantity<Time>
-    get() = number(YEAR_SIDEREAL.transform(prefix.converter))
-
-val Number.year_julien: ComparableQuantity<Time>
+val Number.yearJulien: ComparableQuantity<Time>
     get() = Quantities.getQuantity<Time>(this, YEAR_JULIEN)
-
-val MetricPrefixedNumber.year_julien: ComparableQuantity<Time>
-    get() = number(YEAR_JULIEN.transform(prefix.converter))
 
 val Number.bar: ComparableQuantity<Pressure>
     get() = Quantities.getQuantity<Pressure>(this, BAR)
@@ -59,17 +44,14 @@ val Number.bar: ComparableQuantity<Pressure>
 val MetricPrefixedNumber.bar: ComparableQuantity<Pressure>
     get() = number(BAR.transform(prefix.converter))
 
-val Number.millimetre_of_mercury: ComparableQuantity<Pressure>
+val Number.millimetreOfMercury: ComparableQuantity<Pressure>
     get() = Quantities.getQuantity<Pressure>(this, MILLIMETRE_OF_MERCURY)
 
-val MetricPrefixedNumber.millimetre_of_mercury: ComparableQuantity<Pressure>
+val MetricPrefixedNumber.millimetreOfMercury: ComparableQuantity<Pressure>
     get() = number(MILLIMETRE_OF_MERCURY.transform(prefix.converter))
 
-val Number.inch_of_mercury: ComparableQuantity<Pressure>
+val Number.inchOfMercury: ComparableQuantity<Pressure>
     get() = Quantities.getQuantity<Pressure>(this, INCH_OF_MERCURY)
-
-val MetricPrefixedNumber.inch_of_mercury: ComparableQuantity<Pressure>
-    get() = number(INCH_OF_MERCURY.transform(prefix.converter))
 
 val Number.rad: ComparableQuantity<RadiationDoseAbsorbed>
     get() = Quantities.getQuantity<RadiationDoseAbsorbed>(this, RAD)
@@ -83,8 +65,8 @@ val Number.rem: ComparableQuantity<RadiationDoseEffective>
 val MetricPrefixedNumber.rem: ComparableQuantity<RadiationDoseEffective>
     get() = number(REM.transform(prefix.converter))
 
-val Number.roetgen: ComparableQuantity<IonizingRadiation>
+val Number.roentgen: ComparableQuantity<IonizingRadiation>
     get() = Quantities.getQuantity<IonizingRadiation>(this, ROENTGEN)
 
-val MetricPrefixedNumber.roetgen: ComparableQuantity<IonizingRadiation>
+val MetricPrefixedNumber.roentgen: ComparableQuantity<IonizingRadiation>
     get() = number(ROENTGEN.transform(prefix.converter))
