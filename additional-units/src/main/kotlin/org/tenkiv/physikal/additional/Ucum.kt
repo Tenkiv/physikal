@@ -207,9 +207,6 @@ val Number.squareInchInternational: ComparableQuantity<Area>
 val Number.squareFootInternational: ComparableQuantity<Area>
     get() = Quantities.getQuantity<Area>(this, SQUARE_FOOT_INTERNATIONAL)
 
-val MetricPrefixedNumber.squareFootInternational: ComparableQuantity<Area>
-    get() = number(SQUARE_FOOT_INTERNATIONAL.transform(prefix.converter))
-
 val Number.squareYardInternational: ComparableQuantity<Area>
     get() = Quantities.getQuantity<Area>(this, SQUARE_YARD_INTERNATIONAL)
 
@@ -239,9 +236,6 @@ val Number.circularMilInternational: ComparableQuantity<Area>
 
 val Number.handInternational: ComparableQuantity<Length>
     get() = Quantities.getQuantity<Length>(this, HAND_INTERNATIONAL)
-
-val MetricPrefixedNumber.handInternational: ComparableQuantity<Length>
-    get() = number(HAND_INTERNATIONAL.transform(prefix.converter))
 
 val Number.footUsSurvey: ComparableQuantity<Length>
     get() = Quantities.getQuantity<Length>(this, FOOT_US_SURVEY)
