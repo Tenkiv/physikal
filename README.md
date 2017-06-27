@@ -3,9 +3,9 @@
 ### Library providing Kotlin extensions and ease of use functions for Java Units of Measurement libraries.
 
 ### Contains
-- [Core](core) Contains Basic Metric Units. 
-- [SI-Units](si-units) Contains SI Units.
-- [Complete-Units](additional-units) Contains All Units Including Imperial.
+- [Core](core) - Basic Metric Units. 
+- [SI-Units](si-units) - SI Units.
+- [Complete-Units](additional-units) - All Units Including Imperial.
 
 
 ### Maven Central Artifacts
@@ -16,12 +16,12 @@
 - #### Complete Units [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.tenkiv.physikal/additional-units/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.tenkiv.physikal/additional-units)
 
 ### Usage
-#### Create Units
+#### Create units
         val small = 10.metre
         
         val large = 10.kilo.metre
         
-#### Includes all Operators
+#### Includes all operators
         val added = 10.metre + 1.kilo.metre
         >> 1010.0 m
         
@@ -35,7 +35,7 @@
         (-10.nano.metre).abs()
         >> 10.0 nm
 
-#### Using different Units (SI Units & Complete Units)
+#### Using different units (SI units & other units)
         5.gram + 2.pound
         >> 912.18474 g
         
