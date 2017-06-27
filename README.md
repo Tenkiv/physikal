@@ -42,5 +42,5 @@
         (13.kilo.gram + 20.pound).tu(STONE)
         >> 3.47572100600243466674378 st
         
-#### Special Thanks
+#### Special thanks
 - [The contributors and maintainers of UnitsofMeasurement](https://github.com/unitsofmeasurement).
