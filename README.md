@@ -3,9 +3,9 @@
 ### Library providing Kotlin extensions and ease of use functions for Java Units of Measurement libraries.
 
 ### Contains
-- [Core](core) - Basic Metric Units. 
-- [SI-Units](si-units) - SI Units.
-- [Complete-Units](additional-units) - All Units Including Imperial.
+- [Core](core) - Basic Metric units. 
+- [SI-Units](si-units) - SI units.
+- [Complete-Units](additional-units) - All units including imperial.
 
 
 ### Maven Central Artifacts
