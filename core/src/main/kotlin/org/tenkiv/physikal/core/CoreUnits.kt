@@ -50,6 +50,9 @@ val MetricPrefixedNumber.mole: ComparableQuantity<AmountOfSubstance>
 val Number.second: ComparableQuantity<Time>
     get() = Quantities.getQuantity<Time>(this, SECOND)
 
+val MetricPrefixedNumber.second: ComparableQuantity<Time>
+    get() = number(SECOND.transform(prefix.converter))
+
 val Number.radian: ComparableQuantity<Angle>
     get() = Quantities.getQuantity<Angle>(this, RADIAN)
 
@@ -215,8 +218,14 @@ val Number.percent: ComparableQuantity<Dimensionless>
 val Number.minute: ComparableQuantity<Time>
     get() = Quantities.getQuantity<Time>(this, MINUTE)
 
+val MetricPrefixedNumber.minute: ComparableQuantity<Time>
+    get() = number(MINUTE.transform(prefix.converter))
+
 val Number.hour: ComparableQuantity<Time>
     get() = Quantities.getQuantity<Time>(this, HOUR)
+
+val MetricPrefixedNumber.hour: ComparableQuantity<Time>
+    get() = number(HOUR.transform(prefix.converter))
 
 val Number.day: ComparableQuantity<Time>
     get() = Quantities.getQuantity<Time>(this, DAY)
