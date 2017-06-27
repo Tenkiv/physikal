@@ -1,6 +1,6 @@
 # Physikal
 
-### Library providing extensions and ease of use functions for Units of Measurement libraries.
+### Library providing Kotlin extensions and ease of use functions for Java Units of Measurement libraries.
 
 ### Contains
 - [Core](core) Contains Basic Metric Units. 
