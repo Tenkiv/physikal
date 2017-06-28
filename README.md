@@ -35,6 +35,13 @@
         (-10.nano.metre).abs()
         >> 10.0 nm
         
+        ## The operator '==' does not always work reliably for quantities, so the fucnction qeq() should be used instead.
+        1.kilo.gram == 1000.gram
+        >> false
+        
+        1.kilo.gram qeq 1000.gram
+        >> true
+        
 
 #### Using different units (SI units & other units)
         5.gram + 2.pound
