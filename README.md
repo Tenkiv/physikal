@@ -13,7 +13,7 @@
 
 - #### SI Units [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.tenkiv.physikal/si-units/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.tenkiv.physikal/si-units)
 
-- #### Complete Units [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.tenkiv.physikal/additional-units/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.tenkiv.physikal/additional-units)
+- #### Complete Units [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.tenkiv.physikal/complete-units/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.tenkiv.physikal/complete-units)
 
 ### Usage
 #### Create units
@@ -34,13 +34,19 @@
         
         (-10.nano.metre).abs()
         >> 10.0 nm
+        
 
 #### Using different units (SI units & other units)
         5.gram + 2.pound
         >> 912.18474 g
         
-        (13.kilo.gram + 20.pound).tu(STONE)
+        (13.kilo.gram + 20.pound) tu STONE
         >> 3.47572100600243466674378 st
         
-#### Special thanks
+### Future updates
+Currently all quantities are objects, so heavy usage of this library will involve some level of extraneous object
+creation. Hopefully we can resolve this issue with project valhalla or another attempt to get value
+types in the JVM.
+        
+### Special thanks
 - [The contributors and maintainers of UnitsofMeasurement](https://github.com/unitsofmeasurement).
