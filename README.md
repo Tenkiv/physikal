@@ -52,7 +52,7 @@
         >> 3.47572100600243466674378 st
         
 ### Future updates
-Currently all quantities are objects, so heavy usage of this library will involve some level of extraneous object
+Currently all quantities are reference types, so heavy usage of this library will involve some level of extraneous object
 creation. Hopefully we can resolve this issue with project valhalla or another attempt to get value
 types in the JVM.
         
