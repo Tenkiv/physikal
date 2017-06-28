@@ -36,7 +36,7 @@
         >> 10.0 nm
         
         ## The operator '==' does not always work reliably for quantities;
-        ## the fucnction qeq() should be used instead.
+        ## the function qeq() should be used instead.
         1.kilo.gram == 1000.gram
         >> false
         
