@@ -8,8 +8,6 @@ import javax.measure.Quantity
 import javax.measure.Unit
 
 // typealiases
-typealias QuantityMeasurement<Q> = ValueInstant<ComparableQuantity<Q>>
-
 typealias ClosedQuantityRange<Q> = ClosedRange<ComparableQuantity<Q>>
 
 // Unit extensions
