@@ -1,28 +1,39 @@
 /**
  * Copyright 2017 TENKIV, INC.
 
- Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
+ following conditions are met:
 
- 1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ 1. Redistributions of source code must retain the above copyright notice, this list of conditions and the
+ following disclaimer.
 
- 2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ 2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following
+ disclaimer in the documentation and/or other materials provided with the distribution.
 
- 3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ 3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote
+ products derived from this software without specific prior written permission.
 
- THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 group 'org.tenkiv.physikal'
 version '1.0.1.0'
 
+apply plugin: 'kotlin'
+
 buildscript {
-    ext.kotlin_version = '1.1.3'
+    ext.kotlin_version = '1.1.3-2'
 
     repositories {
         mavenCentral()
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.0-M4'
     }
 }
 
@@ -31,30 +42,17 @@ def isReleaseBuild() {
 }
 
 apply plugin: 'kotlin'
-apply plugin: 'org.junit.platform.gradle.plugin'
-
-junitPlatform {
-    filters {
-        engines {
-            include 'spek'
-        }
-    }
-}
 
 repositories {
     mavenCentral()
     jcenter()
-    maven { url "http://dl.bintray.com/jetbrains/spek" }
 }
 
 dependencies {
-    testCompile 'org.jetbrains.spek:spek-api:1.1.2'
-
-    testRuntime 'org.jetbrains.spek:spek-junit-platform-engine:1.1.2'
+    testCompile 'io.kotlintest:kotlintest:2.0.3'
 
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
 
-    //Units of Measurement Library until Java 9 release.
     compile ("tec.uom:uom-se:1.0.7")
 
     compile "com.tenkiv.coral.jdk:core:0.13.0.0"
