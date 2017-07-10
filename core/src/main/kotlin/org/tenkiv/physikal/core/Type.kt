@@ -13,10 +13,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
  */
 package org.tenkiv.physikal.core
 
-import org.tenkiv.coral.ValueInstant
 import tec.uom.se.ComparableQuantity
 import tec.uom.se.unit.MetricPrefix
-import java.lang.Double
 import javax.measure.Quantity
 import javax.measure.Unit
 

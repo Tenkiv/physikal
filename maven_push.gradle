@@ -20,20 +20,12 @@ if (isReleaseBuild()) {
     println 'DEBUG BUILD'
 }
 
-def getRepositoryUsername() {
-    return hasProperty('sonatype_user') ? sonatype_user : project.findProperty('sonatype_user')
-}
+// This should only be true if you are wanting to upload your own artifact and have the prerequisite gradle properties.
+// This will throw an error if it is flagged as 'true' and those properties are non-existent.
+boolean isRelease() { return false }
 
-def getRepositoryPassword() {
-    return hasProperty('sonatype_pass') ? sonatype_pass : project.findProperty('sonatype_pass')
-}
-
-boolean isRelease() {
-    return true
-}
-
-afterEvaluate { project ->
-    uploadArchives {
+uploadArchives{
+    if(isRelease()) {
         repositories {
             mavenDeployer {
                 beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
@@ -42,11 +34,11 @@ afterEvaluate { project ->
                 println(pom.artifactId)
 
                 repository(url: isRelease() ? "https://oss.sonatype.org/service/local/staging/deploy/maven2/" : mavenLocal().url) {
-                    authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
+                    authentication(userName: project.findProperty('sonatype_user'), password: project.findProperty('sonatype_pass'))
                 }
 
                 snapshotRepository(url: isRelease() ? "https://oss.sonatype.org/content/repositories/snapshots" : mavenLocal().url) {
-                    authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
+                    authentication(userName: project.findProperty('sonatype_user'), password: project.findProperty('sonatype_pass'))
                 }
 
                 pom.project {
@@ -79,39 +71,34 @@ afterEvaluate { project ->
                         }
                     }
 
-                    pom.whenConfigured {
-                        p -> p.dependencies = p.dependencies.findAll {
-                            dep -> dep.artifactId != "shared-java-library"
-                        }
-                    }
                 }
             }
         }
     }
+}
 
-    signing {
-
-        required { isRelease() }
-
+signing {
+    required { isRelease() }
+    if(isRelease()){
         allprojects { ext."signing.keyId" = project.findProperty('keyId') }
         allprojects { ext."signing.secretKeyRingFile" = project.findProperty('secretKeyRingFile') }
         allprojects { ext."signing.password" = project.findProperty('password') }
 
         sign configurations.archives
     }
+}
 
-    task javadocJar(type: Jar) {
-        classifier = 'javadoc'
-        from javadoc
-    }
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
 
-    task sourcesJar(type: Jar) {
-        classifier = 'sources'
-        from sourceSets.main.allSource
-    }
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
 
-    artifacts {
-        archives javadocJar
-        archives sourcesJar
-    }
+artifacts {
+    archives javadocJar
+    archives sourcesJar
 }
