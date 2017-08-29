@@ -41,6 +41,30 @@ class OperatorTest : StringSpec({
         assert(tenGigaWatts qeq 10.giga.watt)
     }
 
+    "Greater than or Equal"{
+        assert(tenGigaWatts >= 10.giga.watt)
+    }
+
+    "Less than or Equal"{
+        assert(fiveGigaWatts <= 5.giga.watt)
+    }
+
+    "Greater than Same"{
+        assert(tenGigaWatts > fiveGigaWatts)
+    }
+
+    "Less than Same"{
+        assert(fiveGigaWatts < tenGigaWatts)
+    }
+
+    "Greater than Different"{
+        assert(tenGigaWatts > 5.watt)
+    }
+
+    "Less than Different"{
+        assert(fiveGigaWatts < 10.peta.watt)
+    }
+
     "Increment" {
         tenGigaWatts++
         assert(tenGigaWatts.toInt() == 11)
