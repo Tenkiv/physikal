@@ -33,6 +33,12 @@
         aFewSeconds++
         >> 6.0 s
         
+        10.peta.watt > 2.watt
+        >> true
+        
+        5.gram <= 20.kilo.gram
+        >> true
+        
         (-10.nano.metre).abs()
         >> 10.0 nm
         
