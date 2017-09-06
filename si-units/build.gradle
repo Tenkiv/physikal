@@ -22,10 +22,10 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 group 'org.tenkiv.physikal'
-version '1.0.1.0'
+version '1.0.1.1'
 
 buildscript {
-    ext.kotlin_version = '1.1.3-2'
+    ext.kotlin_version = '1.1.4-3'
 
     repositories {
         mavenCentral()
@@ -49,13 +49,11 @@ repositories {
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
 
-    compile ("tec.uom:uom-se:1.0.7")
+    compile ('si.uom:si-parent:0.7.1')
 
-    compile ('si.uom:si-parent:0.7')
+    compile ('si.uom:si-units-java8:0.7.1')
 
-    compile ('si.uom:si-units-java8:0.7')
-
-    compile ('si.uom:si-quantity:0.7')
+    compile ('si.uom:si-quantity:0.7.1')
 
     compile (project(':core'))
 }
