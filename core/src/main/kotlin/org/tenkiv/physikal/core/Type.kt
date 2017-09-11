@@ -30,9 +30,11 @@ import javax.measure.Unit
 
 // typealiases
 typealias ClosedQuantityRange<Q> = ClosedRange<ComparableQuantity<Q>>
+// Unit type alias to avoid confusion and import ambiguity with kotlin.Unit
+typealias PhysicalUnit<Q> = Unit<Q>
 
 // Unit extensions
-inline fun <reified Q : Quantity<Q>> Unit<*>.asType(): Unit<Q> = asType(Q::class.java)
+inline fun <reified Q : Quantity<Q>> PhysicalUnit<*>.asType(): PhysicalUnit<Q> = asType(Q::class.java)
 
 // Quantity extensions
 /**
