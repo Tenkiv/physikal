@@ -35,11 +35,12 @@ buildscript {
     }
 }
 
+apply plugin: 'kotlin'
+apply plugin: 'jacoco'
+
 def isReleaseBuild() {
     return version.contains("SNAPSHOT") == false
 }
-
-apply plugin: 'kotlin'
 
 repositories {
     jcenter()
@@ -57,5 +58,19 @@ dependencies {
 
     compile (project(':core'))
 }
+
+jacoco {
+    toolVersion = '0.7.9'
+}
+
+jacocoTestReport {
+    reports {
+        html.enabled = true
+        xml.enabled = true
+        csv.enabled = false
+    }
+}
+
+test.finalizedBy jacocoTestReport
 
 apply from:'../maven_push.gradle'
