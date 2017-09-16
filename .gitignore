@@ -84,3 +84,5 @@ gradle-app.setting
 hs_err_pid*
 
 /core/build/
+/complete-units/build/
+/si-units/build/
