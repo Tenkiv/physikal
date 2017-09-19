@@ -1,4 +1,5 @@
 # Physikal
+[![Build Status](https://travis-ci.org/Tenkiv/Physikal.svg?branch=master)](https://travis-ci.org/Tenkiv/Physikal)
 
 ### Library providing Kotlin extensions and ease of use functions for Java Units of Measurement libraries. 
 
