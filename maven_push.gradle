@@ -32,7 +32,7 @@ if (isReleaseBuild()) {
 
 // This should only be true if you are wanting to upload your own artifact and have the prerequisite gradle properties.
 // This will throw an error if it is flagged as 'true' and those properties are non-existent.
-boolean isRelease() { return false }
+boolean isRelease() { return true }
 
 uploadArchives{
     if(isRelease()) {
