@@ -77,6 +77,8 @@ gradle-app.setting
 *.tar.gz
 *.rar
 
+local.properties
+
 # Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
 !gradle-wrapper.jar
 
@@ -86,3 +88,7 @@ hs_err_pid*
 /core/build/
 /complete-units/build/
 /si-units/build/
+core/out/production/classes/META-INF/
+si-units/out/production/classes/META-INF/
+si-units/out/test/classes/META-INF/
+si-units/src/test/
