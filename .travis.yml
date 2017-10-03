@@ -2,3 +2,11 @@ language: java
 
 jdk:
   - openjdk8
+
+notifications:
+    webhooks:
+        urls:
+            - "https://scalar.vector.im/api/neb/services/hooks/dHJhdmlzLWNpLyU0MHpqdWhhc3olM0FtYXRyaXgub3JnLyUyMUtBZHNuR01yRkFTWGVOcWxuRyUzQW1hdHJpeC5vcmc"
+        on_success: change  # always|never|change
+        on_failure: always
+        on_start: never
