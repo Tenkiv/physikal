@@ -80,19 +80,19 @@ fun Quantity<*>.toShort() = getValue().toShort()
 fun Quantity<*>.toByte() = getValue().toByte()
 
 /**
+ * Function to get the [Quantity] as a [ComparableQuantity]
+ *
+ * @return A [ComparableQuantity] of the [Quantity]
+ */
+fun <Q : Quantity<Q>> Quantity<Q>.toComparable(): ComparableQuantity<Q> =
+        this as? ComparableQuantity ?: value(unit)
+
+/**
  * Function to get the value of a [Quantity] as a specified class
  *
  * @return Value as a some class.
  */
 inline fun <reified Q : Quantity<Q>> Quantity<*>.asType(): Quantity<Q> = asType(Q::class.java)
-
-/**
- * Function to get the [Quantity] as a [ComparableQuantity]
- *
- * @return A [ComparableQuantity] of the [Quantity]
- */
-fun <Q : Quantity<Q>> Quantity<Q>.asComparable(): ComparableQuantity<Q> =
-        if (this is ComparableQuantity) this else value(unit)
 
 // ComparableQuantity extensions
 inline fun <reified Q : Quantity<Q>> ComparableQuantity<*>.asType(): ComparableQuantity<Q> = asType(Q::class.java)

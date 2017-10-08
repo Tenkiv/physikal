@@ -45,13 +45,13 @@ repositories {
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
 
-    compile ('si.uom:si-parent:0.7.1')
+    compile 'si.uom:si-parent:0.7.1'
 
-    compile ('si.uom:si-units-java8:0.7.1')
+    compile 'si.uom:si-units-java8:0.7.1'
 
-    compile ('si.uom:si-quantity:0.7.1')
+    compile 'si.uom:si-quantity:0.7.1'
 
-    compile (project(':core'))
+    compile project(':core')
 }
 
 jacoco {

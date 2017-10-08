@@ -38,7 +38,7 @@ inline fun <E, Q : Quantity<Q>> Collection<E>.average(getValue: (E) -> Quantity<
 
     for (element in this)
         if (totalValue == null)
-            totalValue = getValue(element).asComparable()
+            totalValue = getValue(element).toComparable()
         else
             totalValue += getValue(element)
 
@@ -61,7 +61,7 @@ inline fun <E, Q : Quantity<Q>> Collection<E>.average(getValue: (E) -> Quantity<
     for (element in this)
         if (condition(element)) {
             if (totalValue == null)
-                totalValue = getValue(element).asComparable()
+                totalValue = getValue(element).toComparable()
             else
                 totalValue += getValue(element)
 

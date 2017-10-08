@@ -21,12 +21,12 @@ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSE
 WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.tenkiv.physikal
+package org.tenkiv.physikal.core
 
 import io.kotlintest.specs.StringSpec
 import org.tenkiv.physikal.core.*
 
-class OperatorTest : StringSpec({
+class OperatorsSpec : StringSpec({
 
 
     var tenGigaWatts = 10.giga.watt

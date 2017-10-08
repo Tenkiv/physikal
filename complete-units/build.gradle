@@ -42,8 +42,6 @@ repositories {
 }
 
 dependencies {
-    testCompile 'io.kotlintest:kotlintest:2.0.3'
-
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
 
     compile 'systems.uom:systems-parent:0.7.2'
@@ -56,8 +54,7 @@ dependencies {
 
     compile 'systems.uom:systems-ucum-java8:0.7.2'
 
-    compile(project(":si-units"))
-
+    compile project(":si-units")
 }
 
 jacoco {
