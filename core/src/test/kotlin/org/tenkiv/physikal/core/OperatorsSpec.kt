@@ -26,7 +26,10 @@ package org.tenkiv.physikal.core
 import io.kotlintest.matchers.shouldBe
 import io.kotlintest.specs.StringSpec
 import org.tenkiv.coral.feq
+import tec.uom.se.unit.Units.WATT
 import javax.measure.Quantity
+import javax.measure.quantity.Power
+import javax.measure.quantity.Pressure
 
 class OperatorsSpec : StringSpec({
 
@@ -120,5 +123,15 @@ class OperatorsSpec : StringSpec({
 
         val mass = 1000.gram
         mass.toIntInSystemUnit() shouldBe 1
+    }
+
+    "type coercion on quantities" {
+        1.watt.asTypeOrNull<Pressure>() shouldBe null
+        1.watt.asTypeOrNull<Power>() shouldBe 1.watt
+    }
+
+    "type coercion on units" {
+        WATT.asTypeOrNull<Pressure>() shouldBe null
+        WATT.asTypeOrNull<Power>() shouldBe WATT
     }
 })
