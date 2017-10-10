@@ -25,6 +25,8 @@ package org.tenkiv.physikal.core
 
 import io.kotlintest.matchers.shouldBe
 import io.kotlintest.specs.StringSpec
+import org.tenkiv.coral.feq
+import javax.measure.Quantity
 
 class OperatorsSpec : StringSpec({
 
@@ -110,5 +112,13 @@ class OperatorsSpec : StringSpec({
 
         10.giga.watt.apeq(11.giga.watt, 0.1) shouldBe true
         10.giga.watt.apeq(11.giga.watt, 0.099) shouldBe false
+    }
+
+    "quantity to number in system unit" {
+        val pressure: Quantity<*> = 1.kilo.pascal
+        pressure.toDoubleInSystemUnit() feq 1_000.0 shouldBe true
+
+        val mass = 1000.gram
+        mass.toIntInSystemUnit() shouldBe 1
     }
 })
