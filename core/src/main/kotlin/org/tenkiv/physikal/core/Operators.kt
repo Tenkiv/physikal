@@ -30,12 +30,22 @@ import javax.measure.Unit
 
 // Number operators
 /**
- * Utility function to create a [Quantity] with an initial value.
+ * Utility function to create a [Quantity] with this number as its value and the given unit as its unit.
  *
  * @return [ComparableQuantity] with [Number] value.
  */
 operator fun <Q : Quantity<Q>> Number.invoke(unit: Unit<Q>): ComparableQuantity<Q> =
         Quantities.getQuantity(this, unit)
+
+/**
+ * @throws IllegalArgumentException if the given unitSymbol is not valid.
+ *
+ * Utility function to create a [Quantity] with this number as its value.
+ * This function will attempt to parse this number with the provided symbol into a quantity according to
+ * [Quantities.getQuantity]
+ */
+infix fun Number.toQuantityWithSymbol(unitSymbol: CharSequence): ComparableQuantity<*> =
+        Quantities.getQuantity("$this $unitSymbol")
 
 // Unit operators
 /**
@@ -142,37 +152,79 @@ operator fun <Q : Quantity<Q>> Quantity<Q>.div(divisor: Number): Quantity<Q> = d
  *
  * @return [Quantity] with updated [Unit].
  */
-infix fun <Q : Quantity<Q>> Quantity<Q>.tu(unit: Unit<Q>): Quantity<Q> = to(unit)
+infix fun <Q : Quantity<Q>> Quantity<Q>.convertTo(unit: Unit<Q>): Quantity<Q> = to(unit)
 
 /**
- * Function to convert a [Quantity] to a different [Unit] as [Double].
+ * Function to convert a [Quantity] to a different [Unit] and return the value after conversion as a [Number].
  */
-infix fun <Q : Quantity<Q>> Quantity<Q>.toDoubleIn(unit: Unit<Q>) = to(unit).toDouble()
+infix fun <Q : Quantity<Q>> Quantity<Q>.toNumberIn(unit: Unit<Q>) = to(unit).value
 
 /**
- * Function to convert a [Quantity] to a different [Unit] as [Float].
+ * Function to convert a [Quantity] to a different [Unit] and return the value after conversion as a [Double].
  */
-infix fun <Q : Quantity<Q>> Quantity<Q>.toFloatIn(unit: Unit<Q>) = to(unit).toFloat()
+infix fun <Q : Quantity<Q>> Quantity<Q>.toDoubleIn(unit: Unit<Q>) = to(unit).valueToDouble()
 
 /**
- * Function to convert a [Quantity] to a different [Unit] as [Long].
+ * Function to convert a [Quantity] to a different [Unit] and return the value after conversion as a [Float].
  */
-infix fun <Q : Quantity<Q>> Quantity<Q>.toLongIn(unit: Unit<Q>) = to(unit).toLong()
+infix fun <Q : Quantity<Q>> Quantity<Q>.toFloatIn(unit: Unit<Q>) = to(unit).valueToFloat()
 
 /**
- * Function to convert a [Quantity] to a different [Unit] as [Int].
+ * Function to convert a [Quantity] to a different [Unit] and return the value after conversion as a [Long].
  */
-infix fun <Q : Quantity<Q>> Quantity<Q>.toIntIn(unit: Unit<Q>) = to(unit).toInt()
+infix fun <Q : Quantity<Q>> Quantity<Q>.toLongIn(unit: Unit<Q>) = to(unit).valueToLong()
 
 /**
- * Function to convert a [Quantity] to a different [Unit] as [Short].
+ * Function to convert a [Quantity] to a different [Unit] and return the value after conversion as a [Int].
  */
-infix fun <Q : Quantity<Q>> Quantity<Q>.toShortIn(unit: Unit<Q>) = to(unit).toShort()
+infix fun <Q : Quantity<Q>> Quantity<Q>.toIntIn(unit: Unit<Q>) = to(unit).valueToInt()
 
 /**
- * Function to convert a [Quantity] to a different [Unit] as [Byte].
+ * Function to convert a [Quantity] to a different [Unit] and return the value after conversion as a [Short].
  */
-infix fun <Q : Quantity<Q>> Quantity<Q>.toByteIn(unit: Unit<Q>) = to(unit).toByte()
+infix fun <Q : Quantity<Q>> Quantity<Q>.toShortIn(unit: Unit<Q>) = to(unit).valueToShort()
+
+/**
+ * Function to convert a [Quantity] to a different [Unit] and return the value after conversion as a [Byte].
+ */
+infix fun <Q : Quantity<Q>> Quantity<Q>.toByteIn(unit: Unit<Q>) = to(unit).valueToByte()
+
+/**
+ * Function to convert a [Quantity] to the system [Unit] and return the value after conversion as a [Number].
+ */
+fun Quantity<*>.toNumberInSystemUnit(): Number =
+        this.getUnit().getConverterToAny(this.getUnit().getSystemUnit()).convert(this.getValue())
+
+/**
+ * Function to convert a [Quantity] to the system [Unit] and return the value after conversion as a [Double].
+ */
+fun Quantity<*>.toDoubleInSystemUnit() = toNumberInSystemUnit().toDouble()
+
+/**
+ * Function to convert a [Quantity] to the system [Unit] and return the value after conversion as a [Float].
+ */
+fun Quantity<*>.toFloatInSystemUnit() = toNumberInSystemUnit().toFloat()
+
+/**
+ * Function to convert a [Quantity] to the system [Unit] and return the value after conversion as a [Long].
+ */
+fun Quantity<*>.toLongInSystemUnit() = toNumberInSystemUnit().toLong()
+
+/**
+ * Function to convert a [Quantity] to the system [Unit] and return the value after conversion as a [Int].
+ */
+fun Quantity<*>.toIntInSystemUnit() = toNumberInSystemUnit().toInt()
+
+/**
+ * Function to convert a [Quantity] to the system [Unit] and return the value after conversion as a [Short].
+ */
+fun Quantity<*>.toShortInSystemUnit() = toNumberInSystemUnit().toShort()
+
+/**
+ * Function to convert a [Quantity] to the system [Unit] and return the value after conversion as a [Byte].
+ */
+fun Quantity<*>.toByteInSystemUnit() = toNumberInSystemUnit().toByte()
+
 
 // ComparableQuantity operators
 /**
@@ -238,7 +290,7 @@ operator fun <Q : Quantity<Q>> ComparableQuantity<Q>.div(divisor: Number): Compa
  *
  * @return [ComparableQuantity] with updated [Unit].
  */
-infix fun <Q : Quantity<Q>> ComparableQuantity<Q>.tu(unit: Unit<Q>): ComparableQuantity<Q> = to(unit)
+infix fun <Q : Quantity<Q>> ComparableQuantity<Q>.convertTo(unit: Unit<Q>): ComparableQuantity<Q> = to(unit)
 
 /**
  * Function to get the absolute value of a [ComparableQuantity].
@@ -276,6 +328,6 @@ fun <Q : Quantity<Q>> ComparableQuantity<Q>.apeq(comparate: ComparableQuantity<Q
                 (this * plusOrMinusRatio)
             else
                 (comparate * plusOrMinusRatio)
-    return apeq(this, plusOrMinus)
+    return apeq(comparate, plusOrMinus)
 }
 

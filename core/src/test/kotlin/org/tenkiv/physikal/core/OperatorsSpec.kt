@@ -23,8 +23,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.tenkiv.physikal.core
 
+import io.kotlintest.matchers.shouldBe
 import io.kotlintest.specs.StringSpec
-import org.tenkiv.physikal.core.*
 
 class OperatorsSpec : StringSpec({
 
@@ -33,73 +33,82 @@ class OperatorsSpec : StringSpec({
 
     var fiveGigaWatts = 5.giga.watt
 
-    "Equals to Int"{
-        assert(tenGigaWatts.toInt() == 10)
+    "Equals to Int" {
+        assert(tenGigaWatts.valueToInt() == 10)
     }
 
-    "Equals to Quantity"{
+    "Equals to Quantity" {
         assert(tenGigaWatts qeq 10.giga.watt)
     }
 
-    "Greater than or Equal"{
+    "Greater than or Equal" {
         assert(tenGigaWatts >= 10.giga.watt)
     }
 
-    "Less than or Equal"{
+    "Less than or Equal" {
         assert(fiveGigaWatts <= 5.giga.watt)
     }
 
-    "Greater than Same"{
+    "Greater than Same" {
         assert(tenGigaWatts > fiveGigaWatts)
     }
 
-    "Less than Same"{
+    "Less than Same" {
         assert(fiveGigaWatts < tenGigaWatts)
     }
 
-    "Greater than Different"{
+    "Greater than Different" {
         assert(tenGigaWatts > 5.watt)
     }
 
-    "Less than Different"{
+    "Less than Different" {
         assert(fiveGigaWatts < 10.peta.watt)
     }
 
     "Increment" {
         tenGigaWatts++
-        assert(tenGigaWatts.toInt() == 11)
+        assert(tenGigaWatts.valueToInt() == 11)
     }
 
-    "Decrement"{
+    "Decrement" {
         tenGigaWatts--
-        assert(tenGigaWatts.toInt() == 9)
+        assert(tenGigaWatts.valueToInt() == 9)
     }
 
-    "To Float"{
-        assert(tenGigaWatts.toFloat() == 10f)
+    "To Float" {
+        assert(tenGigaWatts.valueToFloat() == 10f)
     }
 
-    "To Short"{
-        assert(tenGigaWatts.toShort() == 10.toShort())
+    "To Short" {
+        assert(tenGigaWatts.valueToShort() == 10.toShort())
     }
 
-    "To Long"{
-        assert(tenGigaWatts.toLong() == 10L)
+    "To Long" {
+        assert(tenGigaWatts.valueToLong() == 10L)
     }
 
-    "To Double"{
-        assert(tenGigaWatts.toDouble() == 10.0)
+    "To Double" {
+        assert(tenGigaWatts.valueToDouble() == 10.0)
     }
 
-    "Quantity Add"{
-        assert((tenGigaWatts + fiveGigaWatts).toInt() == 15)
+    "Quantity Add" {
+        assert((tenGigaWatts + fiveGigaWatts).valueToInt() == 15)
     }
 
-    "Quantity Subtract"{
+    "Quantity Subtract" {
         assert((tenGigaWatts - fiveGigaWatts) qeq fiveGigaWatts)
     }
 
-    "Quantity ABS"{
+    "Quantity ABS" {
         assert((fiveGigaWatts - tenGigaWatts).abs() qeq fiveGigaWatts)
+    }
+
+    "apeq equality evaluation" {
+
+        10.giga.watt.apeq(11.giga.watt, 1.giga.watt) shouldBe true
+        10.giga.watt.apeq(11.giga.watt, 0.99.giga.watt) shouldBe false
+
+        10.giga.watt.apeq(11.giga.watt, 0.1) shouldBe true
+        10.giga.watt.apeq(11.giga.watt, 0.099) shouldBe false
     }
 })

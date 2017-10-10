@@ -42,42 +42,42 @@ inline fun <reified Q : Quantity<Q>> PhysicalUnit<*>.asType(): PhysicalUnit<Q> =
  *
  * @return Value as a [Double]
  */
-fun Quantity<*>.toDouble() = getValue().toDouble()
+fun Quantity<*>.valueToDouble() = getValue().toDouble()
 
 /**
  * Function to get the value of a [Quantity] as a [Float]
  *
  * @return Value as a [Float]
  */
-fun Quantity<*>.toFloat() = getValue().toFloat()
+fun Quantity<*>.valueToFloat() = getValue().toFloat()
 
 /**
  * Function to get the value of a [Quantity] as a [Long]
  *
  * @return Value as a [Long]
  */
-fun Quantity<*>.toLong() = getValue().toLong()
+fun Quantity<*>.valueToLong() = getValue().toLong()
 
 /**
  * Function to get the value of a [Quantity] as a [Int]
  *
  * @return Value as a [Int]
  */
-fun Quantity<*>.toInt() = getValue().toInt()
+fun Quantity<*>.valueToInt() = getValue().toInt()
 
 /**
  * Function to get the value of a [Quantity] as a [Short]
  *
  * @return Value as a [Short]
  */
-fun Quantity<*>.toShort() = getValue().toShort()
+fun Quantity<*>.valueToShort() = getValue().toShort()
 
 /**
  * Function to get the value of a [Quantity] as a [Byte]
  *
  * @return Value as a [Byte]
  */
-fun Quantity<*>.toByte() = getValue().toByte()
+fun Quantity<*>.valueToByte() = getValue().toByte()
 
 /**
  * Function to get the [Quantity] as a [ComparableQuantity]

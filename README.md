@@ -55,7 +55,7 @@
         5.gram + 2.pound
         >> 912.18474 g
         
-        (13.kilo.gram + 20.pound) tu STONE
+        (13.kilo.gram + 20.pound) convertTo STONE
         >> 3.47572100600243466674378 st
         
 ### Future updates
