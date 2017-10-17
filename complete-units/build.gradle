@@ -44,8 +44,6 @@ repositories {
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
 
-    compile 'systems.uom:systems-parent:0.7.2'
-
     compile 'systems.uom:systems-quantity:0.7.2'
 
     compile 'systems.uom:systems-common-java8:0.7.2'
