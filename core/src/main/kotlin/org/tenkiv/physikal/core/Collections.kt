@@ -24,16 +24,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package org.tenkiv.physikal.core
 
 import tec.uom.se.ComparableQuantity
+import tec.uom.se.unit.Units
 import javax.measure.Quantity
-import javax.measure.Unit
 
 /**
  * Averages a [Collection] of [Quantity]s.
  *
  * @param getValue Function to get value.
- * @return [ComparableQuantity] with average value of the [Collection].
+ * @return [ComparableQuantity] with average value of the [Collection] or null if the collection is empty.
  */
-inline fun <E, Q : Quantity<Q>> Collection<E>.average(getValue: (E) -> Quantity<Q>): ComparableQuantity<Q>? {
+inline fun <E, Q : Quantity<Q>> Collection<E>.averageOrNull(getValue: (E) -> Quantity<Q>): ComparableQuantity<Q>? {
     var totalValue: ComparableQuantity<Q>? = null
 
     for (element in this)
@@ -51,9 +51,10 @@ inline fun <E, Q : Quantity<Q>> Collection<E>.average(getValue: (E) -> Quantity<
  *
  * @param getValue Function to get value.
  * @param condition Condition to be met for a sample to be averaged.
- * @return [ComparableQuantity] with average value of the [Collection].
+ * @return [ComparableQuantity] with average value of the [Collection] or null value if no elements match
+ * the condition.
  */
-inline fun <E, Q : Quantity<Q>> Collection<E>.average(getValue: (E) -> Quantity<Q>, condition: (E) -> Boolean):
+inline fun <E, Q : Quantity<Q>> Collection<E>.averageOrNull(getValue: (E) -> Quantity<Q>, condition: (E) -> Boolean):
         ComparableQuantity<Q>? {
     var totalValue: ComparableQuantity<Q>? = null
     var totalElements = 0
@@ -74,13 +75,61 @@ inline fun <E, Q : Quantity<Q>> Collection<E>.average(getValue: (E) -> Quantity<
 /**
  * Averages a [Collection] of [Quantity]s using a specific unit.
  *
- * @param unit Unit to be used while averaging and to be returned.
+ * @param defaultValue The default value if this collection is empty.
+ * @param getValue Function to get value.
+ * @return [ComparableQuantity] with average value of the [Collection] or a default value if the collection is empty.
+ */
+inline fun <E, reified Q : Quantity<Q>> Collection<E>.averageOrDefault(
+        defaultValue: ComparableQuantity<Q> = 0(Units.getInstance().getUnit(Q::class.java)),
+        getValue: (E) -> Quantity<Q>
+): ComparableQuantity<Q> {
+    var totalValue: ComparableQuantity<Q> = 0(Units.getInstance().getUnit(Q::class.java))
+
+    for (element in this)
+        totalValue += getValue(element)
+
+    return if (size > 0) totalValue / size else defaultValue
+}
+
+/**
+ * Averages a [Collection] of [Quantity]s using a specific unit (uses default unit if none is provided),
+ * eliminating values that do not meet a condition.
+ *
+ * @param defaultValue The default value if this collection is empty.
+ * @param getValue Function to get value.
+ * @param condition Condition to be met for a sample to be averaged.
+ * @return [ComparableQuantity] with average value of the [Collection] or a default value if no elements match
+ * the condition.
+ */
+inline fun <E, reified Q : Quantity<Q>> Collection<E>.averageOrDefault(
+        defaultValue: ComparableQuantity<Q> = 0(Units.getInstance().getUnit(Q::class.java)),
+        getValue: (E) -> Quantity<Q>,
+        condition: (E) -> Boolean
+): ComparableQuantity<Q> {
+    var totalValue: ComparableQuantity<Q> = 0(Units.getInstance().getUnit(Q::class.java))
+    var totalElements = 0
+
+    this.filter { condition(it) }
+            .forEach {
+                totalValue += getValue(it)
+                totalElements++
+            }
+
+    return if (size > 0) totalValue / totalElements else defaultValue
+}
+
+/**
+ * Averages a [Collection] of [Quantity]s using a specific unit.
+ *
+ * @throws ArithmeticException if the collection is empty (divide by 0).
+ *
  * @param getValue Function to get value.
  * @return [ComparableQuantity] with average value of the [Collection].
  */
-inline fun <E, Q : Quantity<Q>> Collection<E>.average(unit: Unit<Q>, getValue: (E) -> Quantity<Q>):
-        ComparableQuantity<Q> {
-    var totalValue: ComparableQuantity<Q> = 0(unit)
+inline fun <E, reified Q : Quantity<Q>> Collection<E>.average(
+        getValue: (E) -> Quantity<Q>
+): ComparableQuantity<Q> {
+    var totalValue: ComparableQuantity<Q> = 0(Units.getInstance().getUnit(Q::class.java))
 
     for (element in this)
         totalValue += getValue(element)
@@ -89,24 +138,27 @@ inline fun <E, Q : Quantity<Q>> Collection<E>.average(unit: Unit<Q>, getValue: (
 }
 
 /**
- * Averages a [Collection] of [Quantity]s using a specific unit, eliminating values that do not meet a condition.
+ * Averages a [Collection] of [Quantity]s using a specific unit (uses default unit if none is provided),
+ * eliminating values that do not meet a condition.
  *
- * @param unit Unit to be used while averaging and to be returned.
+ * @throws ArithmeticException if no elements meet the condition (divide by 0).
+ *
  * @param getValue Function to get value.
  * @param condition Condition to be met for a sample to be averaged.
  * @return [ComparableQuantity] with average value of the [Collection].
  */
-inline fun <E, Q : Quantity<Q>> Collection<E>.average(unit: Unit<Q>,
-                                                      getValue: (E) -> Quantity<Q>,
-                                                      condition: (E) -> Boolean): ComparableQuantity<Q> {
-    var totalValue: ComparableQuantity<Q> = 0(unit)
+inline fun <E, reified Q : Quantity<Q>> Collection<E>.average(
+        getValue: (E) -> Quantity<Q>,
+        condition: (E) -> Boolean
+): ComparableQuantity<Q> {
+    var totalValue: ComparableQuantity<Q> = 0(Units.getInstance().getUnit(Q::class.java))
     var totalElements = 0
 
-    for (element in this)
-        if (condition(element)) {
-            totalValue += getValue(element)
-            totalElements++
-        }
+    this.filter { condition(it) }
+            .forEach {
+                totalValue += getValue(it)
+                totalElements++
+            }
 
     return totalValue / totalElements
 }
