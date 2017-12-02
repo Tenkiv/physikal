@@ -42,7 +42,6 @@ inline fun <E, Q : Quantity<Q>> Collection<E>.averageOrNull(getValue: (E) -> Qua
         else
             totalValue += getValue(element)
 
-
     return totalValue?.divide(size)
 }
 

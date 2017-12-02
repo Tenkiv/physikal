@@ -80,7 +80,6 @@ uploadArchives{
                             organizationUrl POM_DEVELOPER_ORGANIZATION_URL
                         }
                     }
-
                 }
             }
         }
