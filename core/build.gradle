@@ -43,13 +43,14 @@ repositories {
 }
 
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 
     compile 'tec.uom:uom-se:1.0.8'
 
     compile 'org.tenkiv.coral.jdk:core:0.14.0.0'
 
     testCompile 'io.kotlintest:kotlintest:2.0.3'
+    testCompile "org.jetbrains.kotlin:kotlin-reflect"
 }
 
 jacoco {
