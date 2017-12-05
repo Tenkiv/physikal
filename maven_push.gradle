@@ -24,18 +24,17 @@
 apply plugin: 'maven'
 apply plugin: 'signing'
 
-if (isReleaseBuild()) {
+if (isReleaseBuild())
     println 'RELEASE BUILD'
-} else {
+else
     println 'DEBUG BUILD'
-}
 
 // This should only be true if you are wanting to upload your own artifact and have the prerequisite gradle properties.
 // This will throw an error if it is flagged as 'true' and those properties are non-existent.
-boolean isRelease(){ project.hasProperty("release_flag") }
+boolean isRelease() { project.hasProperty("release_flag") }
 
-uploadArchives{
-    if(isRelease()) {
+uploadArchives {
+    if (isRelease()) {
         repositories {
             mavenDeployer {
                 beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
@@ -43,12 +42,20 @@ uploadArchives{
                 pom.artifactId = POM_ARTIFACT_ID
                 println(pom.artifactId)
 
-                repository(url: isRelease() ? "https://oss.sonatype.org/service/local/staging/deploy/maven2/" : mavenLocal().url) {
-                    authentication(userName: project.findProperty('sonatype_user'), password: project.findProperty('sonatype_pass'))
+                repository(url: isRelease() ?
+                        "https://oss.sonatype.org/service/local/staging/deploy/maven2/" :
+                        mavenLocal().url) {
+                    authentication(
+                            userName: project.findProperty('sonatype_user'),
+                            password: project.findProperty('sonatype_pass'))
                 }
 
-                snapshotRepository(url: isRelease() ? "https://oss.sonatype.org/content/repositories/snapshots" : mavenLocal().url) {
-                    authentication(userName: project.findProperty('sonatype_user'), password: project.findProperty('sonatype_pass'))
+                snapshotRepository(url: isRelease() ?
+                        "https://oss.sonatype.org/content/repositories/snapshots" :
+                        mavenLocal().url) {
+                    authentication(
+                            userName: project.findProperty('sonatype_user'),
+                            password: project.findProperty('sonatype_pass'))
                 }
 
                 pom.project {
@@ -88,7 +95,7 @@ uploadArchives{
 
 signing {
     required { isRelease() }
-    if(isRelease()){
+    if (isRelease()) {
         allprojects { ext."signing.keyId" = project.findProperty('keyId') }
         allprojects { ext."signing.secretKeyRingFile" = project.findProperty('secretKeyRingFile') }
         allprojects { ext."signing.password" = project.findProperty('password') }
