@@ -23,7 +23,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.tenkiv.physikal.core
 
-import tec.uom.se.unit.MetricPrefix.*
+import tec.units.indriya.unit.MetricPrefix.*
 
 // All builtin prefixes
 /**

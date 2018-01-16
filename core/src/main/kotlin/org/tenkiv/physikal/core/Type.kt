@@ -23,8 +23,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.tenkiv.physikal.core
 
-import tec.uom.se.ComparableQuantity
-import tec.uom.se.unit.MetricPrefix
+import tec.units.indriya.ComparableQuantity
+import tec.units.indriya.unit.MetricPrefix
 import javax.measure.Quantity
 import javax.measure.Unit
 

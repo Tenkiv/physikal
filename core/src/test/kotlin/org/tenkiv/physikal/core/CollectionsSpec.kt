@@ -1,9 +1,8 @@
 package org.tenkiv.physikal.core
 
-import io.kotlintest.matchers.shouldBe
 import io.kotlintest.matchers.shouldThrow
 import io.kotlintest.specs.StringSpec
-import tec.uom.se.ComparableQuantity
+import tec.units.indriya.ComparableQuantity
 import javax.measure.quantity.Pressure
 
 class CollectionsSpec : StringSpec({

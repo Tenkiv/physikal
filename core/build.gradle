@@ -45,7 +45,7 @@ repositories {
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 
-    compile 'tec.uom:uom-se:1.0.8'
+    compile 'tec.units:indriya:1.0'
 
     compile 'org.tenkiv.coral.jdk:core:0.14.0.0'
 
