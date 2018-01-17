@@ -21,8 +21,8 @@ class CollectionsSpec : StringSpec({
 
     "average collection of quantities that meat a given condition" {
         collection.average(
-                getValue = { it },
-                condition = { it < 900.pascal }
+            getValue = { it },
+            condition = { it < 900.pascal }
         ) qeq 250.pascal shouldBe true
     }
 })

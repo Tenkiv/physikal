@@ -30,6 +30,7 @@ import javax.measure.Unit
 
 // typealiases
 typealias ClosedQuantityRange<Q> = ClosedRange<ComparableQuantity<Q>>
+
 // Unit type alias to avoid confusion and import ambiguity with kotlin.Unit
 typealias PhysicalUnit<Q> = Unit<Q>
 
@@ -40,11 +41,11 @@ typealias PhysicalUnit<Q> = Unit<Q>
 inline fun <reified Q : Quantity<Q>> PhysicalUnit<*>.asType(): PhysicalUnit<Q> = asType(Q::class.java)
 
 inline fun <reified Q : Quantity<Q>> PhysicalUnit<*>.asTypeOrNull(): PhysicalUnit<Q>? =
-        try {
-            asType()
-        } catch (e: ClassCastException) {
-            null
-        }
+    try {
+        asType()
+    } catch (e: ClassCastException) {
+        null
+    }
 
 // Quantity extensions
 /**
@@ -95,7 +96,7 @@ fun Quantity<*>.valueToByte() = getValue().toByte()
  * @return A [ComparableQuantity] of the [Quantity]
  */
 fun <Q : Quantity<Q>> Quantity<Q>.toComparable(): ComparableQuantity<Q> =
-        this as? ComparableQuantity ?: value(unit)
+    this as? ComparableQuantity ?: value(unit)
 
 /**
  * @throws ClassCastException if the quantity is not of the given type.
@@ -112,11 +113,11 @@ inline fun <reified Q : Quantity<Q>> Quantity<*>.asType(): Quantity<Q> = asType(
  * @return the [Quantity] with the specified type or null if the provided type conflicts with the actual type.
  */
 inline fun <reified Q : Quantity<Q>> Quantity<*>.asTypeOrNull(): Quantity<Q>? =
-        try {
-            asType()
-        } catch (e: ClassCastException) {
-            null
-        }
+    try {
+        asType()
+    } catch (e: ClassCastException) {
+        null
+    }
 
 // ComparableQuantity extensions
 /**
@@ -134,11 +135,11 @@ inline fun <reified Q : Quantity<Q>> ComparableQuantity<*>.asType(): ComparableQ
  * @return the [Quantity] with the specified type or null if the provided type conflicts with the actual type.
  */
 inline fun <reified Q : Quantity<Q>> ComparableQuantity<*>.asTypeOrNull(): ComparableQuantity<Q>? =
-        try {
-            asType()
-        } catch (e: ClassCastException) {
-            null
-        }
+    try {
+        asType()
+    } catch (e: ClassCastException) {
+        null
+    }
 
 // Builder classes
 /**

@@ -35,7 +35,7 @@ import javax.measure.Unit
  * @return [ComparableQuantity] with [Number] value.
  */
 operator fun <Q : Quantity<Q>> Number.invoke(unit: Unit<Q>): ComparableQuantity<Q> =
-        Quantities.getQuantity(this, unit)
+    Quantities.getQuantity(this, unit)
 
 /**
  * @throws IllegalArgumentException if the given unitSymbol is not valid.
@@ -45,7 +45,7 @@ operator fun <Q : Quantity<Q>> Number.invoke(unit: Unit<Q>): ComparableQuantity<
  * [Quantities.getQuantity]
  */
 infix fun Number.toQuantityWithSymbol(unitSymbol: CharSequence): ComparableQuantity<*> =
-        Quantities.getQuantity("$this $unitSymbol")
+    Quantities.getQuantity("$this $unitSymbol")
 
 // Unit operators
 /**
@@ -193,7 +193,7 @@ infix fun <Q : Quantity<Q>> Quantity<Q>.toByteIn(unit: Unit<Q>) = to(unit).value
  * Function to convert a [Quantity] to the system [Unit] and return the value after conversion as a [Number].
  */
 fun Quantity<*>.toNumberInSystemUnit(): Number =
-        this.getUnit().getConverterToAny(this.getUnit().getSystemUnit()).convert(this.getValue())
+    this.getUnit().getConverterToAny(this.getUnit().getSystemUnit()).convert(this.getValue())
 
 /**
  * Function to convert a [Quantity] to the system [Unit] and return the value after conversion as a [Double].
@@ -254,7 +254,7 @@ operator fun <Q : Quantity<Q>> ComparableQuantity<Q>.plus(augend: Quantity<Q>): 
  * @return [ComparableQuantity] with subtracted value.
  */
 operator fun <Q : Quantity<Q>> ComparableQuantity<Q>.minus(subtrahend: Quantity<Q>): ComparableQuantity<Q> =
-        subtract(subtrahend)
+    subtract(subtrahend)
 
 /**
  * Function to multiply two [ComparableQuantity]s.
@@ -269,7 +269,7 @@ operator fun ComparableQuantity<*>.times(multiplier: Quantity<*>): ComparableQua
  * @return [ComparableQuantity] with multiplied value.
  */
 operator fun <Q : Quantity<Q>> ComparableQuantity<Q>.times(multiplier: Number): ComparableQuantity<Q> =
-        multiply(multiplier)
+    multiply(multiplier)
 
 /**
  * Function to divide two [ComparableQuantity]s.
@@ -312,7 +312,7 @@ infix fun <Q : Quantity<Q>> ComparableQuantity<Q>.qeq(comparate: Quantity<Q>): B
  * @return If the value falls within allowed variance.
  */
 fun <Q : Quantity<Q>> ComparableQuantity<Q>.apeq(comparate: Quantity<Q>, plusOrMinus: ComparableQuantity<Q>): Boolean =
-        (this - comparate).abs() <= plusOrMinus
+    (this - comparate).abs() <= plusOrMinus
 
 //TODO: Consider using ComparableQuantity<Dimensionless> with Percent instead of Double for the plusOrMinusRatio
 /**
@@ -321,13 +321,15 @@ fun <Q : Quantity<Q>> ComparableQuantity<Q>.apeq(comparate: Quantity<Q>, plusOrM
  * @param plusOrMinusRatio The allowed variance in value as ratio of whole number.
  * @return If the value falls within allowed variance.
  */
-fun <Q : Quantity<Q>> ComparableQuantity<Q>.apeq(comparate: ComparableQuantity<Q>,
-                                                 plusOrMinusRatio: Double): Boolean {
+fun <Q : Quantity<Q>> ComparableQuantity<Q>.apeq(
+    comparate: ComparableQuantity<Q>,
+    plusOrMinusRatio: Double
+): Boolean {
     val plusOrMinus: ComparableQuantity<Q> =
-            if (this < comparate)
-                (this * plusOrMinusRatio)
-            else
-                (comparate * plusOrMinusRatio)
+        if (this < comparate)
+            (this * plusOrMinusRatio)
+        else
+            (comparate * plusOrMinusRatio)
     return apeq(comparate, plusOrMinus)
 }
 

@@ -26,10 +26,6 @@ package org.tenkiv.physikal.si
 import org.tenkiv.physikal.core.MetricPrefixedNumber
 import org.tenkiv.physikal.core.invoke
 import si.uom.SI.*
-import si.uom.SI.METRE_PER_SQUARE_SECOND
-import si.uom.SI.DEGREE_ANGLE
-import si.uom.SI.MINUTE_ANGLE
-import si.uom.SI.SECOND_ANGLE
 import si.uom.quantity.*
 import tec.uom.se.ComparableQuantity
 import tec.uom.se.quantity.Quantities

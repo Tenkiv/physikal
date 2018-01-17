@@ -79,8 +79,8 @@ inline fun <E, Q : Quantity<Q>> Collection<E>.averageOrNull(getValue: (E) -> Qua
  * @return [ComparableQuantity] with average value of the [Collection] or a default value if the collection is empty.
  */
 inline fun <E, reified Q : Quantity<Q>> Collection<E>.averageOrDefault(
-        defaultValue: ComparableQuantity<Q> = 0(Units.getInstance().getUnit(Q::class.java)),
-        getValue: (E) -> Quantity<Q>
+    defaultValue: ComparableQuantity<Q> = 0(Units.getInstance().getUnit(Q::class.java)),
+    getValue: (E) -> Quantity<Q>
 ): ComparableQuantity<Q> {
     var totalValue: ComparableQuantity<Q> = 0(Units.getInstance().getUnit(Q::class.java))
 
@@ -101,18 +101,18 @@ inline fun <E, reified Q : Quantity<Q>> Collection<E>.averageOrDefault(
  * the condition.
  */
 inline fun <E, reified Q : Quantity<Q>> Collection<E>.averageOrDefault(
-        defaultValue: ComparableQuantity<Q> = 0(Units.getInstance().getUnit(Q::class.java)),
-        getValue: (E) -> Quantity<Q>,
-        condition: (E) -> Boolean
+    defaultValue: ComparableQuantity<Q> = 0(Units.getInstance().getUnit(Q::class.java)),
+    getValue: (E) -> Quantity<Q>,
+    condition: (E) -> Boolean
 ): ComparableQuantity<Q> {
     var totalValue: ComparableQuantity<Q> = 0(Units.getInstance().getUnit(Q::class.java))
     var totalElements = 0
 
     this.filter { condition(it) }
-            .forEach {
-                totalValue += getValue(it)
-                totalElements++
-            }
+        .forEach {
+            totalValue += getValue(it)
+            totalElements++
+        }
 
     return if (size > 0) totalValue / totalElements else defaultValue
 }
@@ -126,7 +126,7 @@ inline fun <E, reified Q : Quantity<Q>> Collection<E>.averageOrDefault(
  * @return [ComparableQuantity] with average value of the [Collection].
  */
 inline fun <E, reified Q : Quantity<Q>> Collection<E>.average(
-        getValue: (E) -> Quantity<Q>
+    getValue: (E) -> Quantity<Q>
 ): ComparableQuantity<Q> {
     var totalValue: ComparableQuantity<Q> = 0(Units.getInstance().getUnit(Q::class.java))
 
@@ -147,17 +147,17 @@ inline fun <E, reified Q : Quantity<Q>> Collection<E>.average(
  * @return [ComparableQuantity] with average value of the [Collection].
  */
 inline fun <E, reified Q : Quantity<Q>> Collection<E>.average(
-        getValue: (E) -> Quantity<Q>,
-        condition: (E) -> Boolean
+    getValue: (E) -> Quantity<Q>,
+    condition: (E) -> Boolean
 ): ComparableQuantity<Q> {
     var totalValue: ComparableQuantity<Q> = 0(Units.getInstance().getUnit(Q::class.java))
     var totalElements = 0
 
     this.filter { condition(it) }
-            .forEach {
-                totalValue += getValue(it)
-                totalElements++
-            }
+        .forEach {
+            totalValue += getValue(it)
+            totalElements++
+        }
 
     return totalValue / totalElements
 }

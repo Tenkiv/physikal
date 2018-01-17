@@ -38,11 +38,12 @@ def isReleaseBuild() {
 }
 
 repositories {
+    jcenter()
     mavenCentral()
 }
 
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
     compile 'systems.uom:systems-quantity:0.7.2'
 

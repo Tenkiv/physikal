@@ -30,7 +30,6 @@ import javax.measure.Quantity
 
 class OperatorsSpec : StringSpec({
 
-
     var tenGigaWatts = 10.giga.watt
 
     var fiveGigaWatts = 5.giga.watt
