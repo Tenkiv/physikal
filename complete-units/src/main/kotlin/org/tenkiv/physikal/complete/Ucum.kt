@@ -27,6 +27,7 @@ import org.tenkiv.physikal.core.MetricPrefixedNumber
 import org.tenkiv.physikal.core.invoke
 import si.uom.quantity.*
 import systems.uom.quantity.*
+import systems.uom.quantity.Level
 import systems.uom.ucum.UCUM.*
 import tec.uom.se.ComparableQuantity
 import tec.uom.se.quantity.Quantities
