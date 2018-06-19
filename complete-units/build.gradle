@@ -41,13 +41,13 @@ repositories {
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
-    compile 'systems.uom:systems-quantity:0.8'
+    compile 'systems.uom:systems-quantity:0.9'
 
-    compile 'systems.uom:systems-common-java8:0.8'
+    compile 'systems.uom:systems-common:0.9'
 
-    compile 'systems.uom:systems-unicode-java8:0.8'
+    compile 'systems.uom:systems-unicode:0.9'
 
-    compile 'systems.uom:systems-ucum-java8:0.8'
+    compile 'systems.uom:systems-ucum:0.9'
 
     compile project(":si-units")
 }

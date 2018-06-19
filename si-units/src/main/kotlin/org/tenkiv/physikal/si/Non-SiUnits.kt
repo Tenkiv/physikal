@@ -27,8 +27,8 @@ import org.tenkiv.physikal.core.MetricPrefixedNumber
 import org.tenkiv.physikal.core.invoke
 import si.uom.NonSI.*
 import si.uom.quantity.IonizingRadiation
-import tec.uom.se.ComparableQuantity
-import tec.uom.se.quantity.Quantities
+import tec.units.indriya.ComparableQuantity
+import tec.units.indriya.quantity.Quantities
 import javax.measure.quantity.*
 
 //For some reason There are public Non-SI Units are included in the SI-Units library,
