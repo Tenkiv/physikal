@@ -23,8 +23,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.tenkiv.physikal.core
 
-import tec.uom.se.ComparableQuantity
-import tec.uom.se.quantity.Quantities
+import tec.units.indriya.ComparableQuantity
+import tec.units.indriya.quantity.Quantities
 import javax.measure.Quantity
 import javax.measure.Unit
 
@@ -303,8 +303,8 @@ fun <Q : Quantity<Q>> ComparableQuantity<Q>.abs(): ComparableQuantity<Q> = if (t
  * Checks if the physical quantity represented by two Quantity objects is the same.
  * qeq stands for 'quantity equality'
  */
-infix fun <Q : Quantity<Q>> ComparableQuantity<Q>.qeq(comparate: Quantity<Q>): Boolean = isEquivalentTo(comparate)
-
+infix fun <Q : Quantity<Q>> ComparableQuantity<Q>.qeq(comparate: Quantity<Q>): Boolean = isEquivalentOf(comparate)
+// FIXME this should be isEquivalentTo again after Indriya 1.2
 /**
  * Checks if two [Quantity]s are approximately equal to each other.
  *

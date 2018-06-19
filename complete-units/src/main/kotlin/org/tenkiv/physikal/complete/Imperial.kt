@@ -24,8 +24,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package org.tenkiv.physikal.complete
 
 import systems.uom.ucum.UCUM
-import tec.uom.se.ComparableQuantity
-import tec.uom.se.quantity.Quantities
+import tec.units.indriya.ComparableQuantity
+import tec.units.indriya.quantity.Quantities
 import javax.measure.quantity.Temperature
 
 /**

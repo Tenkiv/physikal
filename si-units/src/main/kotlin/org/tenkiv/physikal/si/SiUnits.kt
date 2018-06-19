@@ -28,8 +28,8 @@ import org.tenkiv.physikal.core.invoke
 import si.uom.NonSI.TONNE
 import si.uom.SI.*
 import si.uom.quantity.*
-import tec.uom.se.ComparableQuantity
-import tec.uom.se.quantity.Quantities
+import tec.units.indriya.ComparableQuantity
+import tec.units.indriya.quantity.Quantities
 import javax.measure.quantity.*
 
 /**

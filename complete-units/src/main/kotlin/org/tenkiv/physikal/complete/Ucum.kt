@@ -29,8 +29,8 @@ import si.uom.quantity.*
 import systems.uom.quantity.*
 import systems.uom.quantity.Level
 import systems.uom.ucum.UCUM.*
-import tec.uom.se.ComparableQuantity
-import tec.uom.se.quantity.Quantities
+import tec.units.indriya.ComparableQuantity
+import tec.units.indriya.quantity.Quantities
 import javax.measure.quantity.*
 
 /**

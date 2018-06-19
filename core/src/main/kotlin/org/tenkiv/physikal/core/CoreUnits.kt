@@ -23,9 +23,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.tenkiv.physikal.core
 
-import tec.uom.se.ComparableQuantity
-import tec.uom.se.quantity.Quantities
-import tec.uom.se.unit.Units.*
+import tec.units.indriya.ComparableQuantity
+import tec.units.indriya.quantity.Quantities
+import tec.units.indriya.unit.Units.*
 import javax.measure.quantity.*
 
 /**

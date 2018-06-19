@@ -28,8 +28,8 @@ import org.tenkiv.physikal.core.invoke
 import si.uom.quantity.DynamicViscosity
 import si.uom.quantity.KinematicViscosity
 import systems.uom.common.CGS.*
-import tec.uom.se.ComparableQuantity
-import tec.uom.se.quantity.Quantities
+import tec.units.indriya.ComparableQuantity
+import tec.units.indriya.quantity.Quantities
 import javax.measure.quantity.*
 
 /**
