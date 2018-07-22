@@ -22,7 +22,7 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 buildscript {
-    ext.kotlin_version = '1.2.41'
+    ext.kotlin_version = '1.2.51'
 
     repositories {
         mavenCentral()
@@ -48,5 +48,5 @@ dependencies {
 }
 
 jacoco {
-    toolVersion = '0.7.9'
+    toolVersion = '0.8.1'
 }

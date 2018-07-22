@@ -33,7 +33,7 @@ buildscript {
 dependencies {
     api 'tec.units:indriya:1.0'
 
-    implementation 'org.tenkiv.coral.jdk:core:1.0.1.1'
+    implementation 'org.tenkiv.coral:coral:2.0.0.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
     testImplementation 'io.kotlintest:kotlintest-runner-junit5:3.1.4'
@@ -43,7 +43,7 @@ dependencies {
 }
 
 jacoco {
-    toolVersion = '0.7.9'
+    toolVersion = '0.8.1'
 }
 
 jacocoTestReport {
