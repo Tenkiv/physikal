@@ -33,13 +33,7 @@ Properties getLocalProperties(){
 }
 
 boolean isRelease() {
-    if(project.rootProject.file("local.properties").exists())
-        if(getLocalProperties().getProperty("release_flag"))
-            true
-        else
-            false
-    else
-        false
+    return project.rootProject.file("local.properties").exists() && getLocalProperties().getProperty("release_flag")
 }
 
 def isSnapshotBuild() {
