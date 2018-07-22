@@ -34,7 +34,7 @@ dependencies {
     api project(':core')
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    implementation 'si.uom:si-units-java8:0.9'
+    implementation 'si.uom:si-units:0.9'
     implementation 'si.uom:si-quantity:0.9'
 }
 
