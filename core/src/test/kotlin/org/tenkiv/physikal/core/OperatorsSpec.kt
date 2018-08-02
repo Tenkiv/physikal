@@ -73,7 +73,7 @@ class OperatorsSpec : StringSpec({
 
     "Decrement" {
         tenGigaWatts--
-        assert(tenGigaWatts.valueToInt() == 9)
+        assert(tenGigaWatts.valueToInt() == 10)
     }
 
     "To Float" {
