@@ -22,7 +22,8 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 buildscript {
-    ext.kotlin_version = '1.2.51'
+    ext.kotlin_version = '1.2.60'
+    ext.jacoco_version = '0.8.1'
 
     repositories {
         mavenCentral()
@@ -41,12 +42,42 @@ allprojects {
         jcenter()
         mavenCentral()
     }
+
+    jacoco {
+        toolVersion = "$jacoco_version"
+    }
+
+    jacocoTestReport {
+        reports {
+            html.enabled = false
+            xml.enabled = true
+            csv.enabled = false
+        }
+    }
+
+    dependencies{
+        testCompile 'io.kotlintest:kotlintest-runner-junit5:3.1.8'
+        testCompile 'io.kotlintest:kotlintest-core:3.1.8'
+        testCompile 'io.kotlintest:kotlintest-assertions:3.1.8'
+    }
+
+    test {
+        useJUnitPlatform()
+
+        jacoco {
+            append = true
+            destinationFile = file("$buildDir/jacoco/results/jacocoTest.exec")
+        }
+    }
+
+    sourceSets {
+        main.kotlin.srcDirs += 'src/main/kotlin'
+        test.kotlin.srcDirs += 'src/test/kotlin'
+    }
+
+    test.finalizedBy jacocoTestReport
 }
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-}
-
-jacoco {
-    toolVersion = '0.8.1'
 }

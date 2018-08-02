@@ -21,39 +21,11 @@
  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    }
-}
+apply from: '../maven_push.gradle'
 
 dependencies {
     api 'tec.units:indriya:1.0'
 
-    implementation 'org.tenkiv.coral:coral:2.0.0.1'
+    implementation 'org.tenkiv.coral:coral:2.0.1.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-
-    testImplementation 'io.kotlintest:kotlintest-runner-junit5:3.1.4'
-    testImplementation 'io.kotlintest:kotlintest-core:3.1.4'
-    testImplementation 'io.kotlintest:kotlintest-assertions:3.1.4'
-
 }
-
-jacoco {
-    toolVersion = '0.8.1'
-}
-
-jacocoTestReport {
-    reports {
-        html.enabled = true
-        xml.enabled = true
-        csv.enabled = false
-    }
-}
-
-test.finalizedBy jacocoTestReport
-
-apply from: '../maven_push.gradle'
