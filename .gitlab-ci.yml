@@ -18,7 +18,14 @@ gradle_test:
 gradle_deploy:
   stage: deploy
   script:
-    - echo "$test_hidden_value""$second_hidden_value"
-    - echo "$test_hidden_value""$second_hidden_value" >> "$second_hidden_value"
-    - cat "$second_hidden_value"
-    - rm "$second_hidden_value"
+    - echo "$signing_key" > "$key_name"
+    - echo "$release_flag" >> local.properties
+    - echo "$sonatype_user_flag""$sonatype_user" >> local.properties
+    - echo "$sonatype_pass_flag""$sonatype_pass" >> local.properties
+    - echo "$signing_key_flag""$key_id" >> local.properties
+    - echo "$signing_key_pass_flag""$signing_pass" >> local.properties
+    - echo "$signing_key_name_flag""$key_name" >> local.properties
+    - gradle clean
+    - gradle uploadArchives
+    - rm "$key_name"
+    - rm local.properties
