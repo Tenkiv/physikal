@@ -5,8 +5,20 @@ stages:
   
 image: gradle:latest
 
+gradle_build:
+  stage: build
+  script:
+    - gradle build
+
 gradle_test:
   stage: test
   script:
-    - gradle build
     - gradle test
+    
+gradle_deploy:
+  stage: deploy
+  script:
+    - echo "$test_hidden_value"
+    - echo "$test_hidden_value" >> local.properties
+    - cat local.properties
+    - rm local.properties
