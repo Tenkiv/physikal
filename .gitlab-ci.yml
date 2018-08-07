@@ -19,6 +19,6 @@ gradle_deploy:
   stage: deploy
   script:
     - echo "$test_hidden_value""$second_hidden_value"
-    - echo "$test_hidden_value""$second_hidden_value" >> $second_hidden_value
-    - cat $second_hidden_value
-    - rm $second_hidden_value
+    - echo "$test_hidden_value""$second_hidden_value" >> "$second_hidden_value"
+    - cat "$second_hidden_value"
+    - rm "$second_hidden_value"
