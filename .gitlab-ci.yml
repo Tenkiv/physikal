@@ -18,6 +18,7 @@ gradle_test:
 gradle_deploy:
   stage: deploy
   script:
+    - ls
     - echo "$signing_key" > SonaTypeKey.key
     - echo "$release_flag" >> local.properties
     - echo "$sonatype_user_flag""$sonatype_user" >> local.properties
