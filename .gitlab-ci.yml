@@ -25,7 +25,6 @@ gradle_deploy:
     - echo "$signing_key_flag""$key_id" >> local.properties
     - echo "$signing_key_pass_flag""$signing_pass" >> local.properties
     - echo "$signing_key_name_flag""~/SonaTypeKey.key" >> local.properties
-    - gradle sync
     - gradle clean
     - gradle uploadArchives
     - rm ~/SonaTypeKey.key
