@@ -21,49 +21,12 @@
  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    }
-}
-
-apply plugin: 'kotlin'
-apply plugin: 'jacoco'
-
-def isReleaseBuild() {
-    return version.contains("SNAPSHOT") == false
-}
-
-repositories {
-    jcenter()
-    mavenCentral()
-}
+apply from: '../maven_push.gradle'
 
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    api project(':core')
 
-    compile 'si.uom:si-units-java8:0.7.1'
-
-    compile 'si.uom:si-quantity:0.7.1'
-
-    compile project(':core')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation 'si.uom:si-units:0.9'
+    implementation 'si.uom:si-quantity:0.9'
 }
-
-jacoco {
-    toolVersion = '0.7.9'
-}
-
-jacocoTestReport {
-    reports {
-        html.enabled = true
-        xml.enabled = true
-        csv.enabled = false
-    }
-}
-
-test.finalizedBy jacocoTestReport
-
-apply from:'../maven_push.gradle'

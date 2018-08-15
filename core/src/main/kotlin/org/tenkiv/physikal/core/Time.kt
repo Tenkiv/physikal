@@ -14,25 +14,28 @@
  * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package org.tenkiv.physikal.complete
+package org.tenkiv.physikal.core
 
-import systems.uom.ucum.UCUM
 import tec.units.indriya.ComparableQuantity
-import tec.units.indriya.quantity.Quantities
-import javax.measure.quantity.Temperature
+import tec.units.indriya.unit.MetricPrefix.NANO
+import tec.units.indriya.unit.Units.SECOND
+import java.time.Duration
+import java.time.temporal.ChronoUnit
+import javax.measure.Quantity
+import javax.measure.quantity.Time
 
 /**
- * Builder method for [ComparableQuantity] with unit [UCUM.RANKINE].
- *
- * @return A [ComparableQuantity] with specified value.
+ * Get this time quantity as a [Duration].
  */
-val Number.rankine: ComparableQuantity<Temperature>
-    get() = Quantities.getQuantity<Temperature>(this, UCUM.RANKINE)
+fun Quantity<Time>.toDuration(): Duration {
+    val secondsLong = this toLongIn SECOND
+    val nanosLong = (this - secondsLong.second) toLongIn NANO(SECOND)
+
+    return Duration.ofSeconds(secondsLong, nanosLong)
+}
 
 /**
- * Builder method for [ComparableQuantity] with unit [UCUM.FAHRENHEIT].
- *
- * @return A [ComparableQuantity] with specified value.
+ * Get this [Duration] as a time quantity.
  */
-val Number.fahrenheit: ComparableQuantity<Temperature>
-    get() = Quantities.getQuantity<Temperature>(this, UCUM.FAHRENHEIT)
+fun Duration.toQuantity(): ComparableQuantity<Time> =
+    this[ChronoUnit.SECONDS].second + this[ChronoUnit.NANOS].nano.second

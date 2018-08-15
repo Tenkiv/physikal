@@ -22,7 +22,8 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 buildscript {
-    ext.kotlin_version = '1.2.10'
+    ext.kotlin_version = '1.2.60'
+    ext.jacoco_version = '0.8.1'
 
     repositories {
         mavenCentral()
@@ -32,17 +33,66 @@ buildscript {
     }
 }
 
-apply plugin: 'kotlin'
-apply plugin: 'jacoco'
+allprojects {
+    apply plugin: 'kotlin'
+    apply plugin: 'jacoco'
+    apply plugin: 'java-library'
 
-repositories {
-    mavenCentral()
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+
+    jacoco {
+        toolVersion = "$jacoco_version"
+    }
+
+    jacocoTestReport {
+        reports {
+            html.enabled = false
+            xml.enabled = true
+            csv.enabled = false
+        }
+    }
+
+    dependencies{
+        testCompile 'io.kotlintest:kotlintest-runner-junit5:3.1.8'
+        testCompile 'io.kotlintest:kotlintest-core:3.1.8'
+        testCompile 'io.kotlintest:kotlintest-assertions:3.1.8'
+    }
+
+    test {
+        useJUnitPlatform()
+
+        jacoco {
+            append = true
+            destinationFile = file("$buildDir/jacoco/results/jacocoTest.exec")
+        }
+    }
+
+    sourceSets {
+        main.kotlin.srcDirs += 'src/main/kotlin'
+        test.kotlin.srcDirs += 'src/test/kotlin'
+    }
+
+    test.finalizedBy jacocoTestReport
 }
 
-dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-}
+task jacocoRootReport(type: JacocoReport, group: 'Coverage reports') {
+    description = 'Generates an aggregate report from all subprojects'
+    dependsOn(subprojects.test)
 
-jacoco {
-    toolVersion = '0.7.9'
+    additionalSourceDirs = files(subprojects.sourceSets.main.allSource.srcDirs)
+    sourceDirectories = files(subprojects.sourceSets.main.allSource.srcDirs)
+    classDirectories = files(subprojects.sourceSets.main.output)
+    executionData = files(subprojects.jacocoTestReport.executionData)
+
+    reports {
+        html.enabled = true
+        xml.enabled = true
+    }
+
+    doFirst {
+        executionData = files(executionData.findAll { it.exists() })
+    }
 }

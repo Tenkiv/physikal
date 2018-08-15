@@ -2,4 +2,3 @@ rootProject.name = 'physikal'
 include 'core'
 include 'complete-units'
 include 'si-units'
-
