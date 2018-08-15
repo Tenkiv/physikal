@@ -18,8 +18,9 @@ gradle_test:
 gradle_deploy:
   stage: deploy
   script:
-    - echo "$keyring_decrypt" | gpg --batch --quiet --yes --passphrase-fd 0 --decrypt "$keyring_file" > ~/work-secring.gpg
-    - echo "$sonatype_properties_decrypt" | gpg --batch --quiet --yes --passphrase-fd 0 --decrypt "sonatype_properties_file" > local.properties
+    - echo "$keyring_decrypt" | gpg --batch --quiet --yes --passphrase-fd 0 --decrypt ~/$keyring_file > ~/work-secring.gpg
+    - echo "$sonatype_properties_decrypt" | gpg --batch --quiet --yes --passphrase-fd 0 --decrypt ~/sonatype_properties_file > local.properties
+    - echo "" >> build.gradle
     - echo "$release_flag" >> build.gradle
     - gradle clean
     - gradle uploadArchives
