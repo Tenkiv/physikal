@@ -3,7 +3,7 @@ stages:
   - test
   - deploy
   
-image: test-archiver:latest
+image: test-archiver
 
 gradle_build:
   stage: build
