@@ -1,28 +1,22 @@
 stages:
   - build
-  - test
   - deploy
   
-image: test-archiver
+image: archiver
 
 gradle_build:
   stage: build
   script:
     - gradle build
-
-gradle_test:
-  stage: test
-  script:
     - gradle test
     
 gradle_deploy:
   stage: deploy
   script:
-    - echo "$keyring_decrypt" | gpg --batch --quiet --yes --passphrase-fd 0 --decrypt ~/$keyring_file > ~/work-secring.gpg
-    - echo "$sonatype_properties_decrypt" | gpg --batch --quiet --yes --passphrase-fd 0 --decrypt ~/sonatype_properties_file > local.properties
     - echo "" >> build.gradle
     - echo "$release_flag" >> build.gradle
+    - cp ~/local.properties .
     - gradle clean
     - gradle uploadArchives
-    - rm ~/work-secring.gpg
+    - rm ~/secring.gpg
     - rm local.properties
