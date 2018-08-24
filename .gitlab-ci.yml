@@ -13,8 +13,8 @@ gradle_build:
 gradle_deploy:
   stage: deploy
   script:
-    - echo "" >> build.gradle
-    - echo "$release_flag" >> build.gradle
+    - echo "" >> gradle.properties
+    - echo "$release_flag" >> gradle.properties
     - cp ~/local.properties .
     - gradle clean
     - gradle uploadArchives
