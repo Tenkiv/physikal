@@ -47,7 +47,12 @@ infix fun Number.withSymbol(unitSymbol: CharSequence): ComparableQuantity<*> =
  * This function will attempt to parse this number with the provided symbol into a quantity according to
  * [Quantities.getQuantity]
  */
-@Deprecated(message = "Name changed", replaceWith = ReplaceWith("withSymbol"))
+@Deprecated(
+    message = "Replace with withSymbol().",
+    replaceWith = ReplaceWith(
+        "\$this withSymbol \$unitSymbol"
+    )
+)
 infix fun Number.toQuantityWithSymbol(unitSymbol: CharSequence): ComparableQuantity<*> =
     Quantities.getQuantity("$this $unitSymbol")
 
