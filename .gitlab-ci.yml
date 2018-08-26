@@ -1,12 +1,22 @@
 stages:
   - build
-  - test
   - deploy
   
-image: gradle:latest
+image: archiver
 
-gradle_test:
-  stage: test
+gradle_build:
+  stage: build
   script:
     - gradle build
     - gradle test
+    
+gradle_deploy:
+  stage: deploy
+  script:
+    - echo "" >> gradle.properties
+    - echo "$release_flag" >> gradle.properties
+    - cp ~/local.properties .
+    - gradle clean
+    - gradle uploadArchives
+    - rm ~/secring.gpg
+    - rm local.properties
