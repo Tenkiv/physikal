@@ -69,6 +69,13 @@ operator fun <Q : Quantity<Q>> Unit<Q>.times(multiplier: Double): Unit<Q> = mult
  *
  * @return [Unit] with multiplied value.
  */
+infix fun Unit<*>.dynamicTimes(multiplier: Double): Unit<*> = multiply(multiplier)
+
+/**
+ * Function to call the [Quantity.multiply] function on specified value.
+ *
+ * @return [Unit] with multiplied value.
+ */
 operator fun Unit<*>.times(multiplier: Unit<*>): Unit<*> = multiply(multiplier)
 
 /**
@@ -77,6 +84,13 @@ operator fun Unit<*>.times(multiplier: Unit<*>): Unit<*> = multiply(multiplier)
  * @return [Unit] with divided value.
  */
 operator fun <Q : Quantity<Q>> Unit<Q>.div(divisor: Double): Unit<Q> = divide(divisor)
+
+/**
+ * Function to call the [Quantity.divide] function on specified value.
+ *
+ * @return [Unit] with divided value.
+ */
+infix fun Unit<*>.dynamicDiv(divisor: Double): Unit<*> = divide(divisor)
 
 /**
  * Function to call the [Quantity.divide] function on specified value.
@@ -143,6 +157,13 @@ operator fun Quantity<*>.times(multiplier: Quantity<*>): Quantity<*> = multiply(
 operator fun <Q : Quantity<Q>> Quantity<Q>.times(multiplier: Number): Quantity<Q> = multiply(multiplier)
 
 /**
+ * Function to multiply two [Quantity]s.
+ *
+ * @return [Quantity] with multiplied value.
+ */
+infix fun Quantity<*>.dynamicTimes(multiplier: Number): Quantity<*> = multiply(multiplier)
+
+/**
  * Function to divide two [Quantity]s.
  *
  * @return [Quantity] with divided value.
@@ -155,6 +176,13 @@ operator fun Quantity<*>.div(divisor: Quantity<*>): Quantity<*> = divide(divisor
  * @return [Quantity] with divided value.
  */
 operator fun <Q : Quantity<Q>> Quantity<Q>.div(divisor: Number): Quantity<Q> = divide(divisor)
+
+/**
+ * Function to divide two [Quantity]s.
+ *
+ * @return [Quantity] with divided value.
+ */
+infix fun Quantity<*>.dynamicDiv(divisor: Number): Quantity<*> = divide(divisor)
 
 /**
  * Function to convert a [Quantity] to a different [Unit].
@@ -281,6 +309,14 @@ operator fun <Q : Quantity<Q>> ComparableQuantity<Q>.times(multiplier: Number): 
     multiply(multiplier)
 
 /**
+ * Function to multiply two [ComparableQuantity]s.
+ *
+ * @return [ComparableQuantity] with multiplied value.
+ */
+infix fun ComparableQuantity<*>.dynamicTimes(multiplier: Number): ComparableQuantity<*> =
+    multiply(multiplier)
+
+/**
  * Function to divide two [ComparableQuantity]s.
  *
  * @return [ComparableQuantity] with divided value.
@@ -293,6 +329,13 @@ operator fun ComparableQuantity<*>.div(divisor: Quantity<*>): ComparableQuantity
  * @return [ComparableQuantity] with divided value.
  */
 operator fun <Q : Quantity<Q>> ComparableQuantity<Q>.div(divisor: Number): ComparableQuantity<Q> = divide(divisor)
+
+/**
+ * Function to divide two [ComparableQuantity]s.
+ *
+ * @return [ComparableQuantity] with divided value.
+ */
+infix fun ComparableQuantity<*>.dynamicDiv(divisor: Number): ComparableQuantity<*> = divide(divisor)
 
 /**
  * Function to convert a [ComparableQuantity] to a different [Unit].
