@@ -69,7 +69,7 @@ operator fun <Q : Quantity<Q>> Unit<Q>.times(multiplier: Double): Unit<Q> = mult
  *
  * @return [Unit] with multiplied value.
  */
-infix fun Unit<*>.dynamicTimes(multiplier: Double): Unit<*> = multiply(multiplier)
+infix fun Unit<*>.dynTimes(multiplier: Double): Unit<*> = multiply(multiplier)
 
 /**
  * Function to call the [Quantity.multiply] function on specified value.
@@ -90,7 +90,7 @@ operator fun <Q : Quantity<Q>> Unit<Q>.div(divisor: Double): Unit<Q> = divide(di
  *
  * @return [Unit] with divided value.
  */
-infix fun Unit<*>.dynamicDiv(divisor: Double): Unit<*> = divide(divisor)
+infix fun Unit<*>.dynDiv(divisor: Double): Unit<*> = divide(divisor)
 
 /**
  * Function to call the [Quantity.divide] function on specified value.
@@ -161,7 +161,7 @@ operator fun <Q : Quantity<Q>> Quantity<Q>.times(multiplier: Number): Quantity<Q
  *
  * @return [Quantity] with multiplied value.
  */
-infix fun Quantity<*>.dynamicTimes(multiplier: Number): Quantity<*> = multiply(multiplier)
+infix fun Quantity<*>.dynTimes(multiplier: Number): Quantity<*> = multiply(multiplier)
 
 /**
  * Function to divide two [Quantity]s.
@@ -182,7 +182,7 @@ operator fun <Q : Quantity<Q>> Quantity<Q>.div(divisor: Number): Quantity<Q> = d
  *
  * @return [Quantity] with divided value.
  */
-infix fun Quantity<*>.dynamicDiv(divisor: Number): Quantity<*> = divide(divisor)
+infix fun Quantity<*>.dynDiv(divisor: Number): Quantity<*> = divide(divisor)
 
 /**
  * Function to convert a [Quantity] to a different [Unit].
@@ -313,7 +313,7 @@ operator fun <Q : Quantity<Q>> ComparableQuantity<Q>.times(multiplier: Number): 
  *
  * @return [ComparableQuantity] with multiplied value.
  */
-infix fun ComparableQuantity<*>.dynamicTimes(multiplier: Number): ComparableQuantity<*> =
+infix fun ComparableQuantity<*>.dynTimes(multiplier: Number): ComparableQuantity<*> =
     multiply(multiplier)
 
 /**
@@ -335,7 +335,7 @@ operator fun <Q : Quantity<Q>> ComparableQuantity<Q>.div(divisor: Number): Compa
  *
  * @return [ComparableQuantity] with divided value.
  */
-infix fun ComparableQuantity<*>.dynamicDiv(divisor: Number): ComparableQuantity<*> = divide(divisor)
+infix fun ComparableQuantity<*>.dynDiv(divisor: Number): ComparableQuantity<*> = divide(divisor)
 
 /**
  * Function to convert a [ComparableQuantity] to a different [Unit].
