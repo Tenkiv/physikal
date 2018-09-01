@@ -105,14 +105,28 @@ operator fun Unit<*>.div(divisor: Unit<*>): Unit<*> = divide(divisor)
  *
  * @return [ComparableQuantity] with added value.
  */
-operator fun <Q : Quantity<Q>> Quantity<Q>.unaryPlus(): ComparableQuantity<Q> = (+value.toDouble())(unit)
+operator fun <Q : Quantity<Q>> Quantity<Q>.unaryPlus(): ComparableQuantity<Q> = (+valueToDouble())(unit)
+
+/**
+ * Function to unary add function on specified value.
+ *
+ * @return [ComparableQuantity] with added value.
+ */
+fun Quantity<*>.dynUnaryPlus(): ComparableQuantity<*> = +valueToDouble() withSymbol getUnit().getSymbol()
 
 /**
  * Function to unary minus function on specified value.
  *
  * @return [ComparableQuantity] with subtracted value.
  */
-operator fun <Q : Quantity<Q>> Quantity<Q>.unaryMinus(): ComparableQuantity<Q> = (-value.toDouble())(unit)
+operator fun <Q : Quantity<Q>> Quantity<Q>.unaryMinus(): ComparableQuantity<Q> = (-valueToDouble())(unit)
+
+/**
+ * Function to unary minus function on specified value.
+ *
+ * @return [ComparableQuantity] with subtracted value.
+ */
+fun Quantity<*>.dynUnaryMinus(): ComparableQuantity<*> = -valueToDouble() withSymbol getUnit().getSymbol()
 
 /**
  * Function to increment specified value.
