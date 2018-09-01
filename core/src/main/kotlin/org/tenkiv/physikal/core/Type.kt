@@ -92,11 +92,24 @@ fun <Q : Quantity<Q>> Quantity<Q>.toComparable(): ComparableQuantity<Q> =
     this as? ComparableQuantity ?: value(unit)
 
 /**
- * @throws ClassCastException if the quantity is not of the given type.
+ * Casts this quantity to a parameterized unit of specified nature or throw a <code>ClassCastException</code> if the
+ * dimension of the specified quantity and this measure unit's dimension do not match. For example:
+ * <p>
+ * <code>
+ *     {@literal Quantity<Length>} length = Quantities.getQuantity("2 km").asType(Length.class);
+ * </code> or <code>
+ *     {@literal Quantity<Speed>} C = length.multiply(299792458).divide(second).asType(Speed.class);
+ * </code>
+ * </p>
  *
- * Function to type a Quantity.
- *
- * @return the [Quantity] with the specified type.
+ * @param <T>
+ *          The type of the quantity.
+ * @return this quantity parameterized with the specified type.
+ * @throws ClassCastException
+ *           if the dimension of this unit is different from the specified quantity dimension.
+ * @throws UnsupportedOperationException
+ *           if the specified quantity class does not have a SI unit for the quantity.
+ * @see Unit.asType(Class)
  */
 inline fun <reified Q : Quantity<Q>> Quantity<*>.asType(): Quantity<Q> = asType(Q::class.java)
 
