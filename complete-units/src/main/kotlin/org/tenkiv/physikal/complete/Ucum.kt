@@ -1275,30 +1275,6 @@ val Number.pied: ComparableQuantity<Length>
     get() = Quantities.getQuantity<Length>(this, PIED)
 
 /**
- * Builder method for [ComparableQuantity] with unit [PI].
- *
- * @return A [ComparableQuantity] with specified value.
- */
-val Number.pi: ComparableQuantity<Dimensionless>
-    get() = Quantities.getQuantity<Dimensionless>(this, PI)
-
-/**
- * Builder method for [ComparableQuantity] with unit [REM].
- *
- * @return A [ComparableQuantity] with specified value.
- */
-val Number.rem: ComparableQuantity<RadiationDoseEffective>
-    get() = Quantities.getQuantity<RadiationDoseEffective>(this, REM)
-
-/**
- * Builder method for [ComparableQuantity] with unit [REM].
- *
- * @return A [ComparableQuantity] with specified value.
- */
-val MetricPrefixedNumber.rem: ComparableQuantity<RadiationDoseEffective>
-    get() = number(REM.transform(prefix.converter))
-
-/**
  * Builder method for [ComparableQuantity] with unit [POUCE].
  *
  * @return A [ComparableQuantity] with specified value.
