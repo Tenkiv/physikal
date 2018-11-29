@@ -37,6 +37,22 @@ operator fun <Q : Quantity<Q>> Number.invoke(unit: Unit<Q>): ComparableQuantity<
  * This function will attempt to parse this number with the provided symbol into a quantity according to
  * [Quantities.getQuantity]
  */
+infix fun Number.withSymbol(unitSymbol: CharSequence): ComparableQuantity<*> =
+    Quantities.getQuantity("$this $unitSymbol")
+
+/**
+ * @throws IllegalArgumentException if the given unitSymbol is not valid.
+ *
+ * Utility function to create a [Quantity] with this number as its value.
+ * This function will attempt to parse this number with the provided symbol into a quantity according to
+ * [Quantities.getQuantity]
+ */
+@Deprecated(
+    message = "Replace with withSymbol().",
+    replaceWith = ReplaceWith(
+        "\$this withSymbol \$unitSymbol"
+    )
+)
 infix fun Number.toQuantityWithSymbol(unitSymbol: CharSequence): ComparableQuantity<*> =
     Quantities.getQuantity("$this $unitSymbol")
 
