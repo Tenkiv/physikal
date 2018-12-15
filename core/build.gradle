@@ -26,6 +26,6 @@ apply from: '../maven_push.gradle'
 dependencies {
     api 'tec.units:indriya:1.0'
 
-    implementation 'org.tenkiv.coral:coral:2.1.2.2-SNAPSHOT'
+    implementation 'org.tenkiv.coral:coral:2.1.2.3-SNAPSHOT'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 }

@@ -41,6 +41,10 @@ allprojects {
     repositories {
         jcenter()
         mavenCentral()
+        maven {
+            // Maven Central Snapshot Repo
+            url "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
     }
 
     jacoco {
