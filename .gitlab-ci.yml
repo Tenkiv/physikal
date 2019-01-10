@@ -2,7 +2,7 @@ stages:
   - build
   - deploy
   
-image: gradle:latest
+image: archiver
 
 gradle_build:
   stage: build
@@ -13,15 +13,10 @@ gradle_build:
 gradle_deploy:
   stage: deploy
   script:
-    - echo "$signing_key" > ~/SonaTypeKey.key
+    - echo "" >> gradle.properties
     - echo "$release_flag" >> gradle.properties
-    - echo "$sonatype_user_flag""$sonatype_user" >> local.properties
-    - echo "$sonatype_pass_flag""$sonatype_pass" >> local.properties
-    - echo "$signing_key_flag""$key_id" >> local.properties
-    - echo "$signing_key_pass_flag""$signing_pass" >> local.properties
-    - echo "$signing_key_name_flag""~/SonaTypeKey.key" >> local.properties
+    - cp ~/local.properties .
     - gradle clean
     - gradle uploadArchives
-    - rm ~/SonaTypeKey.key
+    - rm ~/secring.gpg
     - rm local.properties
-
