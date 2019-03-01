@@ -15,30 +15,10 @@
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import org.spekframework.spek2.*
-import org.spekframework.spek2.style.specification.*
-import org.tenkiv.physikal.core.*
-import tec.units.indriya.unit.*
-import javax.measure.quantity.*
-import kotlin.test.*
+object Vof {
+    const val kotlin = "1.3.20"
+    const val jacoco = "0.8.2"
 
-object TypeSpec : Spek({
-    describe("calling asTypeOrNull() on a physical quantity") {
-        it("returns null if returned type conflicts with the Comparable Quantity type") {
-            assertEquals(null, 1.watt.asTypeOrNull<Pressure>())
-        }
-        it("returns a physical quantity if the specified Type does not conflict with the Comparable Quantity" +
-                " type") {
-            assertEquals(1.watt, 1.watt.asTypeOrNull<Power>())
-        }
-    }
-
-    describe("calling asTypeOrNull() on a Unit") {
-        it("returns null if returned type conflicts with the Comparable Quantity type") {
-            assertEquals(null, Units.WATT.asTypeOrNull<Pressure>())
-        }
-        it("returns a Unit if the specified Type does not conflict with the Comparable Quantity type") {
-            assertEquals(Units.WATT, Units.WATT.asTypeOrNull<Power>())
-        }
-    }
-})
+    const val spek = "2.0.0"
+    const val junitPlatform = "1.4.0"
+}

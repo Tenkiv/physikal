@@ -15,30 +15,13 @@
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import org.spekframework.spek2.*
-import org.spekframework.spek2.style.specification.*
-import org.tenkiv.physikal.core.*
-import tec.units.indriya.unit.*
-import javax.measure.quantity.*
-import kotlin.test.*
+plugins {
+    kotlin("jvm")
+}
 
-object TypeSpec : Spek({
-    describe("calling asTypeOrNull() on a physical quantity") {
-        it("returns null if returned type conflicts with the Comparable Quantity type") {
-            assertEquals(null, 1.watt.asTypeOrNull<Pressure>())
-        }
-        it("returns a physical quantity if the specified Type does not conflict with the Comparable Quantity" +
-                " type") {
-            assertEquals(1.watt, 1.watt.asTypeOrNull<Power>())
-        }
-    }
-
-    describe("calling asTypeOrNull() on a Unit") {
-        it("returns null if returned type conflicts with the Comparable Quantity type") {
-            assertEquals(null, Units.WATT.asTypeOrNull<Pressure>())
-        }
-        it("returns a Unit if the specified Type does not conflict with the Comparable Quantity type") {
-            assertEquals(Units.WATT, Units.WATT.asTypeOrNull<Power>())
-        }
-    }
-})
+dependencies {
+    api(project(":core"))
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Vof.kotlin}")
+    implementation("si.uom:si-units:0.9")
+    implementation("si.uom:si-quantity:0.9")
+}

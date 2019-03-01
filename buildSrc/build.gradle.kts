@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 /*
  * Copyright 2019 Tenkiv, Inc.
  *
@@ -13,32 +15,25 @@
  * WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
  * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
  */
 
-import org.spekframework.spek2.*
-import org.spekframework.spek2.style.specification.*
-import org.tenkiv.physikal.core.*
-import tec.units.indriya.unit.*
-import javax.measure.quantity.*
-import kotlin.test.*
+plugins {
+    `kotlin-dsl`
+    kotlin("jvm") version "1.3.21"
+}
 
-object TypeSpec : Spek({
-    describe("calling asTypeOrNull() on a physical quantity") {
-        it("returns null if returned type conflicts with the Comparable Quantity type") {
-            assertEquals(null, 1.watt.asTypeOrNull<Pressure>())
-        }
-        it("returns a physical quantity if the specified Type does not conflict with the Comparable Quantity" +
-                " type") {
-            assertEquals(1.watt, 1.watt.asTypeOrNull<Power>())
-        }
-    }
-
-    describe("calling asTypeOrNull() on a Unit") {
-        it("returns null if returned type conflicts with the Comparable Quantity type") {
-            assertEquals(null, Units.WATT.asTypeOrNull<Pressure>())
-        }
-        it("returns a Unit if the specified Type does not conflict with the Comparable Quantity type") {
-            assertEquals(Units.WATT, Units.WATT.asTypeOrNull<Power>())
-        }
-    }
-})
+repositories {
+    jcenter()
+}
+dependencies {
+    implementation(kotlin("stdlib-jdk8"))
+}
+val compileKotlin: KotlinCompile by tasks
+compileKotlin.kotlinOptions {
+    jvmTarget = "1.8"
+}
+val compileTestKotlin: KotlinCompile by tasks
+compileTestKotlin.kotlinOptions {
+    jvmTarget = "1.8"
+}
