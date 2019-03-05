@@ -17,8 +17,8 @@
 
 plugins {
     kotlin("jvm") version Vof.kotlin apply false
-    jacoco
-    `java-library`
+    java
+    id("org.jetbrains.dokka") version Vof.dokka apply false
 }
 
 buildscript {
@@ -33,42 +33,83 @@ allprojects {
         mavenCentral()
         maven(url = "https://oss.sonatype.org/content/repositories/snapshots/")
     }
-
-//    jacoco {
-//        toolVersion = Vof.jacoco
-//    }
-//
-//    tasks.withType<JacocoReport> {
-//        reports {
-//            html.isEnabled = false
-//            xml.isEnabled = true
-//            csv.isEnabled = false
-//        }
-//    }
-
-//    tasks {
-//        test {
-//            useJUnitPlatform()
-//
-//            extensions.configure(JacocoTaskExtension::class) {
-//                setDestinationFile(file("$buildDir/jacoco/results/jacocoTest.exec"))
-//            }
-//        }
-//    }
 }
 
-//tasks.register<JacocoReport>("jacocoRootReport") {
-//    description = "Generates an aggregate report from all subprojects"
-//    for (sp in subprojects) {
-//        dependsOn(sp.tasks.getByName("test"))
-//    }
-//
-//    reports {
-//        html.isEnabled = true
-//        xml.isEnabled = true
-//    }
-//
-//    doFirst {
-//        executionData.setFrom(files(executionData))
-//    }
-//}
+subprojects {
+    apply(plugin = "org.jetbrains.dokka")
+    apply(plugin = "java-library")
+    apply(plugin = "maven-publish")
+
+    tasks {
+        register<Jar>("sourcesJar") {
+            from(project.sourceSets.main.get().allJava)
+            archiveClassifier.set("sources")
+        }
+
+        register<Jar>("javadocJar") {
+            from(getByName("dokka"))
+            archiveClassifier.set("javadoc")
+        }
+
+        getByName("build") {
+            dependsOn("sourcesJar")
+            dependsOn("javadocJar")
+        }
+    }
+
+    configure<PublishingExtension> {
+        publications {
+            create<MavenPublication>("maven-${project.name}") {
+                groupId = "org.tenkiv.physikal"
+                artifactId = "physikal-${project.name}"
+                version = project.version.toString()
+
+                from(components["java"])
+
+                for (file in project.fileTree("build/libs").files) {
+                    when {
+                        file.name.contains("javadoc") -> {
+                            val a = artifact(file)
+                            a.classifier = "javadoc"
+                        }
+                        file.name.contains("sources") -> {
+                            val a = artifact(file)
+                            a.classifier = "sources"
+                        }
+                    }
+                }
+
+                pom {
+                    name.set(project.name)
+                    description.set(Info.pomDescription)
+                    url.set(System.getenv("CI_PROJECT_URL"))
+                    licenses {
+                        license {
+                            name.set(Info.pomLicense)
+                            url.set(Info.pomLicenseUrl)
+                        }
+                    }
+                    organization {
+                        name.set(Info.pomOrg)
+                    }
+                    scm {
+                        connection.set(System.getenv("CI_REPOSITORY_URL"))
+                        url.set(System.getenv("CI_PROJECT_URL"))
+                    }
+                }
+            }
+        }
+        repositories {
+            maven {
+                // change URLs to point to your repos, e.g. http://my.org/repo
+                val releasesRepoUrl = uri(Info.sonatypeReleaseRepoUrl)
+                val snapshotsRepoUrl = uri(Info.sonatypeSnapshotRepoUrl)
+                url = if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl
+                credentials {
+                    username = System.getenv("MAVEN_REPO_USER")
+                    password = System.getenv("MAVEN_REPO_PASSWORD")
+                }
+            }
+        }
+    }
+}

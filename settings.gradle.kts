@@ -1,2 +1,2 @@
 rootProject.name = "physikal"
-include("core", "complete-unit", "si-units")
+include("core", "complete-units", "si-units")

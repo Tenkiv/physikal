@@ -15,6 +15,8 @@
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+package org.tenkiv.physikal.core
+
 import org.spekframework.spek2.*
 import org.spekframework.spek2.style.specification.*
 import org.tenkiv.physikal.core.*

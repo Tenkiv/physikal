@@ -18,39 +18,47 @@
 plugins {
     kotlin("jvm")
     java
+    jacoco
 }
 
 dependencies {
-    api("tec.units:indriya:1.0")
-    implementation("org.tenkiv.coral:coral:2.1.2.3-SNAPSHOT")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.20")
+    api(group = "tec.units", name = "indriya", version = "1.0")
+    implementation(group = "org.tenkiv.coral" , name = "coral", version = "2.1.2.3-SNAPSHOT")
+    implementation(kotlin("stdlib-jdk8"))
 
-    //Test
-    testImplementation(kotlin("reflect", Vof.kotlin))
-    testImplementation(kotlin("test", Vof.kotlin))
-
-    testImplementation(group = "org.spekframework.spek2", name = "spek-dsl-jvm", version = Vof.spek) {
-        exclude(group = "org.jetbrains.kotlin")
-    }
-
-    testRuntimeOnly(group = "org.spekframework.spek2", name = "spek-runner-junit5", version = Vof.spek) {
-        exclude(group = "org.jetbrains.kotlin")
-        exclude(group = "org.junit.platform")
-    }
-
-    testRuntimeOnly(group = "org.junit.platform", name = "junit-platform-launcher", version = Vof.junitPlatform) {
-        because("Needed to run tests IDEs that bundle an older version")
-    }
-
+    //test
     testImplementation(gradleTestKit())
+    testImplementation(kotlin("reflect", Vof.kotlin))
+    testImplementation(kotlin("test", version = Vof.kotlin))
+    testImplementation(group = "org.spekframework.spek2", name ="spek-dsl-jvm", version = Vof.spek) {
+        exclude(group = "org.jetbrains.kotlin")
+    }
+    testRuntimeOnly(group = "org.spekframework.spek2", name = "spek-runner-junit5", version = Vof.spek) {
+        exclude(group = "org.junit.platform")
+        exclude(group = "org.jetbrains.kotlin")
+    }
+    testRuntimeOnly(group = "org.junit.platform", name = "junit-platform-launcher", version = Vof.junitPlatform)
+}
+
+jacoco {
+    toolVersion = Vof.jacocoTool
 }
 
 tasks {
-    named<Test>("test") {
+    val jacocoReport = withType<JacocoReport> {
+        reports {
+            html.isEnabled = true
+            xml.isEnabled = true
+            csv.isEnabled = false
+        }
+    }
+
+    withType(Test::class) {
+        outputs.upToDateWhen { false }
         useJUnitPlatform {
             includeEngines("spek2")
-            testClassesDirs = sourceSets["test"].output.classesDirs
-            classpath = sourceSets["test"].runtimeClasspath
         }
+
+        finalizedBy(jacocoReport)
     }
 }
