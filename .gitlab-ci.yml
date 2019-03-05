@@ -8,7 +8,7 @@ stages:
 assembleDebug:
   stage: build
   script:
-    - ./gradlew assembleDebug
+    - ./gradlew build
   artifacts:
     paths:
       - /build/outputs/
