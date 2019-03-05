@@ -1,22 +1,27 @@
+image: openjdk:8-jdk
+
 stages:
   - build
+  - test
   - deploy
-  
-image: archiver
 
-gradle_build:
+assembleDebug:
   stage: build
   script:
-    - gradle build
-    - gradle test
+    - ./gradlew assembleDebug
+  artifacts:
+    paths:
+      - /build/outputs/
+
+debugTests:
+  stage: test
+  script:
+    - ./gradlew -Pci --console=plain testDebug
     
-gradle_deploy:
+mavenDeploy:
   stage: deploy
   script:
-    - echo "" >> gradle.properties
-    - echo "$release_flag" >> gradle.properties
-    - cp ~/local.properties .
-    - gradle clean
-    - gradle uploadArchives
-    - rm ~/secring.gpg
-    - rm local.properties
+    - ./gradlew clean build
+    - ./gradlew :core:publish
+    - ./gradlew :si-units:publish
+    - ./gradlew :complete-units:publish
