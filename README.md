@@ -1,7 +1,5 @@
-# Physikal
+# Physikal - [![License](http://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT) [![Matrix](https://img.shields.io/matrix/physikal:matrix.org.svg)](https://matrix.to/#/!mIDAaHvQWPilCOvrDD:matrix.org?via=matrix.org)
 
-[![Join the chat at https://gitter.im/Tenkiv/Physikal](https://badges.gitter.im/Tenkiv/Physikal.svg)](https://gitter.im/Tenkiv/Physikal?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![License](http://img.shields.io/badge/license-BSD3-blue.svg)](http://opensource.org/licenses/BSD-3-Clause) [![Build Status](https://travis-ci.org/Tenkiv/Physikal.svg?branch=master)](https://travis-ci.org/Tenkiv/Physikal) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/71d5b2f4e1f746c3bfb6c5ab6b1376b3)](https://www.codacy.com/app/Tenkiv/Physikal?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Tenkiv/Physikal&amp;utm_campaign=Badge_Grade)
 ### Library providing Kotlin extensions and ease of use functions for Java Units of Measurement libraries. 
 
 
