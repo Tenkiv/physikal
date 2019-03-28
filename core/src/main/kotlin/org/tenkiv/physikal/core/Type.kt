@@ -17,9 +17,9 @@
 
 package org.tenkiv.physikal.core
 
-import tec.units.indriya.ComparableQuantity
-import tec.units.indriya.unit.MetricPrefix
-import javax.measure.Quantity
+import tec.units.indriya.*
+import tec.units.indriya.unit.*
+import javax.measure.*
 import javax.measure.Unit
 
 // typealiases

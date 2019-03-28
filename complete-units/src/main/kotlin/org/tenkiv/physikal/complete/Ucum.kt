@@ -17,14 +17,13 @@
 
 package org.tenkiv.physikal.complete
 
-import org.tenkiv.physikal.core.MetricPrefixedNumber
-import org.tenkiv.physikal.core.invoke
+import org.tenkiv.physikal.core.*
 import si.uom.quantity.*
 import systems.uom.quantity.*
 import systems.uom.quantity.Level
 import systems.uom.ucum.UCUM.*
-import tec.units.indriya.ComparableQuantity
-import tec.units.indriya.quantity.Quantities
+import tec.units.indriya.*
+import tec.units.indriya.quantity.*
 import javax.measure.quantity.*
 
 /**

@@ -17,13 +17,11 @@
 
 package org.tenkiv.physikal.complete
 
-import org.tenkiv.physikal.core.MetricPrefixedNumber
-import org.tenkiv.physikal.core.invoke
-import si.uom.quantity.DynamicViscosity
-import si.uom.quantity.KinematicViscosity
+import org.tenkiv.physikal.core.*
+import si.uom.quantity.*
 import systems.uom.common.CGS.*
-import tec.units.indriya.ComparableQuantity
-import tec.units.indriya.quantity.Quantities
+import tec.units.indriya.*
+import tec.units.indriya.quantity.*
 import javax.measure.quantity.*
 
 /**

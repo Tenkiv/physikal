@@ -17,10 +17,10 @@
 
 package org.tenkiv.physikal.complete
 
-import systems.uom.ucum.UCUM
-import tec.units.indriya.ComparableQuantity
-import tec.units.indriya.quantity.Quantities
-import javax.measure.quantity.Temperature
+import systems.uom.ucum.*
+import tec.units.indriya.*
+import tec.units.indriya.quantity.*
+import javax.measure.quantity.*
 
 /**
  * Builder method for [ComparableQuantity] with unit [UCUM.RANKINE].

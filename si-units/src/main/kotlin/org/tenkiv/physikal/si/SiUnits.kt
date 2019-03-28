@@ -17,13 +17,12 @@
 
 package org.tenkiv.physikal.si
 
-import org.tenkiv.physikal.core.MetricPrefixedNumber
-import org.tenkiv.physikal.core.invoke
+import org.tenkiv.physikal.core.*
 import si.uom.NonSI.TONNE
 import si.uom.SI.*
 import si.uom.quantity.*
-import tec.units.indriya.ComparableQuantity
-import tec.units.indriya.quantity.Quantities
+import tec.units.indriya.*
+import tec.units.indriya.quantity.*
 import javax.measure.quantity.*
 
 /**

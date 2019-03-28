@@ -17,13 +17,13 @@
 
 package org.tenkiv.physikal.core
 
-import tec.units.indriya.ComparableQuantity
-import tec.units.indriya.unit.MetricPrefix.NANO
-import tec.units.indriya.unit.Units.SECOND
-import java.time.Duration
-import java.time.temporal.ChronoUnit
-import javax.measure.Quantity
-import javax.measure.quantity.Time
+import tec.units.indriya.*
+import tec.units.indriya.unit.MetricPrefix.*
+import tec.units.indriya.unit.Units.*
+import java.time.*
+import java.time.temporal.*
+import javax.measure.*
+import javax.measure.quantity.*
 
 /**
  * Get this time quantity as a [Duration].

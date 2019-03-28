@@ -17,8 +17,8 @@
 
 package org.tenkiv.physikal.core
 
-import tec.units.indriya.ComparableQuantity
-import tec.units.indriya.quantity.Quantities
+import tec.units.indriya.*
+import tec.units.indriya.quantity.*
 import tec.units.indriya.unit.Units.*
 import javax.measure.quantity.*
 
