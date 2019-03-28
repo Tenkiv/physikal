@@ -91,4 +91,5 @@ hs_err_pid*
 core/out/production/classes/META-INF/
 si-units/out/production/classes/META-INF/
 si-units/out/test/classes/META-INF/
-si-units/src/test/
+/buildSrc/.gradle/
+/buildSrc/build/
