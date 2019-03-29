@@ -47,6 +47,7 @@ inline fun <E, Q : Quantity<Q>> Collection<E>.averageOrNull(getValue: (E) -> Qua
  * @return [ComparableQuantity] with average value of the [Collection] or null value if no elements match
  * the condition.
  */
+@Deprecated("Should use filter followed by average instead.")
 inline fun <E, Q : Quantity<Q>> Collection<E>.averageOrNull(getValue: (E) -> Quantity<Q>, condition: (E) -> Boolean):
         ComparableQuantity<Q>? {
     var totalValue: ComparableQuantity<Q>? = null
@@ -94,6 +95,7 @@ inline fun <E, reified Q : Quantity<Q>> Collection<E>.averageOrDefault(
  * @return [ComparableQuantity] with average value of the [Collection] or a default value if no elements match
  * the condition.
  */
+@Deprecated("Should use filter followed by average instead.")
 inline fun <E, reified Q : Quantity<Q>> Collection<E>.averageOrDefault(
     defaultValue: ComparableQuantity<Q> = 0(Units.getInstance().getUnit(Q::class.java)),
     getValue: (E) -> Quantity<Q>,
