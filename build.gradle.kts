@@ -15,10 +15,15 @@
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     kotlin("jvm") version Vof.kotlin apply false
     java
     id("org.jetbrains.dokka") version Vof.dokka apply false
+    signing
+    `maven-publish`
 }
 
 buildscript {
@@ -35,10 +40,22 @@ allprojects {
     }
 }
 
+val isRelease = !version.toString().endsWith("SNAPSHOT")
+val localProperties = Properties()
+val propertiesFile = File(rootDir, "local.properties")
+if (propertiesFile.canRead()) {
+    localProperties.load(FileInputStream(propertiesFile))
+}
+
+extra["signing.keyId"] = localProperties.getProperty("SIGNING_KEYID")
+extra["signing.secretKeyRingFile"] = localProperties.getProperty("SIGNING_SECRETKEYRINGFILE")
+extra["signing.password"] = localProperties.getProperty("SIGNING_KEYPASSWORD")
+
 subprojects {
     apply(plugin = "org.jetbrains.dokka")
     apply(plugin = "java-library")
     apply(plugin = "maven-publish")
+    apply(plugin = "signing")
 
     tasks {
         register<Jar>("sourcesJar") {
@@ -50,66 +67,92 @@ subprojects {
             from(getByName("dokka"))
             archiveClassifier.set("javadoc")
         }
-
-        getByName("build") {
-            dependsOn("sourcesJar")
-            dependsOn("javadocJar")
-        }
     }
 
     configure<PublishingExtension> {
         publications {
-            create<MavenPublication>("maven-${project.name}") {
-                groupId = "org.tenkiv.physikal"
-                artifactId = "physikal-${project.name}"
-                version = project.version.toString()
+            if (isRelease) {
+                println("creating release version...")
+                create<MavenPublication>("maven-${project.name}") {
+                    groupId = "org.tenkiv.physikal"
+                    artifactId = "physikal-${project.name}"
+                    version = project.version.toString()
 
-                from(components["java"])
+                    from(components["java"])
+                    artifact(tasks["sourcesJar"])
+                    artifact(tasks["javadocJar"])
 
-                for (file in project.fileTree("build/libs").files) {
-                    when {
-                        file.name.contains("javadoc") -> {
-                            val a = artifact(file)
-                            a.classifier = "javadoc"
+                    pom {
+                        name.set(project.name)
+                        description.set(Info.pomDescription)
+                        url.set(Info.projectUrl)
+                        licenses {
+                            license {
+                                name.set(Info.pomLicense)
+                                url.set(Info.pomLicenseUrl)
+                            }
                         }
-                        file.name.contains("sources") -> {
-                            val a = artifact(file)
-                            a.classifier = "sources"
+                        organization {
+                            name.set(Info.pomOrg)
+                        }
+                        scm {
+                            connection.set(Info.projectCloneUrl)
+                            url.set(Info.projectUrl)
                         }
                     }
                 }
+            } else {
+                create<MavenPublication>("maven-${project.name}-snapshot") {
+                    groupId = "org.tenkiv.physikal"
+                    artifactId = "physikal-${project.name}"
+                    version = project.version.toString()
 
-                pom {
-                    name.set(project.name)
-                    description.set(Info.pomDescription)
-                    url.set(System.getenv("CI_PROJECT_URL"))
-                    licenses {
-                        license {
-                            name.set(Info.pomLicense)
-                            url.set(Info.pomLicenseUrl)
-                        }
-                    }
-                    organization {
-                        name.set(Info.pomOrg)
-                    }
-                    scm {
-                        connection.set(System.getenv("CI_REPOSITORY_URL"))
+                    from(components["java"])
+                    artifact(tasks["sourcesJar"])
+                    artifact(tasks["javadocJar"])
+
+                    pom {
+                        name.set(project.name)
+                        description.set(Info.pomDescription)
                         url.set(System.getenv("CI_PROJECT_URL"))
+                        licenses {
+                            license {
+                                name.set(Info.pomLicense)
+                                url.set(Info.pomLicenseUrl)
+                            }
+                        }
+                        organization {
+                            name.set(Info.pomOrg)
+                        }
+                        scm {
+                            connection.set(System.getenv("CI_REPOSITORY_URL"))
+                            url.set(System.getenv("CI_PROJECT_URL"))
+                        }
                     }
                 }
             }
         }
         repositories {
             maven {
-                // change URLs to point to your repos, e.g. http://my.org/repo
                 val releasesRepoUrl = uri(Info.sonatypeReleaseRepoUrl)
                 val snapshotsRepoUrl = uri(Info.sonatypeSnapshotRepoUrl)
                 url = if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl
                 credentials {
-                    username = System.getenv("MAVEN_REPO_USER")
-                    password = System.getenv("MAVEN_REPO_PASSWORD")
+                    if (isRelease) {
+                        username = localProperties.getProperty("MAVEN_USER")
+                        password = localProperties.getProperty("MAVEN_PASSWORD")
+                    } else {
+                        username = System.getenv("MAVEN_REPO_USER")
+                        password = System.getenv("MAVEN_REPO_PASSWORD")
+                    }
                 }
             }
+        }
+    }
+
+    signing {
+        if (isRelease) {
+            sign(publishing.publications["maven-${project.name}"])
         }
     }
 }
