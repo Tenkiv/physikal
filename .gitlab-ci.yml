@@ -22,6 +22,4 @@ mavenDeploy:
   stage: deploy
   script:
     - ./gradlew clean build
-    - ./gradlew :core:publish
-    - ./gradlew :si-units:publish
-    - ./gradlew :complete-units:publish
+    - if grep -q "SNAPSHOT" gradle.properties; then ./gradlew :core:publish; ./gradlew :si-units:publish; ./gradlew :complete-units:publish; fi
