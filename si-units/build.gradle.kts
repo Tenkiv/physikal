@@ -21,7 +21,7 @@ plugins {
 
 dependencies {
     api(project(":core"))
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Vof.kotlin}")
-    implementation("si.uom:si-units:0.9")
-    implementation("si.uom:si-quantity:0.9")
+    implementation(group = "org.jetbrains.kotlin", name = "kotlin-stdlib-jdk8", version = Vof.kotlin)
+    implementation(group = "si.uom", name = "si-units", version = Vof.uom)
+    implementation(group = "si.uom", name = "si-quantity", version = Vof.uom)
 }

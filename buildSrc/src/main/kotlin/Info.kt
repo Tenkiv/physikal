@@ -25,4 +25,5 @@ object Info {
     const val sonatypeSnapshotRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots"
     const val projectUrl = "https://gitlab.com/tenkiv/software/physikal.git"
     const val projectCloneUrl = "git@gitlab.com:tenkiv/software/physikal.git"
+    const val projectDevEmail = "zjuhasz@tenkiv.org"
 }

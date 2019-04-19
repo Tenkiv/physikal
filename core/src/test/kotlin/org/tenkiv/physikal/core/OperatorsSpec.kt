@@ -20,10 +20,9 @@ package org.tenkiv.physikal.core
 import org.spekframework.spek2.*
 import org.spekframework.spek2.style.gherkin.*
 import org.spekframework.spek2.style.specification.*
-import org.tenkiv.coral.*
-import org.tenkiv.physikal.core.*
 import javax.measure.*
 import kotlin.test.*
+import org.tenkiv.coral.*
 
 @Suppress("NAME_SHADOWING")
 object OperatorsSpec : Spek({

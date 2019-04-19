@@ -15,8 +15,8 @@
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import java.io.FileInputStream
-import java.util.Properties
+import java.io.*
+import java.util.*
 
 plugins {
     kotlin("jvm") version Vof.kotlin apply false
@@ -71,63 +71,36 @@ subprojects {
 
     configure<PublishingExtension> {
         publications {
-            if (isRelease) {
-                println("creating release version...")
-                create<MavenPublication>("maven-${project.name}") {
-                    groupId = "org.tenkiv.physikal"
-                    artifactId = "physikal-${project.name}"
-                    version = project.version.toString()
+            create<MavenPublication>("maven-${project.name}") {
+                groupId = "org.tenkiv.physikal"
+                artifactId = "physikal-${project.name}"
+                version = project.version.toString()
 
-                    from(components["java"])
-                    artifact(tasks["sourcesJar"])
-                    artifact(tasks["javadocJar"])
+                from(components["java"])
+                artifact(tasks["sourcesJar"])
+                artifact(tasks["javadocJar"])
 
-                    pom {
-                        name.set(project.name)
-                        description.set(Info.pomDescription)
-                        url.set(Info.projectUrl)
-                        licenses {
-                            license {
-                                name.set(Info.pomLicense)
-                                url.set(Info.pomLicenseUrl)
-                            }
-                        }
-                        organization {
-                            name.set(Info.pomOrg)
-                        }
-                        scm {
-                            connection.set(Info.projectCloneUrl)
-                            url.set(Info.projectUrl)
+                pom {
+                    name.set(project.name)
+                    description.set(Info.pomDescription)
+                    url.set(Info.projectUrl)
+                    licenses {
+                        license {
+                            name.set(Info.pomLicense)
+                            url.set(Info.pomLicenseUrl)
                         }
                     }
-                }
-            } else {
-                create<MavenPublication>("maven-${project.name}-snapshot") {
-                    groupId = "org.tenkiv.physikal"
-                    artifactId = "physikal-${project.name}"
-                    version = project.version.toString()
-
-                    from(components["java"])
-                    artifact(tasks["sourcesJar"])
-                    artifact(tasks["javadocJar"])
-
-                    pom {
-                        name.set(project.name)
-                        description.set(Info.pomDescription)
-                        url.set(System.getenv("CI_PROJECT_URL"))
-                        licenses {
-                            license {
-                                name.set(Info.pomLicense)
-                                url.set(Info.pomLicenseUrl)
-                            }
+                    developers {
+                        developer {
+                            email.set(Info.projectDevEmail)
                         }
-                        organization {
-                            name.set(Info.pomOrg)
-                        }
-                        scm {
-                            connection.set(System.getenv("CI_REPOSITORY_URL"))
-                            url.set(System.getenv("CI_PROJECT_URL"))
-                        }
+                    }
+                    organization {
+                        name.set(Info.pomOrg)
+                    }
+                    scm {
+                        connection.set(Info.projectCloneUrl)
+                        url.set(Info.projectUrl)
                     }
                 }
             }

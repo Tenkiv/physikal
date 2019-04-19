@@ -21,9 +21,9 @@ plugins {
 
 dependencies {
     api(project(":si-units"))
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Vof.kotlin}")
-    implementation("systems.uom:systems-quantity:0.9")
-    implementation("systems.uom:systems-common:0.9")
-    implementation("systems.uom:systems-unicode:0.9")
-    implementation("systems.uom:systems-ucum:0.9")
+    implementation(group = "org.jetbrains.kotlin", name = "kotlin-stdlib-jdk8", version = Vof.kotlin)
+    implementation(group = "systems.uom", name = "systems-quantity", version = Vof.uom)
+    implementation(group = "systems.uom", name = "systems-common", version = Vof.uom)
+    implementation(group = "systems.uom", name = "systems-unicode", version = Vof.uom)
+    implementation(group = "systems.uom", name = "systems-ucum", version = Vof.uom)
 }

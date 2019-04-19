@@ -21,10 +21,14 @@ plugins {
     jacoco
 }
 
+repositories {
+    mavenCentral()
+}
+
 dependencies {
     api(group = "tec.units", name = "indriya", version = "1.0")
-    implementation(group = "org.tenkiv.coral" , name = "coral", version = "2.1.2.3-SNAPSHOT")
     implementation(kotlin("stdlib-jdk8"))
+    implementation(group = "org.tenkiv.coral" , name = "coral-jvm", version = Vof.coral)
 
     //test
     testImplementation(gradleTestKit())
