@@ -18,6 +18,7 @@
 package org.tenkiv.physikal.complete
 
 import systems.uom.ucum.*
+import systems.uom.ucum.UCUM.*
 import tec.units.indriya.*
 import tec.units.indriya.quantity.*
 import javax.measure.quantity.*
@@ -28,7 +29,7 @@ import javax.measure.quantity.*
  * @return A [ComparableQuantity] with specified value.
  */
 val Number.rankine: ComparableQuantity<Temperature>
-    get() = Quantities.getQuantity<Temperature>(this, UCUM.RANKINE)
+    get() = Quantities.getQuantity<Temperature>(this, RANKINE)
 
 /**
  * Builder method for [ComparableQuantity] with unit [UCUM.FAHRENHEIT].
@@ -36,4 +37,4 @@ val Number.rankine: ComparableQuantity<Temperature>
  * @return A [ComparableQuantity] with specified value.
  */
 val Number.fahrenheit: ComparableQuantity<Temperature>
-    get() = Quantities.getQuantity<Temperature>(this, UCUM.FAHRENHEIT)
+    get() = Quantities.getQuantity<Temperature>(this, FAHRENHEIT)

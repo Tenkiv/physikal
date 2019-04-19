@@ -19,7 +19,6 @@ package org.tenkiv.physikal.core
 
 import org.spekframework.spek2.*
 import org.spekframework.spek2.style.specification.*
-import org.tenkiv.physikal.core.*
 import tec.units.indriya.*
 import javax.measure.quantity.*
 import kotlin.test.*
