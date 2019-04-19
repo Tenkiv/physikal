@@ -7,7 +7,7 @@ Currently just extensions for [Java units of measurement](https://github.com/uni
 ### Artifacts
  | | Core | SI Units | Complete Units
  ------- | :-----: | :-----: | :-----:
- JVM | [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.tenkiv.physikal/core/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.tenkiv.physikal/core) | [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.tenkiv.physikal/si-units/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.tenkiv.physikal/si-units) | [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.tenkiv.physikal/complete-units/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.tenkiv.physikal/complete-units)
+ JVM | [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.tenkiv.physikal/physikal-core/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.tenkiv.physikal/physikal-core) | [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.tenkiv.physikal/physikal-si-units/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.tenkiv.physikal/physikal-si-units) | [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.tenkiv.physikal/physikal-complete-units/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.tenkiv.physikal/physikal-complete-units)
 
 
 ### Usage
