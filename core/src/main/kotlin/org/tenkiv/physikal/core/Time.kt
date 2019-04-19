@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Tenkiv, Inc.
+ * Copyright 2019 Tenkiv, Inc.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
  * documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
@@ -14,15 +14,16 @@
  * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 package org.tenkiv.physikal.core
 
-import tec.units.indriya.ComparableQuantity
-import tec.units.indriya.unit.MetricPrefix.NANO
-import tec.units.indriya.unit.Units.SECOND
-import java.time.Duration
-import java.time.temporal.ChronoUnit
-import javax.measure.Quantity
-import javax.measure.quantity.Time
+import tec.units.indriya.*
+import tec.units.indriya.unit.MetricPrefix.*
+import tec.units.indriya.unit.Units.*
+import java.time.*
+import java.time.temporal.*
+import javax.measure.*
+import javax.measure.quantity.*
 
 /**
  * Get this time quantity as a [Duration].

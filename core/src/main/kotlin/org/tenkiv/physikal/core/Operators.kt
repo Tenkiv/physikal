@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Tenkiv, Inc.
+ * Copyright 2019 Tenkiv, Inc.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
  * documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
@@ -14,11 +14,12 @@
  * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 package org.tenkiv.physikal.core
 
-import tec.units.indriya.ComparableQuantity
-import tec.units.indriya.quantity.Quantities
-import javax.measure.Quantity
+import tec.units.indriya.*
+import tec.units.indriya.quantity.*
+import javax.measure.*
 import javax.measure.Unit
 
 // Number operators
@@ -69,6 +70,13 @@ operator fun <Q : Quantity<Q>> Unit<Q>.times(multiplier: Double): Unit<Q> = mult
  *
  * @return [Unit] with multiplied value.
  */
+infix fun Unit<*>.dynTimes(multiplier: Double): Unit<*> = multiply(multiplier)
+
+/**
+ * Function to call the [Quantity.multiply] function on specified value.
+ *
+ * @return [Unit] with multiplied value.
+ */
 operator fun Unit<*>.times(multiplier: Unit<*>): Unit<*> = multiply(multiplier)
 
 /**
@@ -83,6 +91,13 @@ operator fun <Q : Quantity<Q>> Unit<Q>.div(divisor: Double): Unit<Q> = divide(di
  *
  * @return [Unit] with divided value.
  */
+infix fun Unit<*>.dynDiv(divisor: Double): Unit<*> = divide(divisor)
+
+/**
+ * Function to call the [Quantity.divide] function on specified value.
+ *
+ * @return [Unit] with divided value.
+ */
 operator fun Unit<*>.div(divisor: Unit<*>): Unit<*> = divide(divisor)
 
 // Quantity operators
@@ -91,14 +106,28 @@ operator fun Unit<*>.div(divisor: Unit<*>): Unit<*> = divide(divisor)
  *
  * @return [ComparableQuantity] with added value.
  */
-operator fun <Q : Quantity<Q>> Quantity<Q>.unaryPlus(): ComparableQuantity<Q> = (+value.toDouble())(unit)
+operator fun <Q : Quantity<Q>> Quantity<Q>.unaryPlus(): ComparableQuantity<Q> = (+valueToDouble())(unit)
+
+/**
+ * Function to unary add function on specified value.
+ *
+ * @return [ComparableQuantity] with added value.
+ */
+fun Quantity<*>.dynUnaryPlus(): ComparableQuantity<*> = +valueToDouble() withSymbol getUnit().getSymbol()
 
 /**
  * Function to unary minus function on specified value.
  *
  * @return [ComparableQuantity] with subtracted value.
  */
-operator fun <Q : Quantity<Q>> Quantity<Q>.unaryMinus(): ComparableQuantity<Q> = (-value.toDouble())(unit)
+operator fun <Q : Quantity<Q>> Quantity<Q>.unaryMinus(): ComparableQuantity<Q> = (-valueToDouble())(unit)
+
+/**
+ * Function to unary minus function on specified value.
+ *
+ * @return [ComparableQuantity] with subtracted value.
+ */
+fun Quantity<*>.dynUnaryMinus(): ComparableQuantity<*> = -valueToDouble() withSymbol getUnit().getSymbol()
 
 /**
  * Function to increment specified value.
@@ -143,6 +172,13 @@ operator fun Quantity<*>.times(multiplier: Quantity<*>): Quantity<*> = multiply(
 operator fun <Q : Quantity<Q>> Quantity<Q>.times(multiplier: Number): Quantity<Q> = multiply(multiplier)
 
 /**
+ * Function to multiply two [Quantity]s.
+ *
+ * @return [Quantity] with multiplied value.
+ */
+infix fun Quantity<*>.dynTimes(multiplier: Number): Quantity<*> = multiply(multiplier)
+
+/**
  * Function to divide two [Quantity]s.
  *
  * @return [Quantity] with divided value.
@@ -155,6 +191,13 @@ operator fun Quantity<*>.div(divisor: Quantity<*>): Quantity<*> = divide(divisor
  * @return [Quantity] with divided value.
  */
 operator fun <Q : Quantity<Q>> Quantity<Q>.div(divisor: Number): Quantity<Q> = divide(divisor)
+
+/**
+ * Function to divide two [Quantity]s.
+ *
+ * @return [Quantity] with divided value.
+ */
+infix fun Quantity<*>.dynDiv(divisor: Number): Quantity<*> = divide(divisor)
 
 /**
  * Function to convert a [Quantity] to a different [Unit].
@@ -281,6 +324,14 @@ operator fun <Q : Quantity<Q>> ComparableQuantity<Q>.times(multiplier: Number): 
     multiply(multiplier)
 
 /**
+ * Function to multiply two [ComparableQuantity]s.
+ *
+ * @return [ComparableQuantity] with multiplied value.
+ */
+infix fun ComparableQuantity<*>.dynTimes(multiplier: Number): ComparableQuantity<*> =
+    multiply(multiplier)
+
+/**
  * Function to divide two [ComparableQuantity]s.
  *
  * @return [ComparableQuantity] with divided value.
@@ -293,6 +344,13 @@ operator fun ComparableQuantity<*>.div(divisor: Quantity<*>): ComparableQuantity
  * @return [ComparableQuantity] with divided value.
  */
 operator fun <Q : Quantity<Q>> ComparableQuantity<Q>.div(divisor: Number): ComparableQuantity<Q> = divide(divisor)
+
+/**
+ * Function to divide two [ComparableQuantity]s.
+ *
+ * @return [ComparableQuantity] with divided value.
+ */
+infix fun ComparableQuantity<*>.dynDiv(divisor: Number): ComparableQuantity<*> = divide(divisor)
 
 /**
  * Function to convert a [ComparableQuantity] to a different [Unit].

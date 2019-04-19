@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Tenkiv, Inc.
+ * Copyright 2019 Tenkiv, Inc.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
  * documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
@@ -14,11 +14,12 @@
  * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 package org.tenkiv.physikal.core
 
-import tec.units.indriya.ComparableQuantity
-import tec.units.indriya.unit.MetricPrefix
-import javax.measure.Quantity
+import tec.units.indriya.*
+import tec.units.indriya.unit.*
+import javax.measure.*
 import javax.measure.Unit
 
 // typealiases
@@ -92,11 +93,24 @@ fun <Q : Quantity<Q>> Quantity<Q>.toComparable(): ComparableQuantity<Q> =
     this as? ComparableQuantity ?: value(unit)
 
 /**
- * @throws ClassCastException if the quantity is not of the given type.
+ * Casts this quantity to a parameterized unit of specified nature or throw a <code>ClassCastException</code> if the
+ * dimension of the specified quantity and this measure unit's dimension do not match. For example:
+ * <p>
+ * <code>
+ *     {@literal Quantity<Length>} length = Quantities.getQuantity("2 km").asType(Length.class);
+ * </code> or <code>
+ *     {@literal Quantity<Speed>} C = length.multiply(299792458).divide(second).asType(Speed.class);
+ * </code>
+ * </p>
  *
- * Function to type a Quantity.
- *
- * @return the [Quantity] with the specified type.
+ * @param <T>
+ *          The type of the quantity.
+ * @return this quantity parameterized with the specified type.
+ * @throws ClassCastException
+ *           if the dimension of this unit is different from the specified quantity dimension.
+ * @throws UnsupportedOperationException
+ *           if the specified quantity class does not have a SI unit for the quantity.
+ * @see Unit.asType(Class)
  */
 inline fun <reified Q : Quantity<Q>> Quantity<*>.asType(): Quantity<Q> = asType(Q::class.java)
 

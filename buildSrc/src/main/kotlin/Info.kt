@@ -15,25 +15,15 @@
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package org.tenkiv.physikal.complete
-
-import systems.uom.ucum.*
-import tec.units.indriya.*
-import tec.units.indriya.quantity.*
-import javax.measure.quantity.*
-
-/**
- * Builder method for [ComparableQuantity] with unit [UCUM.RANKINE].
- *
- * @return A [ComparableQuantity] with specified value.
- */
-val Number.rankine: ComparableQuantity<Temperature>
-    get() = Quantities.getQuantity<Temperature>(this, UCUM.RANKINE)
-
-/**
- * Builder method for [ComparableQuantity] with unit [UCUM.FAHRENHEIT].
- *
- * @return A [ComparableQuantity] with specified value.
- */
-val Number.fahrenheit: ComparableQuantity<Temperature>
-    get() = Quantities.getQuantity<Temperature>(this, UCUM.FAHRENHEIT)
+object Info {
+    const val pomDescription =
+        "A units of measurement extensions library."
+    const val pomLicense = "MIT License"
+    const val pomLicenseUrl = "https://opensource.org/licenses/MIT"
+    const val pomOrg = "Tenkiv, Inc."
+    const val sonatypeReleaseRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+    const val sonatypeSnapshotRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots"
+    const val projectUrl = "https://gitlab.com/tenkiv/software/physikal.git"
+    const val projectCloneUrl = "git@gitlab.com:tenkiv/software/physikal.git"
+    const val projectDevEmail = "zjuhasz@tenkiv.org"
+}

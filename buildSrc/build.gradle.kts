@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 /*
  * Copyright 2019 Tenkiv, Inc.
  *
@@ -13,27 +15,25 @@
  * WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
  * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
-
-package org.tenkiv.physikal.complete
-
-import systems.uom.ucum.*
-import tec.units.indriya.*
-import tec.units.indriya.quantity.*
-import javax.measure.quantity.*
-
-/**
- * Builder method for [ComparableQuantity] with unit [UCUM.RANKINE].
  *
- * @return A [ComparableQuantity] with specified value.
  */
-val Number.rankine: ComparableQuantity<Temperature>
-    get() = Quantities.getQuantity<Temperature>(this, UCUM.RANKINE)
 
-/**
- * Builder method for [ComparableQuantity] with unit [UCUM.FAHRENHEIT].
- *
- * @return A [ComparableQuantity] with specified value.
- */
-val Number.fahrenheit: ComparableQuantity<Temperature>
-    get() = Quantities.getQuantity<Temperature>(this, UCUM.FAHRENHEIT)
+plugins {
+    `kotlin-dsl`
+    kotlin("jvm") version "1.3.21"
+}
+
+repositories {
+    jcenter()
+}
+dependencies {
+    implementation(kotlin("stdlib-jdk8"))
+}
+val compileKotlin: KotlinCompile by tasks
+compileKotlin.kotlinOptions {
+    jvmTarget = "1.8"
+}
+val compileTestKotlin: KotlinCompile by tasks
+compileTestKotlin.kotlinOptions {
+    jvmTarget = "1.8"
+}

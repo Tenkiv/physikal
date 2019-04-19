@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Tenkiv, Inc.
+ * Copyright 2019 Tenkiv, Inc.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
  * documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
@@ -14,16 +14,15 @@
  * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 package org.tenkiv.physikal.si
 
-import org.tenkiv.physikal.core.MetricPrefixedNumber
-import org.tenkiv.physikal.core.invoke
-import si.uom.NonSI.SECOND_ANGLE
+import org.tenkiv.physikal.core.*
+import si.uom.NonSI.TONNE
 import si.uom.SI.*
-import si.uom.SI
 import si.uom.quantity.*
-import tec.units.indriya.ComparableQuantity
-import tec.units.indriya.quantity.Quantities
+import tec.units.indriya.*
+import tec.units.indriya.quantity.*
 import javax.measure.quantity.*
 
 /**
@@ -235,12 +234,60 @@ val MetricPrefixedNumber.wattPerSteradianPerSquareMetre: ComparableQuantity<Radi
     get() = number(WATT_PER_STERADIAN_PER_SQUARE_METRE.transform(prefix.converter))
 
 /**
+ * Builder method for [ComparableQuantity] with unit [DEGREE_ANGLE].
+ *
+ * @return A [ComparableQuantity] with specified value.
+ */
+val Number.degreeAngle: ComparableQuantity<Angle>
+    get() = Quantities.getQuantity<Angle>(this, DEGREE_ANGLE)
+
+/**
+ * Builder method for [ComparableQuantity] with unit [MINUTE_ANGLE].
+ *
+ * @return A [ComparableQuantity] with specified value.
+ */
+val Number.minuteAngle: ComparableQuantity<Angle>
+    get() = Quantities.getQuantity<Angle>(this, MINUTE_ANGLE)
+
+/**
  * Builder method for [ComparableQuantity] with unit [SECOND_ANGLE].
  *
  * @return A [ComparableQuantity] with specified value.
  */
+val Number.secondAngle: ComparableQuantity<Angle>
+    get() = Quantities.getQuantity<Angle>(this, SECOND_ANGLE)
+
+/**
+ * Builder method for [ComparableQuantity] with unit [TONNE].
+ *
+ * @return A [ComparableQuantity] with specified value.
+ */
+val Number.tonne: ComparableQuantity<Mass>
+    get() = Quantities.getQuantity<Mass>(this, TONNE)
+
+/**
+ * Builder method for [ComparableQuantity] with unit [TONNE].
+ *
+ * @return A [ComparableQuantity] with specified value.
+ */
+val MetricPrefixedNumber.tonne: ComparableQuantity<Mass>
+    get() = number(TONNE.transform(prefix.converter))
+
+/**
+ * Builder method for [ComparableQuantity] with unit [ELECTRON_VOLT].
+ *
+ * @return A [ComparableQuantity] with specified value.
+ */
 val Number.electronVolt: ComparableQuantity<Energy>
-    get() = Quantities.getQuantity<Energy>(this, SI.ELECTRON_VOLT)
+    get() = Quantities.getQuantity<Energy>(this, ELECTRON_VOLT)
+
+/**
+ * Builder method for [ComparableQuantity] with unit [ELECTRON_VOLT].
+ *
+ * @return A [ComparableQuantity] with specified value.
+ */
+val MetricPrefixedNumber.electronVolt: ComparableQuantity<Energy>
+    get() = number(ELECTRON_VOLT.transform(prefix.converter))
 
 /**
  * Builder method for [ComparableQuantity] with unit [UNIFIED_ATOMIC_MASS].
@@ -248,7 +295,7 @@ val Number.electronVolt: ComparableQuantity<Energy>
  * @return A [ComparableQuantity] with specified value.
  */
 val Number.unifiedAtomicMass: ComparableQuantity<Mass>
-    get() = Quantities.getQuantity<Mass>(this, SI.UNIFIED_ATOMIC_MASS)
+    get() = Quantities.getQuantity<Mass>(this, UNIFIED_ATOMIC_MASS)
 
 /**
  * Builder method for [ComparableQuantity] with unit [UNIFIED_ATOMIC_MASS].
@@ -256,7 +303,7 @@ val Number.unifiedAtomicMass: ComparableQuantity<Mass>
  * @return A [ComparableQuantity] with specified value.
  */
 val MetricPrefixedNumber.unifiedAtomicMass: ComparableQuantity<Mass>
-    get() = number(SI.UNIFIED_ATOMIC_MASS.transform(prefix.converter))
+    get() = number(UNIFIED_ATOMIC_MASS.transform(prefix.converter))
 
 /**
  * Builder method for [ComparableQuantity] with unit [ASTRONOMICAL_UNIT].
@@ -264,7 +311,7 @@ val MetricPrefixedNumber.unifiedAtomicMass: ComparableQuantity<Mass>
  * @return A [ComparableQuantity] with specified value.
  */
 val Number.astronomicalUnit: ComparableQuantity<Length>
-    get() = Quantities.getQuantity<Length>(this, SI.ASTRONOMICAL_UNIT)
+    get() = Quantities.getQuantity<Length>(this, ASTRONOMICAL_UNIT)
 
 /**
  * Builder method for [ComparableQuantity] with unit [ASTRONOMICAL_UNIT].
@@ -272,7 +319,7 @@ val Number.astronomicalUnit: ComparableQuantity<Length>
  * @return A [ComparableQuantity] with specified value.
  */
 val MetricPrefixedNumber.astronomicalUnit: ComparableQuantity<Length>
-    get() = number(SI.ASTRONOMICAL_UNIT.transform(prefix.converter))
+    get() = number(ASTRONOMICAL_UNIT.transform(prefix.converter))
 
 /**
  * Builder method for [ComparableQuantity] with unit [REVOLUTION].
@@ -296,7 +343,7 @@ val MetricPrefixedNumber.revolution: ComparableQuantity<Angle>
  * @return A [ComparableQuantity] with specified value.
  */
 val Number.hectare: ComparableQuantity<Area>
-    get() = Quantities.getQuantity<Area>(this, SI.HECTARE)
+    get() = Quantities.getQuantity<Area>(this, HECTARE)
 
 /**
  * Builder method for [ComparableQuantity] with unit [HECTARE].
@@ -304,4 +351,4 @@ val Number.hectare: ComparableQuantity<Area>
  * @return A [ComparableQuantity] with specified value.
  */
 val MetricPrefixedNumber.hectare: ComparableQuantity<Area>
-    get() = number(SI.HECTARE.transform(prefix.converter))
+    get() = number(HECTARE.transform(prefix.converter))

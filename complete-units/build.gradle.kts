@@ -15,25 +15,15 @@
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package org.tenkiv.physikal.complete
+plugins {
+    kotlin("jvm")
+}
 
-import systems.uom.ucum.*
-import tec.units.indriya.*
-import tec.units.indriya.quantity.*
-import javax.measure.quantity.*
-
-/**
- * Builder method for [ComparableQuantity] with unit [UCUM.RANKINE].
- *
- * @return A [ComparableQuantity] with specified value.
- */
-val Number.rankine: ComparableQuantity<Temperature>
-    get() = Quantities.getQuantity<Temperature>(this, UCUM.RANKINE)
-
-/**
- * Builder method for [ComparableQuantity] with unit [UCUM.FAHRENHEIT].
- *
- * @return A [ComparableQuantity] with specified value.
- */
-val Number.fahrenheit: ComparableQuantity<Temperature>
-    get() = Quantities.getQuantity<Temperature>(this, UCUM.FAHRENHEIT)
+dependencies {
+    api(project(":si-units"))
+    implementation(group = "org.jetbrains.kotlin", name = "kotlin-stdlib-jdk8", version = Vof.kotlin)
+    implementation(group = "systems.uom", name = "systems-quantity", version = Vof.uom)
+    implementation(group = "systems.uom", name = "systems-common", version = Vof.uom)
+    implementation(group = "systems.uom", name = "systems-unicode", version = Vof.uom)
+    implementation(group = "systems.uom", name = "systems-ucum", version = Vof.uom)
+}

@@ -15,25 +15,12 @@
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package org.tenkiv.physikal.complete
-
-import systems.uom.ucum.*
-import tec.units.indriya.*
-import tec.units.indriya.quantity.*
-import javax.measure.quantity.*
-
-/**
- * Builder method for [ComparableQuantity] with unit [UCUM.RANKINE].
- *
- * @return A [ComparableQuantity] with specified value.
- */
-val Number.rankine: ComparableQuantity<Temperature>
-    get() = Quantities.getQuantity<Temperature>(this, UCUM.RANKINE)
-
-/**
- * Builder method for [ComparableQuantity] with unit [UCUM.FAHRENHEIT].
- *
- * @return A [ComparableQuantity] with specified value.
- */
-val Number.fahrenheit: ComparableQuantity<Temperature>
-    get() = Quantities.getQuantity<Temperature>(this, UCUM.FAHRENHEIT)
+object Vof {
+    const val kotlin = "1.3.30"
+    const val jacocoTool = "0.8.3"
+    const val spek = "2.0.2"
+    const val junitPlatform = "1.4.1"
+    const val dokka = "0.9.18"
+    const val uom = "0.9"
+    const val coral = "2.3.4"
+}

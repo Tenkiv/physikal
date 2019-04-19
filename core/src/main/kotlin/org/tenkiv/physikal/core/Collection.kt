@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Tenkiv, Inc.
+ * Copyright 2019 Tenkiv, Inc.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
  * documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
@@ -14,11 +14,12 @@
  * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 package org.tenkiv.physikal.core
 
-import tec.units.indriya.ComparableQuantity
-import tec.units.indriya.unit.Units
-import javax.measure.Quantity
+import tec.units.indriya.*
+import tec.units.indriya.unit.*
+import javax.measure.*
 
 /**
  * Averages a [Collection] of [Quantity]s.
@@ -46,6 +47,7 @@ inline fun <E, Q : Quantity<Q>> Collection<E>.averageOrNull(getValue: (E) -> Qua
  * @return [ComparableQuantity] with average value of the [Collection] or null value if no elements match
  * the condition.
  */
+@Deprecated("Should use filter followed by average instead.")
 inline fun <E, Q : Quantity<Q>> Collection<E>.averageOrNull(getValue: (E) -> Quantity<Q>, condition: (E) -> Boolean):
         ComparableQuantity<Q>? {
     var totalValue: ComparableQuantity<Q>? = null
@@ -93,6 +95,7 @@ inline fun <E, reified Q : Quantity<Q>> Collection<E>.averageOrDefault(
  * @return [ComparableQuantity] with average value of the [Collection] or a default value if no elements match
  * the condition.
  */
+@Deprecated("Should use filter followed by average instead.")
 inline fun <E, reified Q : Quantity<Q>> Collection<E>.averageOrDefault(
     defaultValue: ComparableQuantity<Q> = 0(Units.getInstance().getUnit(Q::class.java)),
     getValue: (E) -> Quantity<Q>,
