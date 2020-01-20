@@ -26,4 +26,5 @@ object Info {
     const val projectUrl = "https://gitlab.com/tenkiv/software/physikal.git"
     const val projectCloneUrl = "git@gitlab.com:tenkiv/software/physikal.git"
     const val projectDevEmail = "zjuhasz@tenkiv.org"
+    const val projectDevEmail2 = "skern@tenkiv.org"
 }

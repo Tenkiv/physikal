@@ -15,117 +15,87 @@
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import java.io.*
-import java.util.*
-
-plugins {
-    kotlin("jvm") version Vof.kotlin apply false
-    java
-    id("org.jetbrains.dokka") version Vof.dokka apply false
-    signing
-    `maven-publish`
-}
-
 buildscript {
     repositories {
         mavenCentral()
-    }
-}
-
-allprojects {
-    repositories {
         jcenter()
-        mavenCentral()
-        maven(url = "https://oss.sonatype.org/content/repositories/snapshots/")
     }
 }
 
-val isRelease = !version.toString().endsWith("SNAPSHOT")
-val localProperties = Properties()
-val propertiesFile = File(rootDir, "local.properties")
-if (propertiesFile.canRead()) {
-    localProperties.load(FileInputStream(propertiesFile))
+repositories {
+    mavenCentral()
+    jcenter()
+    google()
+    maven(url = "https://oss.sonatype.org/content/repositories/snapshots/")
 }
 
-extra["signing.keyId"] = localProperties.getProperty("SIGNING_KEYID")
-extra["signing.secretKeyRingFile"] = localProperties.getProperty("SIGNING_SECRETKEYRINGFILE")
-extra["signing.password"] = localProperties.getProperty("SIGNING_KEYPASSWORD")
+plugins {
+    kotlin("multiplatform") version Vof.kotlin
+    id("org.jetbrains.dokka") version Vof.dokka
+    id("maven-publish")
+    signing
+}
 
-subprojects {
-    apply(plugin = "org.jetbrains.dokka")
-    apply(plugin = "java-library")
-    apply(plugin = "maven-publish")
-    apply(plugin = "signing")
+val isRelease = isRelease()
+val properties = createPropertiesFromLocal()
+setSigningExtrasFromProperties(properties)
+
+kotlin {
+    jvm {
+        val main by compilations.getting {
+            kotlinOptions {
+                jvmTarget = "1.8"
+            }
+        }
+    }
+
+    sourceSets {
+        val commonMain by getting {
+            dependencies {
+                implementation(kotlin("stdlib-common"))
+            }
+        }
+        val commonTest by getting {
+            dependencies {
+                implementation(kotlin("test-common"))
+                implementation(kotlin("test-annotations-common"))
+            }
+        }
+        val jvmMain by getting {
+            dependencies {
+                implementation(kotlin("stdlib-jdk8"))
+            }
+        }
+        val jvmTest by getting {
+            dependencies {
+                implementation(kotlin("reflect"))
+                implementation(kotlin("test"))
+                implementation("org.spekframework.spek2:spek-dsl-jvm:${Vof.spek}")
+                runtimeOnly("org.spekframework.spek2:spek-runner-junit5:${Vof.spek}")
+                runtimeOnly("org.junit.platform:junit-platform-launcher:${Vof.junitPlatform}")
+            }
+        }
+    }
 
     tasks {
-        register<Jar>("sourcesJar") {
-            from(project.sourceSets.main.get().allJava)
-            archiveClassifier.set("sources")
-        }
-
-        register<Jar>("javadocJar") {
-            from(getByName("dokka"))
-            archiveClassifier.set("javadoc")
-        }
+        registerCommonTasks()
     }
 
-    configure<PublishingExtension> {
-        publications {
-            create<MavenPublication>("maven-${project.name}") {
-                groupId = "org.tenkiv.physikal"
-                artifactId = "physikal-${project.name}"
-                version = project.version.toString()
-
-                from(components["java"])
-                artifact(tasks["sourcesJar"])
-                artifact(tasks["javadocJar"])
-
-                pom {
-                    name.set(project.name)
-                    description.set(Info.pomDescription)
-                    url.set(Info.projectUrl)
-                    licenses {
-                        license {
-                            name.set(Info.pomLicense)
-                            url.set(Info.pomLicenseUrl)
-                        }
-                    }
-                    developers {
-                        developer {
-                            email.set(Info.projectDevEmail)
-                        }
-                    }
-                    organization {
-                        name.set(Info.pomOrg)
-                    }
-                    scm {
-                        connection.set(Info.projectCloneUrl)
-                        url.set(Info.projectUrl)
-                    }
-                }
+    publishing {
+        publications.withType<MavenPublication>().apply {
+            val jvm by getting {
+                artifactId = "physikal-jvm"
+                artifact(tasks.getByName("javadocJar"))
             }
-        }
-        repositories {
-            maven {
-                val releasesRepoUrl = uri(Info.sonatypeReleaseRepoUrl)
-                val snapshotsRepoUrl = uri(Info.sonatypeSnapshotRepoUrl)
-                url = if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl
-                credentials {
-                    if (isRelease) {
-                        username = localProperties.getProperty("MAVEN_USER")
-                        password = localProperties.getProperty("MAVEN_PASSWORD")
-                    } else {
-                        username = System.getenv("MAVEN_REPO_USER")
-                        password = System.getenv("MAVEN_REPO_PASSWORD")
-                    }
-                }
-            }
-        }
-    }
 
-    signing {
-        if (isRelease) {
-            sign(publishing.publications["maven-${project.name}"])
+            val metadata by getting {
+                artifactId = "physikal-common"
+            }
+        }.forEach {
+            it.configureMavenPom(isRelease, project)
+            signing { if (isRelease) sign(it) }
         }
+
+        setMavenRepositories(isRelease, properties)
     }
 }

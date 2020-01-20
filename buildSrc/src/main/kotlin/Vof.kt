@@ -16,11 +16,11 @@
  */
 
 object Vof {
-    const val kotlin = "1.3.30"
+    const val kotlin = "1.3.61"
     const val jacocoTool = "0.8.3"
-    const val spek = "2.0.2"
-    const val junitPlatform = "1.4.1"
-    const val dokka = "0.9.18"
+    const val spek = "2.0.9"
+    const val junitPlatform = "1.5.2"
+    const val dokka = "0.10.0"
     const val uom = "0.9"
     const val coral = "2.3.4"
 }
