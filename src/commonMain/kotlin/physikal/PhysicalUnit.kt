@@ -20,4 +20,6 @@ package physikal
 interface PhysicalUnit<Q: Quantity<Q>> {
     val symbol: String
     val isCanonical: Boolean
+
+    fun fromCanonicalValue(value: Double): Q
 }

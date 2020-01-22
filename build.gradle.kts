@@ -60,7 +60,6 @@ kotlin {
             dependencies {
                 implementation(kotlin("stdlib-common"))
                 api("org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:${Vof.serialization}")
-                api("com.ionspin.kotlin:bignum:${Vof.bignum}")
             }
         }
         val commonTest by getting {

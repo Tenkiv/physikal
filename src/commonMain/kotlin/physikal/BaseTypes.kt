@@ -17,20 +17,41 @@
 
 package physikal
 
-interface Temperature : Quantity<Temperature>
+interface Temperature : Quantity<Temperature> {
+    override fun convertToCanonical(): Kelvin
+}
 
-interface Kelvin : Temperature {
-    override val unit: PhysicalUnit<Temperature>
-        get() = Unit
+class Kelvin(override val value: Double) : Temperature {
+    override val unit: PhysicalUnit<Temperature> get() = Companion
 
-    object Unit : PhysicalUnit<Temperature> {
-        override val symbol: String
-            get() = "K"
-        override val isCanonical: Boolean
-            get() = true
+    override fun convertToCanonical(): Kelvin = this
+
+    companion object : PhysicalUnit<Temperature> {
+        override val symbol: String get() = "K"
+        override val isCanonical: Boolean get() = true
+
+        override fun fromCanonicalValue(value: Double): Kelvin = value.kelvin
     }
 }
 
-class KelvinFloat(override val value: Float) : Kelvin
+val Double.kelvin get() = Kelvin(this)
 
-class KelvinDouble(override val value: Double) : Kelvin
+class Celsius(override val value: Double) : Temperature {
+    override fun convertToCanonical(): Kelvin {
+        TODO("not implemented")
+    }
+
+    override val unit: PhysicalUnit<Temperature>
+        get() = Companion
+
+    companion object : PhysicalUnit<Temperature> {
+        override val symbol: String
+            get() = TODO("not implemented")
+        override val isCanonical: Boolean
+            get() = TODO("not implemented")
+
+        override fun fromCanonicalValue(value: Double): Celsius {
+            TODO("not implemented")
+        }
+    }
+}

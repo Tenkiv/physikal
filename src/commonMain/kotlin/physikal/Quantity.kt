@@ -18,6 +18,8 @@
 package physikal
 
 interface Quantity<Q : Quantity<Q>> {
-    val value: Number
+    val value: Double
     val unit: PhysicalUnit<Q>
+
+    fun convertToCanonical(): Q
 }
