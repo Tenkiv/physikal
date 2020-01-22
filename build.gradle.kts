@@ -20,6 +20,11 @@ buildscript {
         mavenCentral()
         jcenter()
     }
+
+    dependencies {
+        classpath(group = "org.jetbrains.kotlin", name = "kotlin-serialization", version = Vof.kotlin)
+    }
+
 }
 
 repositories {
@@ -31,6 +36,7 @@ repositories {
 
 plugins {
     kotlin("multiplatform") version Vof.kotlin
+    id("org.jetbrains.kotlin.plugin.serialization") version Vof.kotlin
     id("org.jetbrains.dokka") version Vof.dokka
     id("maven-publish")
     signing
@@ -53,6 +59,8 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(kotlin("stdlib-common"))
+                api("org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:${Vof.serialization}")
+                api("com.ionspin.kotlin:bignum:${Vof.bignum}")
             }
         }
         val commonTest by getting {
@@ -64,6 +72,7 @@ kotlin {
         val jvmMain by getting {
             dependencies {
                 implementation(kotlin("stdlib-jdk8"))
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:${Vof.serialization}")
             }
         }
         val jvmTest by getting {

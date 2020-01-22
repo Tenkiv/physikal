@@ -93,3 +93,4 @@ si-units/out/production/classes/META-INF/
 si-units/out/test/classes/META-INF/
 /buildSrc/.gradle/
 /buildSrc/build/
+/src/jvmMain/kotlin/Test.kt

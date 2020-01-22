@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Tenkiv, Inc.
+ * Copyright 2020 Tenkiv, Inc.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
  * documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
@@ -15,13 +15,9 @@
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-object Vof {
-    const val kotlin = "1.3.61"
-    const val coral = "2.3.4"
-    const val serialization = "0.14.0"
-    const val bignum = "0.1.5"
+package physikal
 
-    const val spek = "2.0.9"
-    const val junitPlatform = "1.5.2"
-    const val dokka = "0.10.0"
+interface PhysicalUnit<Q: Quantity<Q>> {
+    val symbol: String
+    val isCanonical: Boolean
 }
