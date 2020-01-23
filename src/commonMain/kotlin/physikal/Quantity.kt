@@ -17,19 +17,34 @@
 
 package physikal
 
-interface Quantity<QT : Quantity<QT>> {
+interface Quantity<QT : Quantity<QT>> : Comparable<Quantity<QT>> {
     val value: Double
     val unit: PhysicalUnit<QT>
 
     fun convertToCanonical(): Quantity<QT>
+
+    override fun compareTo(other: Quantity<QT>): Int =
+        this.convertToCanonical().value.compareTo(other.convertToCanonical().value)
 }
 
 operator fun <QT : Quantity<QT>> Quantity<QT>.unaryPlus(): Quantity<QT> = unit.quantityFromValue(+this.value)
 
+operator fun <QT : Quantity<QT>> Quantity<QT>.unaryMinus(): Quantity<QT> = unit.quantityFromValue(-this.value)
+
+operator fun <QT : Quantity<QT>> Quantity<QT>.inc() = unit.quantityFromValue(this.value + 1)
+
+operator fun <QT : Quantity<QT>> Quantity<QT>.dec() = unit.quantityFromValue(this.value - 1)
+
+operator fun <QT : Quantity<QT>> Quantity<QT>.plus(other: Quantity<QT>): Quantity<QT> =
+    this.unit.quantityFromValue(this.value + other.convertTo(this.unit).value)
+
+operator fun <QT : Quantity<QT>> Quantity<QT>.minus(other: Quantity<QT>): Quantity<QT> =
+    this.unit.quantityFromValue(this.value - other.convertTo(this.unit).value)
+
 infix fun <QT : Quantity<QT>> Quantity<QT>.convertTo(unit: PhysicalUnit<QT>): Quantity<QT> =
     unit.quantityFromCanonicalValue(this.convertToCanonical().value)
 
-interface PhysicalUnit<QT: Quantity<QT>> {
+interface PhysicalUnit<QT : Quantity<QT>> {
     val symbol: String
     val isCanonical: Boolean
 

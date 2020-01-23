@@ -51,7 +51,7 @@ private class CelsiusQuantity(override val value: Double) : Quantity<Temperature
 }
 
 object Celsius : PhysicalUnit<Temperature> {
-    override val symbol: String get() = "C"
+    override val symbol: String get() = "°C"
     override val isCanonical: Boolean get() = false
 
     override fun quantityFromValue(value: Double): Quantity<Temperature> = value.ceslsius
