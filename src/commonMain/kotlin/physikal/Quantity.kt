@@ -17,9 +17,23 @@
 
 package physikal
 
-interface Quantity<Q : Quantity<Q>> {
+interface Quantity<QT : Quantity<QT>> {
     val value: Double
-    val unit: PhysicalUnit<Q>
+    val unit: PhysicalUnit<QT>
 
-    fun convertToCanonical(): Q
+    fun convertToCanonical(): Quantity<QT>
+}
+
+operator fun <QT : Quantity<QT>> Quantity<QT>.unaryPlus(): Quantity<QT> = unit.quantityFromValue(+this.value)
+
+infix fun <QT : Quantity<QT>> Quantity<QT>.convertTo(unit: PhysicalUnit<QT>): Quantity<QT> =
+    unit.quantityFromCanonicalValue(this.convertToCanonical().value)
+
+interface PhysicalUnit<QT: Quantity<QT>> {
+    val symbol: String
+    val isCanonical: Boolean
+
+    fun quantityFromValue(value: Double): Quantity<QT>
+
+    fun quantityFromCanonicalValue(value: Double): Quantity<QT>
 }
