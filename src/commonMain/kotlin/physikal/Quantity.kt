@@ -17,6 +17,8 @@
 
 package physikal
 
+import kotlinx.serialization.*
+
 interface Quantity<QT : Quantity<QT>> : Comparable<Quantity<QT>> {
     val value: Double
     val unit: PhysicalUnit<QT>
@@ -25,6 +27,12 @@ interface Quantity<QT : Quantity<QT>> : Comparable<Quantity<QT>> {
 
     override fun compareTo(other: Quantity<QT>): Int =
         this.convertToCanonical().value.compareTo(other.convertToCanonical().value)
+
+    companion object {
+        @Suppress("UNCHECKED_CAST")
+        fun <QT : Quantity<QT>> serializer(): PolymorphicSerializer<Quantity<QT>> =
+            PolymorphicSerializer(Quantity::class) as PolymorphicSerializer<Quantity<QT>>
+    }
 }
 
 operator fun <QT : Quantity<QT>> Quantity<QT>.unaryPlus(): Quantity<QT> = unit.quantityFromValue(+this.value)
@@ -51,4 +59,10 @@ interface PhysicalUnit<QT : Quantity<QT>> {
     fun quantityFromValue(value: Double): Quantity<QT>
 
     fun quantityFromCanonicalValue(value: Double): Quantity<QT>
+
+    companion object {
+        @Suppress("UNCHECKED_CAST")
+        fun <QT : Quantity<QT>> serializer(): PolymorphicSerializer<PhysicalUnit<QT>> =
+            PolymorphicSerializer(PhysicalUnit::class) as PolymorphicSerializer<PhysicalUnit<QT>>
+    }
 }

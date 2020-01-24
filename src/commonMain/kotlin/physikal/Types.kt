@@ -19,12 +19,7 @@ package physikal
 
 import kotlinx.serialization.*
 
-interface Temperature : Quantity<Temperature> {
-    companion object {
-        val quantitySerializer: PolymorphicSerializer<Quantity<Temperature>> = QuantitySerializer()
-        val unitSerializer: PolymorphicSerializer<PhysicalUnit<Temperature>> = PhysicalUnitSerializer()
-    }
-}
+interface Temperature : Quantity<Temperature>
 
 @Serializable
 @SerialName(Kelvin.SYMBOL)

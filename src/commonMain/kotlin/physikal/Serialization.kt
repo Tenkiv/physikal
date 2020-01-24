@@ -17,7 +17,6 @@
 
 package physikal
 
-import kotlinx.serialization.*
 import kotlinx.serialization.modules.*
 
 val physikalSerializationModule = SerializersModule {
@@ -33,11 +32,3 @@ val physikalSerializationModule = SerializersModule {
     }
 
 }
-
-@Suppress("UNCHECKED_CAST")
-fun <QT : Quantity<QT>> QuantitySerializer() : PolymorphicSerializer<Quantity<QT>> =
-    PolymorphicSerializer(Quantity::class) as PolymorphicSerializer<Quantity<QT>>
-
-@Suppress("UNCHECKED_CAST")
-fun <QT : Quantity<QT>> PhysicalUnitSerializer() : PolymorphicSerializer<PhysicalUnit<QT>> =
-    PolymorphicSerializer(PhysicalUnit::class) as PolymorphicSerializer<PhysicalUnit<QT>>
