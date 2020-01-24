@@ -17,11 +17,18 @@
 
 package physikal
 
+import kotlinx.serialization.*
+
 interface Temperature : Quantity<Temperature> {
-    override fun convertToCanonical(): Quantity<Temperature>
+    companion object {
+        val quantitySerializer: PolymorphicSerializer<Quantity<Temperature>> = QuantitySerializer()
+        val unitSerializer: PolymorphicSerializer<PhysicalUnit<Temperature>> = PhysicalUnitSerializer()
+    }
 }
 
-private class KelvinQuantity(override val value: Double) : Quantity<Temperature> {
+@Serializable
+@SerialName(Kelvin.SYMBOL)
+internal class KelvinQuantity(override val value: Double) : Quantity<Temperature> {
     override val unit: PhysicalUnit<Temperature> get() = Kelvin
 
     override fun convertToCanonical(): Quantity<Temperature> = this
@@ -29,8 +36,12 @@ private class KelvinQuantity(override val value: Double) : Quantity<Temperature>
     override fun toString(): String = "$value ${unit.symbol}"
 }
 
+@Serializable
+@SerialName(Kelvin.SYMBOL)
 object Kelvin : PhysicalUnit<Temperature> {
-    override val symbol: String get() = "K"
+    const val SYMBOL: String = "K"
+
+    override val symbol: String get() = SYMBOL
     override val isCanonical: Boolean get() = true
 
     override fun quantityFromValue(value: Double): Quantity<Temperature> = value.kelvin
@@ -42,7 +53,9 @@ object Kelvin : PhysicalUnit<Temperature> {
 
 val Double.kelvin: Quantity<Temperature> get() = KelvinQuantity(this)
 
-private class CelsiusQuantity(override val value: Double) : Quantity<Temperature> {
+@Serializable
+@SerialName(Celsius.SYMBOL)
+internal class CelsiusQuantity(override val value: Double) : Quantity<Temperature> {
     override val unit: PhysicalUnit<Temperature> get() = Celsius
 
     override fun convertToCanonical(): Quantity<Temperature> = (this.value + 273.15).kelvin
@@ -50,8 +63,12 @@ private class CelsiusQuantity(override val value: Double) : Quantity<Temperature
     override fun toString(): String = "$value ${unit.symbol}"
 }
 
+@Serializable
+@SerialName(Celsius.SYMBOL)
 object Celsius : PhysicalUnit<Temperature> {
-    override val symbol: String get() = "°C"
+    const val SYMBOL: String = "°C"
+
+    override val symbol: String get() = SYMBOL
     override val isCanonical: Boolean get() = false
 
     override fun quantityFromValue(value: Double): Quantity<Temperature> = value.ceslsius
