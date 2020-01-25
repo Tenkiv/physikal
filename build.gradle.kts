@@ -92,12 +92,7 @@ kotlin {
     publishing {
         publications.withType<MavenPublication>().apply {
             val jvm by getting {
-                artifactId = "physikal-jvm"
                 artifact(tasks.getByName("javadocJar"))
-            }
-
-            val metadata by getting {
-                artifactId = "physikal-common"
             }
         }.forEach {
             it.configureMavenPom(isRelease, project)
