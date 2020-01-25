@@ -22,4 +22,4 @@ mavenDeploy:
   stage: deploy
   script:
     - ./gradlew clean build
-    - if grep -q "SNAPSHOT" gradle.properties; then ./gradlew publishMetadataPublicationToMavenRepository; ./gradlew publishJvmPublicationToMavenRepository; fi
+    - if grep -q "SNAPSHOT" gradle.properties; then ./gradlew publish; fi
