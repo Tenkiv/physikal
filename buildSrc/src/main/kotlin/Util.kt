@@ -81,7 +81,7 @@ fun TaskContainerScope.registerCommonTasks() {
  */
 
 fun MavenPublication.configureMavenPom(isRelease: Boolean, project: Project) {
-    version = if (isRelease) project.version.toString() else "${project.version}-SNAPSHOT"
+    version = project.version.toString()
 
     pom {
         name.set(project.name)
@@ -119,7 +119,7 @@ fun MavenPublication.configureMavenPom(isRelease: Boolean, project: Project) {
 fun PublishingExtension.setMavenRepositories(isRelease: Boolean, properties: Properties) {
     repositories {
         maven {
-            url = URI(if (isRelease) Info.snapshotRepository else Info.releaseRepository)
+            url = URI(if (isRelease) Info.releaseRepository else Info.snapshotRepository)
 
             credentials {
                 username = if (isRelease) properties.getProperty("MAVEN_USER") else System.getenv("MAVEN_REPO_USER")
