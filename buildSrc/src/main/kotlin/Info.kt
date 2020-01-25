@@ -16,13 +16,12 @@
  */
 
 object Info {
-    const val pomDescription =
-        "A units of measurement extensions library."
+    const val pomDescription = "A units of measurement extensions library."
     const val pomLicense = "MIT License"
     const val pomLicenseUrl = "https://opensource.org/licenses/MIT"
     const val pomOrg = "Tenkiv, Inc."
-    const val sonatypeReleaseRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2"
-    const val sonatypeSnapshotRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots"
+    const val snapshotRepository = "https://maven.jetbrains.space/tenkiv/kuantify-snapshots"
+    const val releaseRepository = "https://maven.jetbrains.space/tenkiv/kuantify"
     const val projectUrl = "https://gitlab.com/tenkiv/software/physikal.git"
     const val projectCloneUrl = "git@gitlab.com:tenkiv/software/physikal.git"
     const val projectDevEmail = "zjuhasz@tenkiv.org"
