@@ -16,7 +16,7 @@ assembleDebug:
 debugTests:
   stage: test
   script:
-    - ./gradlew -Pci --console=plain test
+    - ./gradlew -Pci --console=plain allTests
     
 mavenDeploy:
   stage: deploy
