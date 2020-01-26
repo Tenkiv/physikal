@@ -19,7 +19,7 @@ package physikal
 
 import kotlinx.serialization.*
 
-interface Temperature : Quantity<Temperature>
+public interface Temperature : Quantity<Temperature>
 
 @Serializable
 @SerialName(Kelvin.SYMBOL)
@@ -33,20 +33,20 @@ internal class KelvinQuantity(override val value: Double) : Quantity<Temperature
 
 @Serializable
 @SerialName(Kelvin.SYMBOL)
-object Kelvin : PhysicalUnit<Temperature> {
-    const val SYMBOL: String = "K"
+public object Kelvin : PhysicalUnit<Temperature> {
+    public const val SYMBOL: String = "K"
 
-    override val symbol: String get() = SYMBOL
-    override val isCanonical: Boolean get() = true
+    public override val symbol: String get() = SYMBOL
+    public override val isCanonical: Boolean get() = true
 
-    override fun quantityFromValue(value: Double): Quantity<Temperature> = value.kelvin
+    public override fun quantityFromValue(value: Double): Quantity<Temperature> = value.kelvin
 
-    override fun quantityFromCanonicalValue(value: Double): Quantity<Temperature> = value.kelvin
+    public override fun quantityFromCanonicalValue(value: Double): Quantity<Temperature> = value.kelvin
 
-    override fun toString(): String = symbol
+    public override fun toString(): String = symbol
 }
 
-val Double.kelvin: Quantity<Temperature> get() = KelvinQuantity(this)
+public val Double.kelvin: Quantity<Temperature> get() = KelvinQuantity(this)
 
 @Serializable
 @SerialName(Celsius.SYMBOL)
@@ -60,17 +60,17 @@ internal class CelsiusQuantity(override val value: Double) : Quantity<Temperatur
 
 @Serializable
 @SerialName(Celsius.SYMBOL)
-object Celsius : PhysicalUnit<Temperature> {
-    const val SYMBOL: String = "°C"
+public object Celsius : PhysicalUnit<Temperature> {
+    public const val SYMBOL: String = "°C"
 
-    override val symbol: String get() = SYMBOL
-    override val isCanonical: Boolean get() = false
+    public override val symbol: String get() = SYMBOL
+    public override val isCanonical: Boolean get() = false
 
-    override fun quantityFromValue(value: Double): Quantity<Temperature> = value.ceslsius
+    public override fun quantityFromValue(value: Double): Quantity<Temperature> = value.ceslsius
 
-    override fun quantityFromCanonicalValue(value: Double): Quantity<Temperature> = (value - 273.15).kelvin
+    public override fun quantityFromCanonicalValue(value: Double): Quantity<Temperature> = (value - 273.15).kelvin
 
-    override fun toString(): String = Kelvin.symbol
+    public override fun toString(): String = Kelvin.symbol
 }
 
-val Double.ceslsius: Quantity<Temperature> get() = CelsiusQuantity(this)
+public val Double.ceslsius: Quantity<Temperature> get() = CelsiusQuantity(this)

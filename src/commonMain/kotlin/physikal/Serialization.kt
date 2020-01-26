@@ -19,7 +19,7 @@ package physikal
 
 import kotlinx.serialization.modules.*
 
-val physikalSerializationModule = SerializersModule {
+public val physikalSerializationModule: SerialModule = SerializersModule {
 
     polymorphic(Quantity::class) {
         KelvinQuantity::class with KelvinQuantity.serializer()

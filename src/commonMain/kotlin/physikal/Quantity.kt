@@ -19,50 +19,54 @@ package physikal
 
 import kotlinx.serialization.*
 
-interface Quantity<QT : Quantity<QT>> : Comparable<Quantity<QT>> {
-    val value: Double
-    val unit: PhysicalUnit<QT>
+public interface Quantity<QT : Quantity<QT>> : Comparable<Quantity<QT>> {
+    public val value: Double
+    public val unit: PhysicalUnit<QT>
 
-    fun convertToCanonical(): Quantity<QT>
+    public fun convertToCanonical(): Quantity<QT>
 
-    override fun compareTo(other: Quantity<QT>): Int =
+    public override fun compareTo(other: Quantity<QT>): Int =
         this.convertToCanonical().value.compareTo(other.convertToCanonical().value)
 
-    companion object {
+    public companion object {
+        private val serializer = PolymorphicSerializer(Quantity::class)
+
         @Suppress("UNCHECKED_CAST")
-        fun <QT : Quantity<QT>> serializer(): PolymorphicSerializer<Quantity<QT>> =
-            PolymorphicSerializer(Quantity::class) as PolymorphicSerializer<Quantity<QT>>
+        public fun <QT : Quantity<QT>> serializer(): PolymorphicSerializer<Quantity<QT>> =
+            serializer as PolymorphicSerializer<Quantity<QT>>
     }
 }
 
-operator fun <QT : Quantity<QT>> Quantity<QT>.unaryPlus(): Quantity<QT> = unit.quantityFromValue(+this.value)
+public operator fun <QT : Quantity<QT>> Quantity<QT>.unaryPlus(): Quantity<QT> = unit.quantityFromValue(+this.value)
 
-operator fun <QT : Quantity<QT>> Quantity<QT>.unaryMinus(): Quantity<QT> = unit.quantityFromValue(-this.value)
+public operator fun <QT : Quantity<QT>> Quantity<QT>.unaryMinus(): Quantity<QT> = unit.quantityFromValue(-this.value)
 
-operator fun <QT : Quantity<QT>> Quantity<QT>.inc() = unit.quantityFromValue(this.value + 1)
+public operator fun <QT : Quantity<QT>> Quantity<QT>.inc(): Quantity<QT> = unit.quantityFromValue(this.value + 1)
 
-operator fun <QT : Quantity<QT>> Quantity<QT>.dec() = unit.quantityFromValue(this.value - 1)
+public operator fun <QT : Quantity<QT>> Quantity<QT>.dec(): Quantity<QT> = unit.quantityFromValue(this.value - 1)
 
-operator fun <QT : Quantity<QT>> Quantity<QT>.plus(other: Quantity<QT>): Quantity<QT> =
+public operator fun <QT : Quantity<QT>> Quantity<QT>.plus(other: Quantity<QT>): Quantity<QT> =
     this.unit.quantityFromValue(this.value + other.convertTo(this.unit).value)
 
-operator fun <QT : Quantity<QT>> Quantity<QT>.minus(other: Quantity<QT>): Quantity<QT> =
+public operator fun <QT : Quantity<QT>> Quantity<QT>.minus(other: Quantity<QT>): Quantity<QT> =
     this.unit.quantityFromValue(this.value - other.convertTo(this.unit).value)
 
-infix fun <QT : Quantity<QT>> Quantity<QT>.convertTo(unit: PhysicalUnit<QT>): Quantity<QT> =
+public infix fun <QT : Quantity<QT>> Quantity<QT>.convertTo(unit: PhysicalUnit<QT>): Quantity<QT> =
     unit.quantityFromCanonicalValue(this.convertToCanonical().value)
 
-interface PhysicalUnit<QT : Quantity<QT>> {
-    val symbol: String
-    val isCanonical: Boolean
+public interface PhysicalUnit<QT : Quantity<QT>> {
+    public val symbol: String
+    public val isCanonical: Boolean
 
-    fun quantityFromValue(value: Double): Quantity<QT>
+    public fun quantityFromValue(value: Double): Quantity<QT>
 
-    fun quantityFromCanonicalValue(value: Double): Quantity<QT>
+    public fun quantityFromCanonicalValue(value: Double): Quantity<QT>
 
-    companion object {
+    public companion object {
+        private val serializer = PolymorphicSerializer(PhysicalUnit::class)
+
         @Suppress("UNCHECKED_CAST")
-        fun <QT : Quantity<QT>> serializer(): PolymorphicSerializer<PhysicalUnit<QT>> =
-            PolymorphicSerializer(PhysicalUnit::class) as PolymorphicSerializer<PhysicalUnit<QT>>
+        public fun <QT : Quantity<QT>> serializer(): PolymorphicSerializer<PhysicalUnit<QT>> =
+            serializer as PolymorphicSerializer<PhysicalUnit<QT>>
     }
 }
