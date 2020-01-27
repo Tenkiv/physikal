@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="physikal-jvm-2.3.0.2">
+    <output-path>$PROJECT_DIR$/build/libs</output-path>
+    <root id="archive" name="physikal-jvm-2.3.0.2.jar">
+      <element id="module-output" name="org.tenkiv.physikal.physikal.jvmMain" />
+    </root>
+  </artifact>
+</component>
