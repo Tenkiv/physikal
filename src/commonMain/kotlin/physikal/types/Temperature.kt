@@ -15,21 +15,24 @@
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package physikal
+package physikal.types
 
 import kotlinx.serialization.*
+import physikal.*
 
 public interface Temperature : Quantity<Temperature>
 
 @Serializable
 @SerialName(Kelvin.SYMBOL)
-internal class KelvinQuantity(override val value: Double) : Quantity<Temperature> {
+internal class Kelvins(override val amount: Double) : Quantity<Temperature> {
     override val unit: PhysicalUnit<Temperature> get() = Kelvin
 
-    override fun convertToCanonical(): Quantity<Temperature> = this
+    override fun convertToDefault(): Quantity<Temperature> = this
 
-    override fun toString(): String = "$value ${unit.symbol}"
+    override fun toString(): String = "$amount ${unit.symbol}"
 }
+
+public val Double.kelvins: Quantity<Temperature> get() = Kelvins(this)
 
 @Serializable
 @SerialName(Kelvin.SYMBOL)
@@ -37,26 +40,26 @@ public object Kelvin : PhysicalUnit<Temperature> {
     public const val SYMBOL: String = "K"
 
     public override val symbol: String get() = SYMBOL
-    public override val isCanonical: Boolean get() = true
+    public override val isDefault: Boolean get() = true
 
-    public override fun quantityFromValue(value: Double): Quantity<Temperature> = value.kelvin
+    public override fun quantityFromValue(value: Double): Quantity<Temperature> = value.kelvins
 
-    public override fun quantityFromCanonicalValue(value: Double): Quantity<Temperature> = value.kelvin
+    public override fun quantityFromAmountInDefault(value: Double): Quantity<Temperature> = value.kelvins
 
     public override fun toString(): String = symbol
 }
 
-public val Double.kelvin: Quantity<Temperature> get() = KelvinQuantity(this)
-
 @Serializable
 @SerialName(Celsius.SYMBOL)
-internal class CelsiusQuantity(override val value: Double) : Quantity<Temperature> {
+internal class DegreesCelsius(override val amount: Double) : Quantity<Temperature> {
     override val unit: PhysicalUnit<Temperature> get() = Celsius
 
-    override fun convertToCanonical(): Quantity<Temperature> = (this.value + 273.15).kelvin
+    override fun convertToDefault(): Quantity<Temperature> = (this.amount + 273.15).kelvins
 
-    override fun toString(): String = "$value ${unit.symbol}"
+    override fun toString(): String = "$amount ${unit.symbol}"
 }
+
+public val Double.degreesCelsius: Quantity<Temperature> get() = DegreesCelsius(this)
 
 @Serializable
 @SerialName(Celsius.SYMBOL)
@@ -64,13 +67,11 @@ public object Celsius : PhysicalUnit<Temperature> {
     public const val SYMBOL: String = "°C"
 
     public override val symbol: String get() = SYMBOL
-    public override val isCanonical: Boolean get() = false
+    public override val isDefault: Boolean get() = false
 
-    public override fun quantityFromValue(value: Double): Quantity<Temperature> = value.ceslsius
+    public override fun quantityFromValue(value: Double): Quantity<Temperature> = value.degreesCelsius
 
-    public override fun quantityFromCanonicalValue(value: Double): Quantity<Temperature> = (value - 273.15).kelvin
+    public override fun quantityFromAmountInDefault(value: Double): Quantity<Temperature> = (value - 273.15).kelvins
 
-    public override fun toString(): String = Kelvin.symbol
+    public override fun toString(): String = SYMBOL
 }
-
-public val Double.ceslsius: Quantity<Temperature> get() = CelsiusQuantity(this)
