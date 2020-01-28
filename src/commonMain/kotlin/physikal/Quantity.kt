@@ -20,12 +20,12 @@ package physikal
 import kotlinx.serialization.*
 
 public interface Quantity<QT : Quantity<QT>> : Comparable<Quantity<QT>> {
-    public val amountInCurrent: Double
+    public val inCurrentUnit: Double
     public val unit: PhysicalUnit<QT>
 
-    public fun convertToDefault(): Quantity<QT>
+    public fun convertToDefaultUnit(): Quantity<QT>
 
-    public override fun compareTo(other: Quantity<QT>): Int = amountInDefault.compareTo(other.amountInDefault)
+    public override fun compareTo(other: Quantity<QT>): Int = inDefaultUnit.compareTo(other.inDefaultUnit)
 
     public companion object {
         private val serializer = PolymorphicSerializer(Quantity::class)
@@ -36,26 +36,30 @@ public interface Quantity<QT : Quantity<QT>> : Comparable<Quantity<QT>> {
     }
 }
 
-public val Quantity<*>.amountInDefault: Double get() = convertToDefault().amountInCurrent
+public val Quantity<*>.inDefaultUnit: Double get() = convertToDefaultUnit().inCurrentUnit
 
-public operator fun <QT : Quantity<QT>> Quantity<QT>.unaryPlus(): Quantity<QT> = unit.quantityOf(+this.amountInCurrent)
+public operator fun <QT : Quantity<QT>> Quantity<QT>.unaryPlus(): Quantity<QT> = unit.quantityOf(+this.inCurrentUnit)
 
-public operator fun <QT : Quantity<QT>> Quantity<QT>.unaryMinus(): Quantity<QT> = unit.quantityOf(-this.amountInCurrent)
+public operator fun <QT : Quantity<QT>> Quantity<QT>.unaryMinus(): Quantity<QT> = unit.quantityOf(-this.inCurrentUnit)
 
 public operator fun <QT : Quantity<QT>> Quantity<QT>.inc(): Quantity<QT> =
-    unit.quantityOf(this.amountInCurrent + 1)
+    unit.quantityOf(this.inCurrentUnit + 1)
 
 public operator fun <QT : Quantity<QT>> Quantity<QT>.dec(): Quantity<QT> =
-    unit.quantityOf(this.amountInCurrent - 1)
+    unit.quantityOf(this.inCurrentUnit - 1)
 
 public operator fun <QT : Quantity<QT>> Quantity<QT>.plus(other: Quantity<QT>): Quantity<QT> =
-    this.unit.quantityOf(this.amountInCurrent + other.convertTo(this.unit).amountInCurrent)
+    this.unit.quantityOf(this.inCurrentUnit + other.convertTo(this.unit).inCurrentUnit)
 
 public operator fun <QT : Quantity<QT>> Quantity<QT>.minus(other: Quantity<QT>): Quantity<QT> =
-    this.unit.quantityOf(this.amountInCurrent - other.convertTo(this.unit).amountInCurrent)
+    this.unit.quantityOf(this.inCurrentUnit - other.convertTo(this.unit).inCurrentUnit)
 
 public infix fun <QT : Quantity<QT>> Quantity<QT>.convertTo(unit: PhysicalUnit<QT>): Quantity<QT> =
-    unit.quantityOfAmountInDefault(this.amountInDefault)
+    unit.quantityOfInDefaultUnit(this.inDefaultUnit)
+
+//TODO: Add same function for other Number types.
+public infix fun <QT : Quantity<QT>> Quantity<QT>.toDoubleIn(unit: PhysicalUnit<QT>): Double =
+    this.convertTo(unit).inCurrentUnit
 
 public interface PhysicalUnit<QT : Quantity<QT>> {
     public val symbol: String
@@ -63,7 +67,7 @@ public interface PhysicalUnit<QT : Quantity<QT>> {
 
     public fun quantityOf(amount: Double): Quantity<QT>
 
-    public fun quantityOfAmountInDefault(amount: Double): Quantity<QT>
+    public fun quantityOfInDefaultUnit(amount: Double): Quantity<QT>
 
     public companion object {
         private val serializer = PolymorphicSerializer(PhysicalUnit::class)

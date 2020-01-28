@@ -27,16 +27,16 @@ public interface Time : Quantity<Time>
 public fun Duration.toQuantity(): Quantity<Time> = this.inSeconds.secondsQuantity
 
 @ExperimentalTime
-public fun Quantity<Time>.toDuration(): Duration = this.amountInDefault.seconds
+public fun Quantity<Time>.toDuration(): Duration = this.inDefaultUnit.seconds
 
 @Serializable
 @SerialName(Second.SYMBOL)
-internal class Seconds(override val amountInCurrent: Double) : Quantity<Time> {
+internal class Seconds(override val inCurrentUnit: Double) : Quantity<Time> {
     override val unit: PhysicalUnit<Time> get() = Second
 
-    override fun convertToDefault(): Quantity<Time> = this
+    override fun convertToDefaultUnit(): Quantity<Time> = this
 
-    override fun toString(): String = "$amountInCurrent ${unit.symbol}"
+    override fun toString(): String = "$inCurrentUnit ${unit.symbol}"
 }
 
 // Name doesn't follow standard convention to avoid conflicts with kotlin.time Duration name.
@@ -52,7 +52,7 @@ public object Second : PhysicalUnit<Time> {
 
     override fun quantityOf(amount: Double): Quantity<Time> = amount.secondsQuantity
 
-    override fun quantityOfAmountInDefault(amount: Double): Quantity<Time> = amount.secondsQuantity
+    override fun quantityOfInDefaultUnit(amount: Double): Quantity<Time> = amount.secondsQuantity
 
     override fun toString(): String = SYMBOL
 }
