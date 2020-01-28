@@ -20,7 +20,13 @@ package physikal
 import kotlinx.serialization.*
 
 public interface Quantity<QT : Quantity<QT>> : Comparable<Quantity<QT>> {
-    public val inCurrentUnit: Double
+    /**
+     * The [Double] amount of this quantity in this quantities [unit].
+     *
+     * This property can be dangerous to use. In the majority of cases it should only be used immediately following a
+     * call that set the unit of the quantity. Consider using [toDoubleIn] or [inDefaultUnit] instead.
+     */
+    public val inOwnUnit: Double
     public val unit: PhysicalUnit<QT>
 
     public fun convertToDefaultUnit(): Quantity<QT>
@@ -36,30 +42,35 @@ public interface Quantity<QT : Quantity<QT>> : Comparable<Quantity<QT>> {
     }
 }
 
-public val Quantity<*>.inDefaultUnit: Double get() = convertToDefaultUnit().inCurrentUnit
+public val Quantity<*>.inDefaultUnit: Double get() = convertToDefaultUnit().inOwnUnit
 
-public operator fun <QT : Quantity<QT>> Quantity<QT>.unaryPlus(): Quantity<QT> = unit.quantityOf(+this.inCurrentUnit)
+public operator fun <QT : Quantity<QT>> Quantity<QT>.unaryPlus(): Quantity<QT> = unit.quantityOf(+this.inOwnUnit)
 
-public operator fun <QT : Quantity<QT>> Quantity<QT>.unaryMinus(): Quantity<QT> = unit.quantityOf(-this.inCurrentUnit)
+public operator fun <QT : Quantity<QT>> Quantity<QT>.unaryMinus(): Quantity<QT> = unit.quantityOf(-this.inOwnUnit)
 
 public operator fun <QT : Quantity<QT>> Quantity<QT>.inc(): Quantity<QT> =
-    unit.quantityOf(this.inCurrentUnit + 1)
+    unit.quantityOf(this.inOwnUnit + 1)
 
 public operator fun <QT : Quantity<QT>> Quantity<QT>.dec(): Quantity<QT> =
-    unit.quantityOf(this.inCurrentUnit - 1)
+    unit.quantityOf(this.inOwnUnit - 1)
 
 public operator fun <QT : Quantity<QT>> Quantity<QT>.plus(other: Quantity<QT>): Quantity<QT> =
-    this.unit.quantityOf(this.inCurrentUnit + other.convertTo(this.unit).inCurrentUnit)
+    this.unit.quantityOf(this.inOwnUnit + other.convertTo(this.unit).inOwnUnit)
 
 public operator fun <QT : Quantity<QT>> Quantity<QT>.minus(other: Quantity<QT>): Quantity<QT> =
-    this.unit.quantityOf(this.inCurrentUnit - other.convertTo(this.unit).inCurrentUnit)
+    this.unit.quantityOf(this.inOwnUnit - other.convertTo(this.unit).inOwnUnit)
 
 public infix fun <QT : Quantity<QT>> Quantity<QT>.convertTo(unit: PhysicalUnit<QT>): Quantity<QT> =
     unit.quantityOfInDefaultUnit(this.inDefaultUnit)
 
 //TODO: Add same function for other Number types.
 public infix fun <QT : Quantity<QT>> Quantity<QT>.toDoubleIn(unit: PhysicalUnit<QT>): Double =
-    this.convertTo(unit).inCurrentUnit
+    this.convertTo(unit).inOwnUnit
+
+public inline fun <SQT : Quantity<SQT>, RQT : Quantity<RQT>> Quantity<SQT>.transform(
+    fromUnit: PhysicalUnit<SQT>,
+    transformation: (Double) -> Quantity<RQT>
+): Quantity<RQT> = transformation(this toDoubleIn fromUnit)
 
 public interface PhysicalUnit<QT : Quantity<QT>> {
     public val symbol: String

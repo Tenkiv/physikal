@@ -24,12 +24,12 @@ public interface Temperature : Quantity<Temperature>
 
 @Serializable
 @SerialName(Kelvin.SYMBOL)
-internal class Kelvins(override val inCurrentUnit: Double) : Quantity<Temperature> {
+internal class Kelvins(override val inOwnUnit: Double) : Quantity<Temperature> {
     override val unit: PhysicalUnit<Temperature> get() = Kelvin
 
     override fun convertToDefaultUnit(): Quantity<Temperature> = this
 
-    override fun toString(): String = "$inCurrentUnit ${unit.symbol}"
+    override fun toString(): String = "$inOwnUnit ${unit.symbol}"
 }
 
 public val Double.kelvins: Quantity<Temperature> get() = Kelvins(this)
@@ -51,12 +51,12 @@ public object Kelvin : PhysicalUnit<Temperature> {
 
 @Serializable
 @SerialName(Celsius.SYMBOL)
-internal class DegreesCelsius(override val inCurrentUnit: Double) : Quantity<Temperature> {
+internal class DegreesCelsius(override val inOwnUnit: Double) : Quantity<Temperature> {
     override val unit: PhysicalUnit<Temperature> get() = Celsius
 
-    override fun convertToDefaultUnit(): Quantity<Temperature> = (this.inCurrentUnit + 273.15).kelvins
+    override fun convertToDefaultUnit(): Quantity<Temperature> = (this.inOwnUnit + 273.15).kelvins
 
-    override fun toString(): String = "$inCurrentUnit ${unit.symbol}"
+    override fun toString(): String = "$inOwnUnit ${unit.symbol}"
 }
 
 public val Double.degreesCelsius: Quantity<Temperature> get() = DegreesCelsius(this)

@@ -31,12 +31,12 @@ public fun Quantity<Time>.toDuration(): Duration = this.inDefaultUnit.seconds
 
 @Serializable
 @SerialName(Second.SYMBOL)
-internal class Seconds(override val inCurrentUnit: Double) : Quantity<Time> {
+internal class Seconds(override val inOwnUnit: Double) : Quantity<Time> {
     override val unit: PhysicalUnit<Time> get() = Second
 
     override fun convertToDefaultUnit(): Quantity<Time> = this
 
-    override fun toString(): String = "$inCurrentUnit ${unit.symbol}"
+    override fun toString(): String = "$inOwnUnit ${unit.symbol}"
 }
 
 // Name doesn't follow standard convention to avoid conflicts with kotlin.time Duration name.
