@@ -24,12 +24,12 @@ public interface Temperature : Quantity<Temperature>
 
 @Serializable
 @SerialName(Kelvin.SYMBOL)
-internal class Kelvins(override val amount: Double) : Quantity<Temperature> {
+internal class Kelvins(override val amountInCurrent: Double) : Quantity<Temperature> {
     override val unit: PhysicalUnit<Temperature> get() = Kelvin
 
     override fun convertToDefault(): Quantity<Temperature> = this
 
-    override fun toString(): String = "$amount ${unit.symbol}"
+    override fun toString(): String = "$amountInCurrent ${unit.symbol}"
 }
 
 public val Double.kelvins: Quantity<Temperature> get() = Kelvins(this)
@@ -42,21 +42,21 @@ public object Kelvin : PhysicalUnit<Temperature> {
     public override val symbol: String get() = SYMBOL
     public override val isDefault: Boolean get() = true
 
-    public override fun quantityFromValue(value: Double): Quantity<Temperature> = value.kelvins
+    public override fun quantityOf(amount: Double): Quantity<Temperature> = amount.kelvins
 
-    public override fun quantityFromAmountInDefault(value: Double): Quantity<Temperature> = value.kelvins
+    public override fun quantityOfAmountInDefault(amount: Double): Quantity<Temperature> = amount.kelvins
 
     public override fun toString(): String = symbol
 }
 
 @Serializable
 @SerialName(Celsius.SYMBOL)
-internal class DegreesCelsius(override val amount: Double) : Quantity<Temperature> {
+internal class DegreesCelsius(override val amountInCurrent: Double) : Quantity<Temperature> {
     override val unit: PhysicalUnit<Temperature> get() = Celsius
 
-    override fun convertToDefault(): Quantity<Temperature> = (this.amount + 273.15).kelvins
+    override fun convertToDefault(): Quantity<Temperature> = (this.amountInCurrent + 273.15).kelvins
 
-    override fun toString(): String = "$amount ${unit.symbol}"
+    override fun toString(): String = "$amountInCurrent ${unit.symbol}"
 }
 
 public val Double.degreesCelsius: Quantity<Temperature> get() = DegreesCelsius(this)
@@ -69,9 +69,9 @@ public object Celsius : PhysicalUnit<Temperature> {
     public override val symbol: String get() = SYMBOL
     public override val isDefault: Boolean get() = false
 
-    public override fun quantityFromValue(value: Double): Quantity<Temperature> = value.degreesCelsius
+    public override fun quantityOf(amount: Double): Quantity<Temperature> = amount.degreesCelsius
 
-    public override fun quantityFromAmountInDefault(value: Double): Quantity<Temperature> = (value - 273.15).kelvins
+    public override fun quantityOfAmountInDefault(amount: Double): Quantity<Temperature> = (amount - 273.15).kelvins
 
     public override fun toString(): String = SYMBOL
 }
