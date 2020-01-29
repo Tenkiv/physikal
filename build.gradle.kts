@@ -60,6 +60,7 @@ kotlin {
             dependencies {
                 implementation(kotlin("stdlib-common"))
                 api("org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:${Vof.serialization}")
+                implementation("org.tenkiv.coral:coral:${Vof.coral}")
             }
         }
         val commonTest by getting {
