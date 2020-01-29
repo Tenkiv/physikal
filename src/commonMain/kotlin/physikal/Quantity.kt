@@ -63,9 +63,17 @@ public operator fun <QT : Quantity<QT>> Quantity<QT>.minus(other: Quantity<QT>):
 public infix fun <QT : Quantity<QT>> Quantity<QT>.convertTo(unit: PhysicalUnit<QT>): Quantity<QT> =
     unit.quantityOfInDefaultUnit(this.inDefaultUnit)
 
-//TODO: Add same function for other Number types.
+public infix fun <QT : Quantity<QT>> Quantity<QT>.toFloatIn(unit: PhysicalUnit<QT>): Float =
+    this.convertTo(unit).inOwnUnit.toFloat()
+
 public infix fun <QT : Quantity<QT>> Quantity<QT>.toDoubleIn(unit: PhysicalUnit<QT>): Double =
     this.convertTo(unit).inOwnUnit
+
+public infix fun <QT : Quantity<QT>> Quantity<QT>.toIntIn(unit: PhysicalUnit<QT>): Int =
+    this.convertTo(unit).inOwnUnit.toInt()
+
+public infix fun <QT : Quantity<QT>> Quantity<QT>.toLongIn(unit: PhysicalUnit<QT>): Long =
+    this.convertTo(unit).inOwnUnit.toLong()
 
 public inline fun <SQT : Quantity<SQT>, RQT : Quantity<RQT>> Quantity<SQT>.transform(
     fromUnit: PhysicalUnit<SQT>,
