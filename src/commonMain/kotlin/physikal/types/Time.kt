@@ -48,7 +48,7 @@ public val Double.secondsQuantity: Quantity<Time> get() = Seconds(this)
 public object Second : PhysicalUnit<Time> {
     public const val SYMBOL: String = "s"
 
-    override val type: KClass<Time> get() = Time::class
+    override val quantityType: KClass<Time> get() = Time::class
     override val symbol: String get() = SYMBOL
     override val isDefault: Boolean get() = true
 

@@ -40,7 +40,7 @@ public val Double.kelvins: Quantity<Temperature> get() = Kelvins(this)
 public object Kelvin : PhysicalUnit<Temperature> {
     public const val SYMBOL: String = "K"
 
-    public override val type: KClass<Temperature> get() = Temperature::class
+    public override val quantityType: KClass<Temperature> get() = Temperature::class
     public override val symbol: String get() = SYMBOL
     public override val isDefault: Boolean get() = true
 
@@ -68,7 +68,7 @@ public val Double.degreesCelsius: Quantity<Temperature> get() = DegreesCelsius(t
 public object Celsius : PhysicalUnit<Temperature> {
     public const val SYMBOL: String = "°C"
 
-    public override val type: KClass<Temperature> get() = Temperature::class
+    public override val quantityType: KClass<Temperature> get() = Temperature::class
     public override val symbol: String get() = SYMBOL
     public override val isDefault: Boolean get() = false
 

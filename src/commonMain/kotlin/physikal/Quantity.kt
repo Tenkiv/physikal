@@ -30,7 +30,10 @@ public interface Quantity<QT : Quantity<QT>> : Comparable<Quantity<QT>> {
      */
     public val inOwnUnit: Double
     public val unit: PhysicalUnit<QT>
-    public val type: KClass<QT> get() = unit.type
+    /**
+     * The type of this quantity (e.g. Temperature, Time) represented by the [KClass] for that type.
+     */
+    public val quantityType: KClass<QT> get() = unit.quantityType
 
     public fun convertToDefaultUnit(): Quantity<QT>
 
@@ -64,13 +67,13 @@ public operator fun <QT : Quantity<QT>> Quantity<QT>.minus(other: Quantity<QT>):
     this.unit.quantityOf(this.inOwnUnit - other.convertTo(this.unit).inOwnUnit)
 
 public infix fun Quantity<*>.feq(comparate: Quantity<*>): Boolean =
-    if (type == comparate.type) inDefaultUnit feq comparate.inDefaultUnit else false
+    if (quantityType == comparate.quantityType) inDefaultUnit feq comparate.inDefaultUnit else false
 
 public fun Quantity<*>.feq(comparate: Quantity<*>, maxUlps: Int): Boolean =
-    if (type == comparate.type) inDefaultUnit.feq(comparate.inDefaultUnit, maxUlps) else false
+    if (quantityType == comparate.quantityType) inDefaultUnit.feq(comparate.inDefaultUnit, maxUlps) else false
 
 public fun Quantity<*>.feq(comparate: Quantity<*>, epsilon: Double): Boolean =
-    if (type == comparate.type) inDefaultUnit.feq(comparate.inDefaultUnit, epsilon) else false
+    if (quantityType == comparate.quantityType) inDefaultUnit.feq(comparate.inDefaultUnit, epsilon) else false
 
 public infix fun <QT : Quantity<QT>> Quantity<QT>.convertTo(unit: PhysicalUnit<QT>): Quantity<QT> =
     unit.quantityOfInDefaultUnit(this.inDefaultUnit)
@@ -93,7 +96,10 @@ public inline fun <SQT : Quantity<SQT>, RQT : Quantity<RQT>> Quantity<SQT>.trans
 ): Quantity<RQT> = transformation(this toDoubleIn fromUnit)
 
 public interface PhysicalUnit<QT : Quantity<QT>> {
-    public val type: KClass<QT>
+    /**
+     * The type of this unit (e.g. Temperature, Time) represented by the [KClass] for that type.
+     */
+    public val quantityType: KClass<QT>
     public val symbol: String
     public val isDefault: Boolean
 
