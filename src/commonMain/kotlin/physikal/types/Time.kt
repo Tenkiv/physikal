@@ -19,6 +19,7 @@ package physikal.types
 
 import kotlinx.serialization.*
 import physikal.*
+import kotlin.reflect.*
 import kotlin.time.*
 
 public interface Time : Quantity<Time>
@@ -47,6 +48,7 @@ public val Double.secondsQuantity: Quantity<Time> get() = Seconds(this)
 public object Second : PhysicalUnit<Time> {
     public const val SYMBOL: String = "s"
 
+    override val type: KClass<Time> get() = Time::class
     override val symbol: String get() = SYMBOL
     override val isDefault: Boolean get() = true
 

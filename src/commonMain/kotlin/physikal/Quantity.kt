@@ -18,6 +18,8 @@
 package physikal
 
 import kotlinx.serialization.*
+import org.tenkiv.coral.*
+import kotlin.reflect.*
 
 public interface Quantity<QT : Quantity<QT>> : Comparable<Quantity<QT>> {
     /**
@@ -28,6 +30,7 @@ public interface Quantity<QT : Quantity<QT>> : Comparable<Quantity<QT>> {
      */
     public val inOwnUnit: Double
     public val unit: PhysicalUnit<QT>
+    public val type: KClass<QT> get() = unit.type
 
     public fun convertToDefaultUnit(): Quantity<QT>
 
@@ -60,6 +63,15 @@ public operator fun <QT : Quantity<QT>> Quantity<QT>.plus(other: Quantity<QT>): 
 public operator fun <QT : Quantity<QT>> Quantity<QT>.minus(other: Quantity<QT>): Quantity<QT> =
     this.unit.quantityOf(this.inOwnUnit - other.convertTo(this.unit).inOwnUnit)
 
+public infix fun Quantity<*>.feq(comparate: Quantity<*>): Boolean =
+    if (type == comparate.type) inDefaultUnit feq comparate.inDefaultUnit else false
+
+public fun Quantity<*>.feq(comparate: Quantity<*>, maxUlps: Int): Boolean =
+    if (type == comparate.type) inDefaultUnit.feq(comparate.inDefaultUnit, maxUlps) else false
+
+public fun Quantity<*>.feq(comparate: Quantity<*>, epsilon: Double): Boolean =
+    if (type == comparate.type) inDefaultUnit.feq(comparate.inDefaultUnit, epsilon) else false
+
 public infix fun <QT : Quantity<QT>> Quantity<QT>.convertTo(unit: PhysicalUnit<QT>): Quantity<QT> =
     unit.quantityOfInDefaultUnit(this.inDefaultUnit)
 
@@ -81,6 +93,7 @@ public inline fun <SQT : Quantity<SQT>, RQT : Quantity<RQT>> Quantity<SQT>.trans
 ): Quantity<RQT> = transformation(this toDoubleIn fromUnit)
 
 public interface PhysicalUnit<QT : Quantity<QT>> {
+    public val type: KClass<QT>
     public val symbol: String
     public val isDefault: Boolean
 
