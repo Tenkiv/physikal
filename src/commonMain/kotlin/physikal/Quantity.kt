@@ -43,10 +43,10 @@ public interface Quantity<QT : Quantity<QT>> : Comparable<Quantity<QT>> {
         private val serializer = PolymorphicSerializer(Quantity::class)
 
         @Suppress("UNCHECKED_CAST")
-        public fun <QT : Quantity<QT>> serializer(): PolymorphicSerializer<Quantity<QT>> =
+        public fun <QT : Quantity<QT>> serializer(): KSerializer<Quantity<QT>> =
             serializer as PolymorphicSerializer<Quantity<QT>>
 
-        public fun starSerializer(): PolymorphicSerializer<Quantity<*>> = serializer
+        public fun starSerializer(): KSerializer<Quantity<*>> = serializer
     }
 }
 
@@ -116,10 +116,10 @@ public interface PhysicalUnit<QT : Quantity<QT>> {
         private val serializer = PolymorphicSerializer(PhysicalUnit::class)
 
         @Suppress("UNCHECKED_CAST")
-        public fun <QT : Quantity<QT>> serializer(): PolymorphicSerializer<PhysicalUnit<QT>> =
+        public fun <QT : Quantity<QT>> serializer(): KSerializer<PhysicalUnit<QT>> =
             serializer as PolymorphicSerializer<PhysicalUnit<QT>>
 
-        public fun starSerializer(): PolymorphicSerializer<PhysicalUnit<*>> = serializer
+        public fun starSerializer(): KSerializer<PhysicalUnit<*>> = serializer
     }
 }
 
