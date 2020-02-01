@@ -101,7 +101,10 @@ public interface PhysicalUnit<QT : Quantity<QT>> {
      */
     public val quantityType: KClass<QT>
     public val symbol: String
-    public val isDefault: Boolean
+    /**
+     * The default unit for this units quantity type (e.g. the default unit for the Temperature quantity type is Kelvin)
+     */
+    public val default: PhysicalUnit<QT>
 
     public fun quantityOf(amount: Double): Quantity<QT>
 
@@ -115,3 +118,5 @@ public interface PhysicalUnit<QT : Quantity<QT>> {
             serializer as PolymorphicSerializer<PhysicalUnit<QT>>
     }
 }
+
+public val PhysicalUnit<*>.isDefault: Boolean get() = this === default

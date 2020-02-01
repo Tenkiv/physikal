@@ -50,7 +50,7 @@ public object Second : PhysicalUnit<Time> {
 
     override val quantityType: KClass<Time> get() = Time::class
     override val symbol: String get() = SYMBOL
-    override val isDefault: Boolean get() = true
+    override val default: PhysicalUnit<Time> get() = this
 
     override fun quantityOf(amount: Double): Quantity<Time> = amount.secondsQuantity
 
