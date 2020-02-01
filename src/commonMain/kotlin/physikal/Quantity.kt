@@ -45,6 +45,8 @@ public interface Quantity<QT : Quantity<QT>> : Comparable<Quantity<QT>> {
         @Suppress("UNCHECKED_CAST")
         public fun <QT : Quantity<QT>> serializer(): PolymorphicSerializer<Quantity<QT>> =
             serializer as PolymorphicSerializer<Quantity<QT>>
+
+        public fun starSerializer(): PolymorphicSerializer<Quantity<*>> = serializer
     }
 }
 
@@ -116,6 +118,8 @@ public interface PhysicalUnit<QT : Quantity<QT>> {
         @Suppress("UNCHECKED_CAST")
         public fun <QT : Quantity<QT>> serializer(): PolymorphicSerializer<PhysicalUnit<QT>> =
             serializer as PolymorphicSerializer<PhysicalUnit<QT>>
+
+        public fun starSerializer(): PolymorphicSerializer<PhysicalUnit<*>> = serializer
     }
 }
 
