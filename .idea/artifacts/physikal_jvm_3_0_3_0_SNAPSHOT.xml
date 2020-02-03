@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="physikal-jvm-3.0.3.0-SNAPSHOT">
-    <output-path>$PROJECT_DIR$/build/libs</output-path>
-    <root id="archive" name="physikal-jvm-3.0.3.0-SNAPSHOT.jar">
-      <element id="module-output" name="org.tenkiv.physikal.physikal.jvmMain" />
-    </root>
-  </artifact>
-</component>
