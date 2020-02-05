@@ -95,6 +95,12 @@ public inline fun <SQT : Quantity<SQT>, RQT : Quantity<RQT>> Quantity<SQT>.trans
     transformation: (Double) -> Quantity<RQT>
 ): Quantity<RQT> = transformation(this toDoubleIn fromUnit)
 
+public fun <QT : Quantity<QT>> Int.toQuantity(unit: PhysicalUnit<QT>): Quantity<QT> = unit.quantityOf(this.toDouble())
+
+public fun <QT : Quantity<QT>> Long.toQuantity(unit: PhysicalUnit<QT>): Quantity<QT> = unit.quantityOf(this.toDouble())
+
+public fun <QT : Quantity<QT>> Float.toQuantity(unit: PhysicalUnit<QT>): Quantity<QT> = unit.quantityOf(this.toDouble())
+
 public fun <QT : Quantity<QT>> Double.toQuantity(unit: PhysicalUnit<QT>): Quantity<QT> = unit.quantityOf(this)
 
 public interface PhysicalUnit<QT : Quantity<QT>> {
