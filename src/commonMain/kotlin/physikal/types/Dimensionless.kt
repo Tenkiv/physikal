@@ -29,6 +29,8 @@ internal class Ones(override val inOwnUnit: Double) : Quantity<Dimensionless> {
     override val unit: PhysicalUnit<Dimensionless> get() = One
 
     override fun convertToDefaultUnit(): Quantity<Dimensionless> = this
+
+    override fun toString(): String = "$inOwnUnit ${unit.symbol}"
 }
 
 public val Double.ones: Quantity<Dimensionless> get() = Ones(this)
@@ -38,11 +40,41 @@ public val Double.ones: Quantity<Dimensionless> get() = Ones(this)
 public object One : PhysicalUnit<Dimensionless> {
     public const val SYMBOL: String = "one"
 
-    override val quantityType: KClass<Dimensionless> get() = Dimensionless::class
-    override val symbol: String get() = SYMBOL
-    override val default: PhysicalUnit<Dimensionless> get() = this
+    public override val quantityType: KClass<Dimensionless> get() = Dimensionless::class
+    public override val symbol: String get() = SYMBOL
+    public override val default: PhysicalUnit<Dimensionless> get() = this
 
-    override fun quantityOf(amount: Double): Quantity<Dimensionless> = amount.ones
+    public override fun quantityOf(amount: Double): Quantity<Dimensionless> = amount.ones
 
-    override fun quantityOfInDefaultUnit(amount: Double): Quantity<Dimensionless> = amount.ones
+    public override fun quantityOfInDefaultUnit(amount: Double): Quantity<Dimensionless> = amount.ones
+
+    public override fun toString(): String = Celsius.SYMBOL
+}
+
+@Serializable
+@SerialName(Percent.SYMBOL)
+internal class PercentQuantity(override val inOwnUnit: Double) : Quantity<Dimensionless> {
+    override val unit: PhysicalUnit<Dimensionless> get() = Percent
+
+    override fun convertToDefaultUnit(): Quantity<Dimensionless> = this / 100
+
+    override fun toString(): String = "$inOwnUnit ${unit.symbol}"
+}
+
+public val Double.percent: Quantity<Dimensionless> get() = PercentQuantity(this)
+
+@Serializable
+@SerialName(Percent.SYMBOL)
+public object Percent : PhysicalUnit<Dimensionless> {
+    public const val SYMBOL: String = "%"
+
+    public override val quantityType: KClass<Dimensionless> get() = Dimensionless::class
+    public override val symbol: String get() = SYMBOL
+    public override val default: PhysicalUnit<Dimensionless> get() = One
+
+    public override fun quantityOf(amount: Double): Quantity<Dimensionless> = amount.percent
+
+    public override fun quantityOfInDefaultUnit(amount: Double): Quantity<Dimensionless> = (amount * 100).percent
+
+    public override fun toString(): String = Celsius.SYMBOL
 }
