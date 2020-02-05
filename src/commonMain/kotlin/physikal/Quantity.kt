@@ -66,6 +66,30 @@ public operator fun <QT : Quantity<QT>> Quantity<QT>.plus(other: Quantity<QT>): 
 public operator fun <QT : Quantity<QT>> Quantity<QT>.minus(other: Quantity<QT>): Quantity<QT> =
     this.unit.quantityOf(this.inOwnUnit - other.convertTo(this.unit).inOwnUnit)
 
+public operator fun <QT: Quantity<QT>> Quantity<QT>.times(multiplier: Int): Quantity<QT> =
+    this.unit.quantityOf(this.inOwnUnit * multiplier)
+
+public operator fun <QT: Quantity<QT>> Quantity<QT>.times(multiplier: Long): Quantity<QT> =
+    this.unit.quantityOf(this.inOwnUnit * multiplier)
+
+public operator fun <QT: Quantity<QT>> Quantity<QT>.times(multiplier: Float): Quantity<QT> =
+    this.unit.quantityOf(this.inOwnUnit * multiplier)
+
+public operator fun <QT: Quantity<QT>> Quantity<QT>.times(multiplier: Double): Quantity<QT> =
+    this.unit.quantityOf(this.inOwnUnit * multiplier)
+
+public operator fun <QT: Quantity<QT>> Quantity<QT>.div(multiplier: Int): Quantity<QT> =
+    this.unit.quantityOf(this.inOwnUnit / multiplier)
+
+public operator fun <QT: Quantity<QT>> Quantity<QT>.div(multiplier: Long): Quantity<QT> =
+    this.unit.quantityOf(this.inOwnUnit / multiplier)
+
+public operator fun <QT: Quantity<QT>> Quantity<QT>.div(multiplier: Float): Quantity<QT> =
+    this.unit.quantityOf(this.inOwnUnit / multiplier)
+
+public operator fun <QT: Quantity<QT>> Quantity<QT>.div(multiplier: Double): Quantity<QT> =
+    this.unit.quantityOf(this.inOwnUnit / multiplier)
+
 public infix fun Quantity<*>.feq(comparate: Quantity<*>): Boolean =
     if (quantityType == comparate.quantityType) inDefaultUnit feq comparate.inDefaultUnit else false
 
