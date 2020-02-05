@@ -95,6 +95,8 @@ public inline fun <SQT : Quantity<SQT>, RQT : Quantity<RQT>> Quantity<SQT>.trans
     transformation: (Double) -> Quantity<RQT>
 ): Quantity<RQT> = transformation(this toDoubleIn fromUnit)
 
+public fun <QT : Quantity<QT>> Double.toQuantity(unit: PhysicalUnit<QT>): Quantity<QT> = unit.quantityOf(this)
+
 public interface PhysicalUnit<QT : Quantity<QT>> {
     /**
      * The type of this unit (e.g. Temperature, Time) represented by the [KClass] for that type.
