@@ -22,7 +22,7 @@ import physikal.types.*
 import physikal.types.DegreesCelsius
 import physikal.types.Kelvins
 
-public val physikalSerializationModule: SerialModule = SerializersModule {
+public val physikalSerialModule: SerialModule = SerializersModule {
 
     polymorphic(Quantity::class) {
         // Temperature
