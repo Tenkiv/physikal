@@ -1,45 +1,22 @@
 ### IntelliJ ###
-# User-specific stuff:
-.idea/**/workspace.xml
-.idea/**/tasks.xml
-.idea/**/usage.statistics.xml
-.idea/**/dictionaries
-.idea/**/shelf
+# .idea
+# ignore everything in .idea with a few exceptions that are helpful for keeping everyone using the same practices.
+.idea/*
+!.idea/codeStyles/
+!.idea/copyright/
+!.idea/inspectionProfiles/
 
-# Generated files
-.idea/**/contentModel.xml
+#IntelliJ
+out/
+*.iws
 
-# Sensitive or high-churn files:
-.idea/**/dataSources/
-.idea/**/dataSources.ids
-.idea/**/dataSources.local.xml
-.idea/**/sqlDataSources.xml
-.idea/**/dynamic.xml
-.idea/**/uiDesigner.xml
-.idea/**/dbnavigator.xml
-
-# Gradle:
-.idea/**/gradle.xml
-.idea/**/libraries
-
-.idea/modules.xml
-.idea/compiler.xml
-.idea/jarRepositories.xml
-.idea/kotlinc.xml
-.idea/misc.xml
-.idea/*.iml
-.idea/artifacts
-.idea/modules
-.idea/caches
+# Gradle
 *.iml
 *.ipr
 
-# IntelliJ
-out/
-
 
 ### Gradle ###
-*.gradle
+**/.gradle/
 **/build/
 
 # Ignore Gradle GUI config
@@ -49,7 +26,7 @@ gradle-app.setting
 .gradletasknamecache
 
 # Local properties
-local.properties
+**/local.properties
 
 
 ### Kotlin ###
@@ -74,6 +51,56 @@ local.properties
 # JVM crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
+### Android ###
+# Android Studio
+**/production/
+*~
+*.swp
 
-### Quick test files ###
+# Built application files
+*.apk
+*.ap_
+*.aab
+
+# Files for the ART/Dalvik VM
+*.dex
+
+# Generated files
+**/bin/
+**/gen/
+**/release/
+
+# Android Studio Navigation editor temp files
+.navigation/
+
+# Android Studio captures folder
+captures/
+
+# External native build folder generated in Android Studio
+.cxx/
+
+# lint
+**/lint/intermediates/
+**/lint/generated/
+**/lint/outputs/
+**/lint/tmp/
+**/lint/reports/
+
+# Signing files
+.signing/
+
+# NDK
+obj/
+
+### OS-specific files ###
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+
+### Experiments ###
 /src/jvmMain/kotlin/Test.kt
