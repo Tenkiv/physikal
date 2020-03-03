@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Tenkiv, Inc.
+ * Copyright 2020 Tenkiv, Inc.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
  * documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
@@ -17,7 +17,7 @@
 
 object Vof {
     const val kotlin = "1.3.61"
-    const val coral = "2.3.4"
+    const val coral = "2.4.2-SNAPSHOT"
     const val serialization = "0.14.0"
 
     const val spek = "2.0.9"

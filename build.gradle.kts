@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Tenkiv, Inc.
+ * Copyright 2020 Tenkiv, Inc.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
  * documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
@@ -60,6 +60,7 @@ kotlin {
             dependencies {
                 implementation(kotlin("stdlib-common"))
                 api("org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:${Vof.serialization}")
+                implementation("org.tenkiv.coral:coral:${Vof.coral}")
             }
         }
         val commonTest by getting {

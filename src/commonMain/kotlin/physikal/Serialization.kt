@@ -18,17 +18,28 @@
 package physikal
 
 import kotlinx.serialization.modules.*
+import physikal.types.*
+import physikal.types.DegreesCelsius
+import physikal.types.Kelvins
 
-val physikalSerializationModule = SerializersModule {
+public val physikalSerialModule: SerialModule = SerializersModule {
 
     polymorphic(Quantity::class) {
-        KelvinQuantity::class with KelvinQuantity.serializer()
-        CelsiusQuantity::class with CelsiusQuantity.serializer()
+        // Temperature
+        Kelvins::class with Kelvins.serializer()
+        DegreesCelsius::class with DegreesCelsius.serializer()
+
+        // Time
+        Seconds::class with Seconds.serializer()
     }
 
     polymorphic(PhysicalUnit::class) {
+        // Temperature
         Kelvin::class with Kelvin.serializer()
         Celsius::class with Celsius.serializer()
+
+        // Time
+        Second::class with Second.serializer()
     }
 
 }

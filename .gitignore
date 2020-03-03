@@ -1,52 +1,23 @@
-# Created by .ignore support plugin (hsz.mobi)
-### JetBrains template
-# Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and Webstorm
-# Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
+### IntelliJ ###
+# .idea
+# ignore everything in .idea with a few exceptions that are helpful for keeping everyone using the same practices.
+.idea/*
+!.idea/codeStyles/
+!.idea/copyright/
+!.idea/inspectionProfiles/
 
-.idea
-# User-specific stuff:
-.idea/**/workspace.xml
-.idea/**/tasks.xml
-.idea/dictionaries
-
-# Sensitive or high-churn files:
-.idea/**/dataSources/
-.idea/**/dataSources.ids
-.idea/**/dataSources.xml
-.idea/**/dataSources.local.xml
-.idea/**/sqlDataSources.xml
-.idea/**/dynamic.xml
-.idea/**/uiDesigner.xml
-
-# Gradle:
-.idea/**/gradle.xml
-.idea/**/libraries
-
-# Mongo Explorer plugin:
-.idea/**/mongoSettings.xml
-
-## File-based project format:
+#IntelliJ
+out/
 *.iws
 
-## Plugin-specific files:
+# Gradle
+*.iml
+*.ipr
 
-# IntelliJ
-/out/
 
-# mpeltonen/sbt-idea plugin
-.idea_modules/
-
-# JIRA plugin
-atlassian-ide-plugin.xml
-
-# Crashlytics plugin (for Android Studio and IntelliJ)
-com_crashlytics_export_strings.xml
-crashlytics.properties
-crashlytics-build.properties
-fabric.properties
-### Gradle template
-.gradle
-/build/
+### Gradle ###
+**/.gradle/
+**/build/
 
 # Ignore Gradle GUI config
 gradle-app.setting
@@ -54,43 +25,82 @@ gradle-app.setting
 # Cache of project
 .gradletasknamecache
 
-# # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
-# gradle/wrapper/gradle-wrapper.properties
-### Java template
+# Local properties
+**/local.properties
+
+
+### Kotlin ###
 # Compiled class file
 *.class
 
 # Log file
 *.log
 
-# BlueJ files
-*.ctxt
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
+# Package files
 *.jar
 *.war
+*.nar
 *.ear
 *.zip
 *.tar.gz
 *.rar
 
-local.properties
-
 # Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
 !gradle-wrapper.jar
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+# JVM crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
-/core/build/
-/complete-units/build/
-/si-units/build/
-core/out/production/classes/META-INF/
-si-units/out/production/classes/META-INF/
-si-units/out/test/classes/META-INF/
-/buildSrc/.gradle/
-/buildSrc/build/
+### Android ###
+# Android Studio
+**/production/
+*~
+*.swp
+
+# Built application files
+*.apk
+*.ap_
+*.aab
+
+# Files for the ART/Dalvik VM
+*.dex
+
+# Generated files
+**/bin/
+**/gen/
+**/release/
+
+# Android Studio Navigation editor temp files
+.navigation/
+
+# Android Studio captures folder
+captures/
+
+# External native build folder generated in Android Studio
+.cxx/
+
+# lint
+**/lint/intermediates/
+**/lint/generated/
+**/lint/outputs/
+**/lint/tmp/
+**/lint/reports/
+
+# Signing files
+.signing/
+
+# NDK
+obj/
+
+### OS-specific files ###
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+
+### Experiments ###
 /src/jvmMain/kotlin/Test.kt

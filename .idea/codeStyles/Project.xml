@@ -1,0 +1,30 @@
+<component name="ProjectCodeStyleConfiguration">
+  <code_scheme name="Project" version="173">
+    <option name="LINE_SEPARATOR" value="&#10;" />
+    <option name="WRAP_COMMENTS" value="true" />
+    <AndroidXmlCodeStyleSettings>
+      <option name="USE_CUSTOM_SETTINGS" value="true" />
+    </AndroidXmlCodeStyleSettings>
+    <JetCodeStyleSettings>
+      <option name="PACKAGES_TO_USE_STAR_IMPORTS">
+        <value>
+          <package name="java.util" withSubpackages="false" static="false" />
+        </value>
+      </option>
+      <option name="NAME_COUNT_TO_USE_STAR_IMPORT" value="1" />
+      <option name="NAME_COUNT_TO_USE_STAR_IMPORT_FOR_MEMBERS" value="1" />
+      <option name="CODE_STYLE_DEFAULTS" value="KOTLIN_OFFICIAL" />
+    </JetCodeStyleSettings>
+    <XML>
+      <option name="XML_LEGACY_SETTINGS_IMPORTED" value="true" />
+    </XML>
+    <codeStyleSettings language="XML">
+      <indentOptions>
+        <option name="CONTINUATION_INDENT_SIZE" value="4" />
+      </indentOptions>
+    </codeStyleSettings>
+    <codeStyleSettings language="kotlin">
+      <option name="CODE_STYLE_DEFAULTS" value="KOTLIN_OFFICIAL" />
+    </codeStyleSettings>
+  </code_scheme>
+</component>

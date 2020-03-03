@@ -18,51 +18,137 @@
 package physikal
 
 import kotlinx.serialization.*
+import org.tenkiv.coral.*
+import kotlin.reflect.*
 
-interface Quantity<QT : Quantity<QT>> : Comparable<Quantity<QT>> {
-    val value: Double
-    val unit: PhysicalUnit<QT>
+public interface Quantity<QT : Quantity<QT>> : Comparable<Quantity<QT>> {
+    /**
+     * The [Double] amount of this quantity in this quantities [unit].
+     *
+     * This property can be dangerous to use. In the majority of cases it should only be used immediately following a
+     * call that set the unit of the quantity. Consider using [toDoubleIn] or [inDefaultUnit] instead.
+     */
+    public val inOwnUnit: Double
+    public val unit: PhysicalUnit<QT>
+    /**
+     * The type of this quantity (e.g. Temperature, Time) represented by the [KClass] for that type.
+     */
+    public val quantityType: KClass<QT> get() = unit.quantityType
 
-    fun convertToCanonical(): Quantity<QT>
+    public fun convertToDefaultUnit(): Quantity<QT>
 
-    override fun compareTo(other: Quantity<QT>): Int =
-        this.convertToCanonical().value.compareTo(other.convertToCanonical().value)
+    public override fun compareTo(other: Quantity<QT>): Int = inDefaultUnit.compareTo(other.inDefaultUnit)
 
-    companion object {
+    public companion object {
+        private val serializer = PolymorphicSerializer(Quantity::class)
+
         @Suppress("UNCHECKED_CAST")
-        fun <QT : Quantity<QT>> serializer(): PolymorphicSerializer<Quantity<QT>> =
-            PolymorphicSerializer(Quantity::class) as PolymorphicSerializer<Quantity<QT>>
+        public fun <QT : Quantity<QT>> serializer(): KSerializer<Quantity<QT>> =
+            serializer as PolymorphicSerializer<Quantity<QT>>
     }
 }
 
-operator fun <QT : Quantity<QT>> Quantity<QT>.unaryPlus(): Quantity<QT> = unit.quantityFromValue(+this.value)
+public val Quantity<*>.inDefaultUnit: Double get() = convertToDefaultUnit().inOwnUnit
 
-operator fun <QT : Quantity<QT>> Quantity<QT>.unaryMinus(): Quantity<QT> = unit.quantityFromValue(-this.value)
+public operator fun <QT : Quantity<QT>> Quantity<QT>.unaryPlus(): Quantity<QT> = unit.quantityOf(+this.inOwnUnit)
 
-operator fun <QT : Quantity<QT>> Quantity<QT>.inc() = unit.quantityFromValue(this.value + 1)
+public operator fun <QT : Quantity<QT>> Quantity<QT>.unaryMinus(): Quantity<QT> = unit.quantityOf(-this.inOwnUnit)
 
-operator fun <QT : Quantity<QT>> Quantity<QT>.dec() = unit.quantityFromValue(this.value - 1)
+public operator fun <QT : Quantity<QT>> Quantity<QT>.inc(): Quantity<QT> =
+    unit.quantityOf(this.inOwnUnit + 1)
 
-operator fun <QT : Quantity<QT>> Quantity<QT>.plus(other: Quantity<QT>): Quantity<QT> =
-    this.unit.quantityFromValue(this.value + other.convertTo(this.unit).value)
+public operator fun <QT : Quantity<QT>> Quantity<QT>.dec(): Quantity<QT> =
+    unit.quantityOf(this.inOwnUnit - 1)
 
-operator fun <QT : Quantity<QT>> Quantity<QT>.minus(other: Quantity<QT>): Quantity<QT> =
-    this.unit.quantityFromValue(this.value - other.convertTo(this.unit).value)
+public operator fun <QT : Quantity<QT>> Quantity<QT>.plus(other: Quantity<QT>): Quantity<QT> =
+    this.unit.quantityOf(this.inOwnUnit + other.convertTo(this.unit).inOwnUnit)
 
-infix fun <QT : Quantity<QT>> Quantity<QT>.convertTo(unit: PhysicalUnit<QT>): Quantity<QT> =
-    unit.quantityFromCanonicalValue(this.convertToCanonical().value)
+public operator fun <QT : Quantity<QT>> Quantity<QT>.minus(other: Quantity<QT>): Quantity<QT> =
+    this.unit.quantityOf(this.inOwnUnit - other.convertTo(this.unit).inOwnUnit)
 
-interface PhysicalUnit<QT : Quantity<QT>> {
-    val symbol: String
-    val isCanonical: Boolean
+public operator fun <QT: Quantity<QT>> Quantity<QT>.times(multiplier: Int): Quantity<QT> =
+    this.unit.quantityOf(this.inOwnUnit * multiplier)
 
-    fun quantityFromValue(value: Double): Quantity<QT>
+public operator fun <QT: Quantity<QT>> Quantity<QT>.times(multiplier: Long): Quantity<QT> =
+    this.unit.quantityOf(this.inOwnUnit * multiplier)
 
-    fun quantityFromCanonicalValue(value: Double): Quantity<QT>
+public operator fun <QT: Quantity<QT>> Quantity<QT>.times(multiplier: Float): Quantity<QT> =
+    this.unit.quantityOf(this.inOwnUnit * multiplier)
 
-    companion object {
+public operator fun <QT: Quantity<QT>> Quantity<QT>.times(multiplier: Double): Quantity<QT> =
+    this.unit.quantityOf(this.inOwnUnit * multiplier)
+
+public operator fun <QT: Quantity<QT>> Quantity<QT>.div(multiplier: Int): Quantity<QT> =
+    this.unit.quantityOf(this.inOwnUnit / multiplier)
+
+public operator fun <QT: Quantity<QT>> Quantity<QT>.div(multiplier: Long): Quantity<QT> =
+    this.unit.quantityOf(this.inOwnUnit / multiplier)
+
+public operator fun <QT: Quantity<QT>> Quantity<QT>.div(multiplier: Float): Quantity<QT> =
+    this.unit.quantityOf(this.inOwnUnit / multiplier)
+
+public operator fun <QT: Quantity<QT>> Quantity<QT>.div(multiplier: Double): Quantity<QT> =
+    this.unit.quantityOf(this.inOwnUnit / multiplier)
+
+public infix fun Quantity<*>.feq(comparate: Quantity<*>): Boolean =
+    if (quantityType == comparate.quantityType) inDefaultUnit feq comparate.inDefaultUnit else false
+
+public fun Quantity<*>.feq(comparate: Quantity<*>, maxUlps: Int): Boolean =
+    if (quantityType == comparate.quantityType) inDefaultUnit.feq(comparate.inDefaultUnit, maxUlps) else false
+
+public fun Quantity<*>.feq(comparate: Quantity<*>, epsilon: Double): Boolean =
+    if (quantityType == comparate.quantityType) inDefaultUnit.feq(comparate.inDefaultUnit, epsilon) else false
+
+public infix fun <QT : Quantity<QT>> Quantity<QT>.convertTo(unit: PhysicalUnit<QT>): Quantity<QT> =
+    unit.quantityOfInDefaultUnit(this.inDefaultUnit)
+
+public infix fun <QT : Quantity<QT>> Quantity<QT>.toFloatIn(unit: PhysicalUnit<QT>): Float =
+    this.convertTo(unit).inOwnUnit.toFloat()
+
+public infix fun <QT : Quantity<QT>> Quantity<QT>.toDoubleIn(unit: PhysicalUnit<QT>): Double =
+    this.convertTo(unit).inOwnUnit
+
+public infix fun <QT : Quantity<QT>> Quantity<QT>.toIntIn(unit: PhysicalUnit<QT>): Int =
+    this.convertTo(unit).inOwnUnit.toInt()
+
+public infix fun <QT : Quantity<QT>> Quantity<QT>.toLongIn(unit: PhysicalUnit<QT>): Long =
+    this.convertTo(unit).inOwnUnit.toLong()
+
+public inline fun <SQT : Quantity<SQT>, RQT : Quantity<RQT>> Quantity<SQT>.transform(
+    fromUnit: PhysicalUnit<SQT>,
+    transformation: (Double) -> Quantity<RQT>
+): Quantity<RQT> = transformation(this toDoubleIn fromUnit)
+
+public fun <QT : Quantity<QT>> Int.toQuantity(unit: PhysicalUnit<QT>): Quantity<QT> = unit.quantityOf(this.toDouble())
+
+public fun <QT : Quantity<QT>> Long.toQuantity(unit: PhysicalUnit<QT>): Quantity<QT> = unit.quantityOf(this.toDouble())
+
+public fun <QT : Quantity<QT>> Float.toQuantity(unit: PhysicalUnit<QT>): Quantity<QT> = unit.quantityOf(this.toDouble())
+
+public fun <QT : Quantity<QT>> Double.toQuantity(unit: PhysicalUnit<QT>): Quantity<QT> = unit.quantityOf(this)
+
+public interface PhysicalUnit<QT : Quantity<QT>> {
+    /**
+     * The type of this unit (e.g. Temperature, Time) represented by the [KClass] for that type.
+     */
+    public val quantityType: KClass<QT>
+    public val symbol: String
+    /**
+     * The default unit for this units quantity type (e.g. the default unit for the Temperature quantity type is Kelvin)
+     */
+    public val default: PhysicalUnit<QT>
+
+    public fun quantityOf(amount: Double): Quantity<QT>
+
+    public fun quantityOfInDefaultUnit(amount: Double): Quantity<QT>
+
+    public companion object {
+        private val serializer = PolymorphicSerializer(PhysicalUnit::class)
+
         @Suppress("UNCHECKED_CAST")
-        fun <QT : Quantity<QT>> serializer(): PolymorphicSerializer<PhysicalUnit<QT>> =
-            PolymorphicSerializer(PhysicalUnit::class) as PolymorphicSerializer<PhysicalUnit<QT>>
+        public fun <QT : Quantity<QT>> serializer(): KSerializer<PhysicalUnit<QT>> =
+            serializer as PolymorphicSerializer<PhysicalUnit<QT>>
     }
 }
+
+public val PhysicalUnit<*>.isDefault: Boolean get() = this === default
