@@ -132,7 +132,7 @@ fun MavenPublication.configureMavenPom(isRelease: Boolean, project: Project) {
 fun PublishingExtension.setMavenRepositories(isRelease: Boolean, properties: Properties) {
     repositories {
         maven {
-            url = URI(if (isRelease) Info.releaseRepository else Info.snapshotRepository)
+            url = URI(if (isRelease) Info.sonatypeReleaseRepoUrl else Info.sonatypeSnapshotRepoUrl)
 
             credentials {
                 username = if (isRelease) properties.getProperty("MAVEN_USER") else System.getenv("MAVEN_REPO_USER")
