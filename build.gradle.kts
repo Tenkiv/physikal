@@ -77,11 +77,7 @@ kotlin {
         }
         val jvmTest by getting {
             dependencies {
-                implementation(kotlin("reflect"))
                 implementation(kotlin("test"))
-                implementation("org.spekframework.spek2:spek-dsl-jvm:${Vof.spek}")
-                runtimeOnly("org.spekframework.spek2:spek-runner-junit5:${Vof.spek}")
-                runtimeOnly("org.junit.platform:junit-platform-launcher:${Vof.junitPlatform}")
             }
         }
     }
