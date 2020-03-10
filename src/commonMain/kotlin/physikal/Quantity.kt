@@ -30,6 +30,7 @@ public interface Quantity<QT : Quantity<QT>> : Comparable<Quantity<QT>> {
      */
     public val inOwnUnit: Double
     public val unit: PhysicalUnit<QT>
+
     /**
      * The type of this quantity (e.g. Temperature, Time) represented by the [KClass] for that type.
      */
@@ -46,6 +47,15 @@ public interface Quantity<QT : Quantity<QT>> : Comparable<Quantity<QT>> {
         public fun <QT : Quantity<QT>> serializer(): KSerializer<Quantity<QT>> =
             serializer as PolymorphicSerializer<Quantity<QT>>
     }
+}
+
+private class QuantityRange<QT : Quantity<QT>>(
+    override val start: Quantity<QT>,
+    override val endInclusive: Quantity<QT>
+) : ClosedFloatingPointRange<Quantity<QT>> {
+
+    override fun lessThanOrEquals(a: Quantity<QT>, b: Quantity<QT>): Boolean = a <= b
+
 }
 
 public val Quantity<*>.inDefaultUnit: Double get() = convertToDefaultUnit().inOwnUnit
@@ -66,38 +76,41 @@ public operator fun <QT : Quantity<QT>> Quantity<QT>.plus(other: Quantity<QT>): 
 public operator fun <QT : Quantity<QT>> Quantity<QT>.minus(other: Quantity<QT>): Quantity<QT> =
     this.unit.quantityOf(this.inOwnUnit - other.convertTo(this.unit).inOwnUnit)
 
-public operator fun <QT: Quantity<QT>> Quantity<QT>.times(multiplier: Int): Quantity<QT> =
+public operator fun <QT : Quantity<QT>> Quantity<QT>.times(multiplier: Int): Quantity<QT> =
     this.unit.quantityOf(this.inOwnUnit * multiplier)
 
-public operator fun <QT: Quantity<QT>> Quantity<QT>.times(multiplier: Long): Quantity<QT> =
+public operator fun <QT : Quantity<QT>> Quantity<QT>.times(multiplier: Long): Quantity<QT> =
     this.unit.quantityOf(this.inOwnUnit * multiplier)
 
-public operator fun <QT: Quantity<QT>> Quantity<QT>.times(multiplier: Float): Quantity<QT> =
+public operator fun <QT : Quantity<QT>> Quantity<QT>.times(multiplier: Float): Quantity<QT> =
     this.unit.quantityOf(this.inOwnUnit * multiplier)
 
-public operator fun <QT: Quantity<QT>> Quantity<QT>.times(multiplier: Double): Quantity<QT> =
+public operator fun <QT : Quantity<QT>> Quantity<QT>.times(multiplier: Double): Quantity<QT> =
     this.unit.quantityOf(this.inOwnUnit * multiplier)
 
-public operator fun <QT: Quantity<QT>> Quantity<QT>.div(multiplier: Int): Quantity<QT> =
+public operator fun <QT : Quantity<QT>> Quantity<QT>.div(multiplier: Int): Quantity<QT> =
     this.unit.quantityOf(this.inOwnUnit / multiplier)
 
-public operator fun <QT: Quantity<QT>> Quantity<QT>.div(multiplier: Long): Quantity<QT> =
+public operator fun <QT : Quantity<QT>> Quantity<QT>.div(multiplier: Long): Quantity<QT> =
     this.unit.quantityOf(this.inOwnUnit / multiplier)
 
-public operator fun <QT: Quantity<QT>> Quantity<QT>.div(multiplier: Float): Quantity<QT> =
+public operator fun <QT : Quantity<QT>> Quantity<QT>.div(multiplier: Float): Quantity<QT> =
     this.unit.quantityOf(this.inOwnUnit / multiplier)
 
-public operator fun <QT: Quantity<QT>> Quantity<QT>.div(multiplier: Double): Quantity<QT> =
+public operator fun <QT : Quantity<QT>> Quantity<QT>.div(multiplier: Double): Quantity<QT> =
     this.unit.quantityOf(this.inOwnUnit / multiplier)
 
-public infix fun Quantity<*>.feq(comparate: Quantity<*>): Boolean =
-    if (quantityType == comparate.quantityType) inDefaultUnit feq comparate.inDefaultUnit else false
+public operator fun <QT : Quantity<QT>> Quantity<QT>.rangeTo(that: Quantity<QT>):
+        ClosedFloatingPointRange<Quantity<QT>> = QuantityRange(this, that)
 
-public fun Quantity<*>.feq(comparate: Quantity<*>, maxUlps: Int): Boolean =
-    if (quantityType == comparate.quantityType) inDefaultUnit.feq(comparate.inDefaultUnit, maxUlps) else false
+public infix fun Quantity<*>.feq(other: Quantity<*>): Boolean =
+    if (quantityType == other.quantityType) inDefaultUnit feq other.inDefaultUnit else false
 
-public fun Quantity<*>.feq(comparate: Quantity<*>, epsilon: Double): Boolean =
-    if (quantityType == comparate.quantityType) inDefaultUnit.feq(comparate.inDefaultUnit, epsilon) else false
+public fun Quantity<*>.feq(other: Quantity<*>, maxUlps: Int): Boolean =
+    if (quantityType == other.quantityType) inDefaultUnit.feq(other.inDefaultUnit, maxUlps) else false
+
+public fun Quantity<*>.feq(other: Quantity<*>, epsilon: Double): Boolean =
+    if (quantityType == other.quantityType) inDefaultUnit.feq(other.inDefaultUnit, epsilon) else false
 
 public infix fun <QT : Quantity<QT>> Quantity<QT>.convertTo(unit: PhysicalUnit<QT>): Quantity<QT> =
     unit.quantityOfInDefaultUnit(this.inDefaultUnit)
@@ -133,6 +146,7 @@ public interface PhysicalUnit<QT : Quantity<QT>> {
      */
     public val quantityType: KClass<QT>
     public val symbol: String
+
     /**
      * The default unit for this units quantity type (e.g. the default unit for the Temperature quantity type is Kelvin)
      */
