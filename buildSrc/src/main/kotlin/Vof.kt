@@ -16,7 +16,7 @@
  */
 
 object Vof {
-    const val kotlin = "1.3.61"
+    const val kotlin = "1.3.70"
     const val coral = "2.4.2-SNAPSHOT"
     const val serialization = "0.20.0"
 
