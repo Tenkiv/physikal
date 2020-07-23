@@ -25,15 +25,15 @@ public interface Dimensionless : Quantity<Dimensionless>
 
 @Serializable
 @SerialName(One.SYMBOL)
-internal class Ones(override val inOwnUnit: Double) : Quantity<Dimensionless> {
-    override val unit: PhysicalUnit<Dimensionless> get() = One
+public class Ones(public override val inOwnUnit: Double) : Quantity<Dimensionless> {
+    public override val unit: PhysicalUnit<Dimensionless> get() = One
 
-    override fun convertToDefaultUnit(): Quantity<Dimensionless> = this
+    public override fun convertToDefaultUnit(): Quantity<Dimensionless> = this
 
-    override fun toString(): String = "$inOwnUnit ${unit.symbol}"
+    public override fun toString(): String = "$inOwnUnit ${unit.symbol}"
 }
 
-public val Double.ones: Quantity<Dimensionless> get() = Ones(this)
+public val Double.ones: Ones get() = Ones(this)
 
 @Serializable
 @SerialName(One.SYMBOL)
@@ -53,15 +53,15 @@ public object One : PhysicalUnit<Dimensionless> {
 
 @Serializable
 @SerialName(Percent.SYMBOL)
-internal class PercentQuantity(override val inOwnUnit: Double) : Quantity<Dimensionless> {
-    override val unit: PhysicalUnit<Dimensionless> get() = Percent
+public class PercentQuantity(public override val inOwnUnit: Double) : Quantity<Dimensionless> {
+    public override val unit: PhysicalUnit<Dimensionless> get() = Percent
 
-    override fun convertToDefaultUnit(): Quantity<Dimensionless> = this / 100
+    public override fun convertToDefaultUnit(): Quantity<Dimensionless> = this / 100
 
-    override fun toString(): String = "$inOwnUnit ${unit.symbol}"
+    public override fun toString(): String = "$inOwnUnit ${unit.symbol}"
 }
 
-public val Double.percent: Quantity<Dimensionless> get() = PercentQuantity(this)
+public val Double.percent: PercentQuantity get() = PercentQuantity(this)
 
 @Serializable
 @SerialName(Percent.SYMBOL)

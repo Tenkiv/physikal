@@ -32,29 +32,29 @@ public fun Quantity<Time>.toDuration(): Duration = this.inDefaultUnit.seconds
 
 @Serializable
 @SerialName(Second.SYMBOL)
-internal class Seconds(override val inOwnUnit: Double) : Quantity<Time> {
-    override val unit: PhysicalUnit<Time> get() = Second
+public class Seconds(public override val inOwnUnit: Double) : Quantity<Time> {
+    public override val unit: PhysicalUnit<Time> get() = Second
 
-    override fun convertToDefaultUnit(): Quantity<Time> = this
+    public override fun convertToDefaultUnit(): Quantity<Time> = this
 
-    override fun toString(): String = "$inOwnUnit ${unit.symbol}"
+    public override fun toString(): String = "$inOwnUnit ${unit.symbol}"
 }
 
 // Name doesn't follow standard convention to avoid conflicts with kotlin.time Duration name.
-public val Double.secondsQuantity: Quantity<Time> get() = Seconds(this)
+public val Double.secondsQuantity: Seconds get() = Seconds(this)
 
 @Serializable
 @SerialName(Second.SYMBOL)
 public object Second : PhysicalUnit<Time> {
     public const val SYMBOL: String = "s"
 
-    override val quantityType: KClass<Time> get() = Time::class
-    override val symbol: String get() = SYMBOL
-    override val default: PhysicalUnit<Time> get() = this
+    public override val quantityType: KClass<Time> get() = Time::class
+    public override val symbol: String get() = SYMBOL
+    public override val default: PhysicalUnit<Time> get() = this
 
-    override fun quantityOf(amount: Double): Quantity<Time> = amount.secondsQuantity
+    public override fun quantityOf(amount: Double): Quantity<Time> = amount.secondsQuantity
 
-    override fun quantityOfInDefaultUnit(amount: Double): Quantity<Time> = amount.secondsQuantity
+    public override fun quantityOfInDefaultUnit(amount: Double): Quantity<Time> = amount.secondsQuantity
 
-    override fun toString(): String = SYMBOL
+    public override fun toString(): String = SYMBOL
 }
