@@ -22,24 +22,24 @@ import physikal.types.*
 import physikal.types.DegreesCelsius
 import physikal.types.Kelvins
 
-public val physikalSerialModule: SerialModule = SerializersModule {
+public val physikalSerialModule: SerializersModule = SerializersModule {
 
     polymorphic(Quantity::class) {
         // Temperature
-        Kelvins::class with Kelvins.serializer()
-        DegreesCelsius::class with DegreesCelsius.serializer()
+        subclass(Kelvins::class)
+        subclass(DegreesCelsius::class)
 
         // Time
-        Seconds::class with Seconds.serializer()
+        subclass(Seconds::class)
     }
 
     polymorphic(PhysicalUnit::class) {
         // Temperature
-        Kelvin::class with Kelvin.serializer()
-        Celsius::class with Celsius.serializer()
+        subclass(Kelvin::class)
+        subclass(Celsius::class)
 
         // Time
-        Second::class with Second.serializer()
+        subclass(Second::class)
     }
 
 }

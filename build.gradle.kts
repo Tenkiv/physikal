@@ -66,8 +66,8 @@ kotlin {
         }
         val commonTest by getting {
             dependencies {
-                implementation(kotlin("test-common"))
-                implementation(kotlin("test-annotations-common"))
+                implementation(kotlin("test-common", Vof.kotlin))
+                implementation(kotlin("test-annotations-common", Vof.kotlin))
             }
         }
         val jvmMain by getting {
@@ -77,7 +77,8 @@ kotlin {
         }
         val jvmTest by getting {
             dependencies {
-                implementation(kotlin("test"))
+                implementation(kotlin("test", Vof.kotlin))
+                implementation(kotlin("test-junit", Vof.kotlin))
             }
         }
 
