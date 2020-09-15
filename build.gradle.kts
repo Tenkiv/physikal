@@ -60,7 +60,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api("org.jetbrains.kotlinx:kotlinx-serialization-runtime:${Vof.serialization}")
+                api("org.jetbrains.kotlinx:kotlinx-serialization-core:${Vof.serialization}")
                 implementation("org.tenkiv.coral:coral:${Vof.coral}")
             }
         }
@@ -70,11 +70,7 @@ kotlin {
                 implementation(kotlin("test-annotations-common"))
             }
         }
-        val jvmMain by getting {
-            dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:${Vof.serialization}")
-            }
-        }
+        val jvmMain by getting
         val jvmTest by getting {
             dependencies {
                 implementation(kotlin("test"))
