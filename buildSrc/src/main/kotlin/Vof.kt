@@ -18,6 +18,6 @@
 object Vof {
     const val kotlin = "1.4.10"
     const val coral = "2.6.1-dev-1-SNAPSHOT"
-    const val serialization = "1.0-M1-1.4.0-rc"
+    const val serialization = "1.0.0-RC"
     const val dokka = "1.4.0"
 }
