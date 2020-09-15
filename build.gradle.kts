@@ -50,7 +50,7 @@ setSigningExtrasFromProperties(properties)
 
 kotlin {
     jvm {
-        val main by compilations.getting {
+        compilations.all {
             kotlinOptions {
                 jvmTarget = "1.8"
             }
@@ -60,8 +60,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(kotlin("stdlib-common"))
-                api("org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:${Vof.serialization}")
+                api("org.jetbrains.kotlinx:kotlinx-serialization-runtime:${Vof.serialization}")
                 implementation("org.tenkiv.coral:coral:${Vof.coral}")
             }
         }
@@ -73,7 +72,6 @@ kotlin {
         }
         val jvmMain by getting {
             dependencies {
-                implementation(kotlin("stdlib-jdk8"))
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:${Vof.serialization}")
             }
         }
@@ -82,10 +80,13 @@ kotlin {
                 implementation(kotlin("test"))
             }
         }
-    }
 
-    tasks {
-        registerCommonTasks()
+        tasks {
+            register<Jar>("javadocJar") {
+                from(dokkaJavadoc)
+                archiveClassifier.set("javadoc")
+            }
+        }
     }
 
     publishing {
