@@ -68,6 +68,8 @@ kotlin {
             dependencies {
                 implementation(kotlin("test-common", Vof.kotlin))
                 implementation(kotlin("test-annotations-common", Vof.kotlin))
+
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:${Vof.serialization}")
             }
         }
         val jvmMain by getting
