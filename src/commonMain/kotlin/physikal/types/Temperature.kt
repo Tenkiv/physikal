@@ -18,6 +18,7 @@
 package physikal.types
 
 import kotlinx.serialization.*
+import org.tenkiv.coral.*
 import physikal.*
 import kotlin.reflect.*
 
@@ -25,7 +26,7 @@ public interface Temperature : Quantity<Temperature>
 
 @Serializable
 @SerialName(Kelvin.SYMBOL)
-public class Kelvins(public override val inOwnUnit: Double) : Quantity<Temperature> {
+public class Kelvins(public override val inOwnUnit: Float64) : Quantity<Temperature> {
     public override val unit: PhysicalUnit<Temperature> get() = Kelvin
 
     public override fun convertToDefaultUnit(): Quantity<Temperature> = this
@@ -33,7 +34,7 @@ public class Kelvins(public override val inOwnUnit: Double) : Quantity<Temperatu
     public override fun toString(): String = "$inOwnUnit ${unit.symbol}"
 }
 
-public val Double.kelvins: Kelvins get() = Kelvins(this)
+public val Float64.kelvins: Kelvins get() = Kelvins(this)
 
 @Serializable
 @SerialName(Kelvin.SYMBOL)
@@ -44,16 +45,16 @@ public object Kelvin : PhysicalUnit<Temperature> {
     public override val symbol: String get() = SYMBOL
     public override val default: PhysicalUnit<Temperature> get() = this
 
-    public override fun quantityOf(amount: Double): Quantity<Temperature> = amount.kelvins
+    public override fun quantityOf(amount: Float64): Quantity<Temperature> = amount.kelvins
 
-    public override fun quantityOfInDefaultUnit(amount: Double): Quantity<Temperature> = amount.kelvins
+    public override fun quantityOfInDefaultUnit(amount: Float64): Quantity<Temperature> = amount.kelvins
 
     public override fun toString(): String = symbol
 }
 
 @Serializable
 @SerialName(Celsius.SYMBOL)
-public class DegreesCelsius(public override val inOwnUnit: Double) : Quantity<Temperature> {
+public class DegreesCelsius(public override val inOwnUnit: Float64) : Quantity<Temperature> {
     public override val unit: PhysicalUnit<Temperature> get() = Celsius
 
     public override fun convertToDefaultUnit(): Quantity<Temperature> = (this.inOwnUnit + 273.15).kelvins
@@ -61,7 +62,7 @@ public class DegreesCelsius(public override val inOwnUnit: Double) : Quantity<Te
     public override fun toString(): String = "$inOwnUnit ${unit.symbol}"
 }
 
-public val Double.degreesCelsius: DegreesCelsius get() = DegreesCelsius(this)
+public val Float64.degreesCelsius: DegreesCelsius get() = DegreesCelsius(this)
 
 @Serializable
 @SerialName(Celsius.SYMBOL)
@@ -72,9 +73,9 @@ public object Celsius : PhysicalUnit<Temperature> {
     public override val symbol: String get() = SYMBOL
     public override val default: PhysicalUnit<Temperature> get() = Kelvin
 
-    public override fun quantityOf(amount: Double): Quantity<Temperature> = amount.degreesCelsius
+    public override fun quantityOf(amount: Float64): Quantity<Temperature> = amount.degreesCelsius
 
-    public override fun quantityOfInDefaultUnit(amount: Double): Quantity<Temperature> = (amount - 273.15).kelvins
+    public override fun quantityOfInDefaultUnit(amount: Float64): Quantity<Temperature> = (amount - 273.15).kelvins
 
     public override fun toString(): String = SYMBOL
 }

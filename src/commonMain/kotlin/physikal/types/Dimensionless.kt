@@ -18,6 +18,7 @@
 package physikal.types
 
 import kotlinx.serialization.*
+import org.tenkiv.coral.*
 import physikal.*
 import kotlin.reflect.*
 
@@ -25,7 +26,7 @@ public interface Dimensionless : Quantity<Dimensionless>
 
 @Serializable
 @SerialName(One.SYMBOL)
-public class Ones(public override val inOwnUnit: Double) : Quantity<Dimensionless> {
+public class Ones(public override val inOwnUnit: Float64) : Quantity<Dimensionless> {
     public override val unit: PhysicalUnit<Dimensionless> get() = One
 
     public override fun convertToDefaultUnit(): Quantity<Dimensionless> = this
@@ -33,7 +34,7 @@ public class Ones(public override val inOwnUnit: Double) : Quantity<Dimensionles
     public override fun toString(): String = "$inOwnUnit ${unit.symbol}"
 }
 
-public val Double.ones: Ones get() = Ones(this)
+public val Float64.ones: Ones get() = Ones(this)
 
 @Serializable
 @SerialName(One.SYMBOL)
@@ -44,16 +45,16 @@ public object One : PhysicalUnit<Dimensionless> {
     public override val symbol: String get() = SYMBOL
     public override val default: PhysicalUnit<Dimensionless> get() = this
 
-    public override fun quantityOf(amount: Double): Quantity<Dimensionless> = amount.ones
+    public override fun quantityOf(amount: Float64): Quantity<Dimensionless> = amount.ones
 
-    public override fun quantityOfInDefaultUnit(amount: Double): Quantity<Dimensionless> = amount.ones
+    public override fun quantityOfInDefaultUnit(amount: Float64): Quantity<Dimensionless> = amount.ones
 
     public override fun toString(): String = Celsius.SYMBOL
 }
 
 @Serializable
 @SerialName(Percent.SYMBOL)
-public class PercentQuantity(public override val inOwnUnit: Double) : Quantity<Dimensionless> {
+public class PercentQuantity(public override val inOwnUnit: Float64) : Quantity<Dimensionless> {
     public override val unit: PhysicalUnit<Dimensionless> get() = Percent
 
     public override fun convertToDefaultUnit(): Quantity<Dimensionless> = this / 100
@@ -61,7 +62,7 @@ public class PercentQuantity(public override val inOwnUnit: Double) : Quantity<D
     public override fun toString(): String = "$inOwnUnit ${unit.symbol}"
 }
 
-public val Double.percent: PercentQuantity get() = PercentQuantity(this)
+public val Float64.percent: PercentQuantity get() = PercentQuantity(this)
 
 @Serializable
 @SerialName(Percent.SYMBOL)
@@ -72,9 +73,9 @@ public object Percent : PhysicalUnit<Dimensionless> {
     public override val symbol: String get() = SYMBOL
     public override val default: PhysicalUnit<Dimensionless> get() = One
 
-    public override fun quantityOf(amount: Double): Quantity<Dimensionless> = amount.percent
+    public override fun quantityOf(amount: Float64): Quantity<Dimensionless> = amount.percent
 
-    public override fun quantityOfInDefaultUnit(amount: Double): Quantity<Dimensionless> = (amount * 100).percent
+    public override fun quantityOfInDefaultUnit(amount: Float64): Quantity<Dimensionless> = (amount * 100).percent
 
     public override fun toString(): String = Celsius.SYMBOL
 }

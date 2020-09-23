@@ -23,12 +23,12 @@ import kotlin.reflect.*
 
 public interface Quantity<QT : Quantity<QT>> : Comparable<Quantity<QT>> {
     /**
-     * The [Double] amount of this quantity in this quantities [unit].
+     * The [Float64] amount of this quantity in this quantities [unit].
      *
      * This property can be dangerous to use. In the majority of cases it should only be used immediately following a
-     * call that set the unit of the quantity. Consider using [toDoubleIn] or [inDefaultUnit] instead.
+     * call that set the unit of the quantity. Consider using [toFloat64In] or [inDefaultUnit] instead.
      */
-    public val inOwnUnit: Double
+    public val inOwnUnit: Float64
     public val unit: PhysicalUnit<QT>
 
     /**
@@ -38,7 +38,7 @@ public interface Quantity<QT : Quantity<QT>> : Comparable<Quantity<QT>> {
 
     public fun convertToDefaultUnit(): Quantity<QT>
 
-    public override fun compareTo(other: Quantity<QT>): Int = inDefaultUnit.compareTo(other.inDefaultUnit)
+    public override fun compareTo(other: Quantity<QT>): Int32 = inDefaultUnit.compareTo(other.inDefaultUnit)
 
     public companion object {
         private val serializer = PolymorphicSerializer(Quantity::class)
@@ -58,7 +58,7 @@ private class QuantityRange<QT : Quantity<QT>>(
 
 }
 
-public val Quantity<*>.inDefaultUnit: Double get() = convertToDefaultUnit().inOwnUnit
+public val Quantity<*>.inDefaultUnit: Float64 get() = convertToDefaultUnit().inOwnUnit
 
 public operator fun <QT : Quantity<QT>> Quantity<QT>.unaryPlus(): Quantity<QT> = unit.quantityOf(+this.inOwnUnit)
 
@@ -76,29 +76,29 @@ public operator fun <QT : Quantity<QT>> Quantity<QT>.plus(other: Quantity<QT>): 
 public operator fun <QT : Quantity<QT>> Quantity<QT>.minus(other: Quantity<QT>): Quantity<QT> =
     this.unit.quantityOf(this.inOwnUnit - other.convertTo(this.unit).inOwnUnit)
 
-public operator fun <QT : Quantity<QT>> Quantity<QT>.times(multiplier: Int): Quantity<QT> =
+public operator fun <QT : Quantity<QT>> Quantity<QT>.times(multiplier: Int32): Quantity<QT> =
     this.unit.quantityOf(this.inOwnUnit * multiplier)
 
-public operator fun <QT : Quantity<QT>> Quantity<QT>.times(multiplier: Long): Quantity<QT> =
+public operator fun <QT : Quantity<QT>> Quantity<QT>.times(multiplier: Int64): Quantity<QT> =
     this.unit.quantityOf(this.inOwnUnit * multiplier)
 
-public operator fun <QT : Quantity<QT>> Quantity<QT>.times(multiplier: Float): Quantity<QT> =
+public operator fun <QT : Quantity<QT>> Quantity<QT>.times(multiplier: Float32): Quantity<QT> =
     this.unit.quantityOf(this.inOwnUnit * multiplier)
 
-public operator fun <QT : Quantity<QT>> Quantity<QT>.times(multiplier: Double): Quantity<QT> =
+public operator fun <QT : Quantity<QT>> Quantity<QT>.times(multiplier: Float64): Quantity<QT> =
     this.unit.quantityOf(this.inOwnUnit * multiplier)
 
-public operator fun <QT : Quantity<QT>> Quantity<QT>.div(multiplier: Int): Quantity<QT> =
-    this.unit.quantityOf(this.inOwnUnit / multiplier)
+public operator fun <QT : Quantity<QT>> Quantity<QT>.div(divisor: Int32): Quantity<QT> =
+    this.unit.quantityOf(this.inOwnUnit / divisor)
 
-public operator fun <QT : Quantity<QT>> Quantity<QT>.div(multiplier: Long): Quantity<QT> =
-    this.unit.quantityOf(this.inOwnUnit / multiplier)
+public operator fun <QT : Quantity<QT>> Quantity<QT>.div(divisor: Int64): Quantity<QT> =
+    this.unit.quantityOf(this.inOwnUnit / divisor)
 
-public operator fun <QT : Quantity<QT>> Quantity<QT>.div(multiplier: Float): Quantity<QT> =
-    this.unit.quantityOf(this.inOwnUnit / multiplier)
+public operator fun <QT : Quantity<QT>> Quantity<QT>.div(divisor: Float32): Quantity<QT> =
+    this.unit.quantityOf(this.inOwnUnit / divisor)
 
-public operator fun <QT : Quantity<QT>> Quantity<QT>.div(multiplier: Double): Quantity<QT> =
-    this.unit.quantityOf(this.inOwnUnit / multiplier)
+public operator fun <QT : Quantity<QT>> Quantity<QT>.div(divisor: Float64): Quantity<QT> =
+    this.unit.quantityOf(this.inOwnUnit / divisor)
 
 public operator fun <QT : Quantity<QT>> Quantity<QT>.rangeTo(that: Quantity<QT>):
         ClosedFloatingPointRange<Quantity<QT>> = QuantityRange(this, that)
@@ -106,39 +106,39 @@ public operator fun <QT : Quantity<QT>> Quantity<QT>.rangeTo(that: Quantity<QT>)
 public infix fun Quantity<*>.feq(other: Quantity<*>): Boolean =
     if (quantityType == other.quantityType) inDefaultUnit feq other.inDefaultUnit else false
 
-public fun Quantity<*>.feq(other: Quantity<*>, maxUlps: Int): Boolean =
+public fun Quantity<*>.feq(other: Quantity<*>, maxUlps: Int32): Boolean =
     if (quantityType == other.quantityType) inDefaultUnit.feq(other.inDefaultUnit, maxUlps) else false
 
-public fun Quantity<*>.feq(other: Quantity<*>, epsilon: Double): Boolean =
+public fun Quantity<*>.feq(other: Quantity<*>, epsilon: Float64): Boolean =
     if (quantityType == other.quantityType) inDefaultUnit.feq(other.inDefaultUnit, epsilon) else false
 
 public infix fun <QT : Quantity<QT>> Quantity<QT>.convertTo(unit: PhysicalUnit<QT>): Quantity<QT> =
     unit.quantityOfInDefaultUnit(this.inDefaultUnit)
 
-public infix fun <QT : Quantity<QT>> Quantity<QT>.toFloatIn(unit: PhysicalUnit<QT>): Float =
-    this.convertTo(unit).inOwnUnit.toFloat()
+public infix fun <QT : Quantity<QT>> Quantity<QT>.toFloat32In(unit: PhysicalUnit<QT>): Float32 =
+    this.convertTo(unit).inOwnUnit.toFloat32()
 
-public infix fun <QT : Quantity<QT>> Quantity<QT>.toDoubleIn(unit: PhysicalUnit<QT>): Double =
+public infix fun <QT : Quantity<QT>> Quantity<QT>.toFloat64In(unit: PhysicalUnit<QT>): Float64 =
     this.convertTo(unit).inOwnUnit
 
-public infix fun <QT : Quantity<QT>> Quantity<QT>.toIntIn(unit: PhysicalUnit<QT>): Int =
-    this.convertTo(unit).inOwnUnit.toInt()
+public infix fun <QT : Quantity<QT>> Quantity<QT>.toInt32In(unit: PhysicalUnit<QT>): Int32 =
+    this.convertTo(unit).inOwnUnit.toInt32()
 
-public infix fun <QT : Quantity<QT>> Quantity<QT>.toLongIn(unit: PhysicalUnit<QT>): Long =
-    this.convertTo(unit).inOwnUnit.toLong()
+public infix fun <QT : Quantity<QT>> Quantity<QT>.toInt64In(unit: PhysicalUnit<QT>): Int64 =
+    this.convertTo(unit).inOwnUnit.toInt64()
 
 public inline fun <SQT : Quantity<SQT>, RQT : Quantity<RQT>> Quantity<SQT>.transform(
     fromUnit: PhysicalUnit<SQT>,
-    transformation: (Double) -> Quantity<RQT>
-): Quantity<RQT> = transformation(this toDoubleIn fromUnit)
+    transformation: (Float64) -> Quantity<RQT>
+): Quantity<RQT> = transformation(this toFloat64In fromUnit)
 
-public fun <QT : Quantity<QT>> Int.toQuantity(unit: PhysicalUnit<QT>): Quantity<QT> = unit.quantityOf(this.toDouble())
+public fun <QT : Quantity<QT>> Int32.toQuantity(unit: PhysicalUnit<QT>): Quantity<QT> = unit.quantityOf(this.toFloat64())
 
-public fun <QT : Quantity<QT>> Long.toQuantity(unit: PhysicalUnit<QT>): Quantity<QT> = unit.quantityOf(this.toDouble())
+public fun <QT : Quantity<QT>> Int64.toQuantity(unit: PhysicalUnit<QT>): Quantity<QT> = unit.quantityOf(this.toFloat64())
 
-public fun <QT : Quantity<QT>> Float.toQuantity(unit: PhysicalUnit<QT>): Quantity<QT> = unit.quantityOf(this.toDouble())
+public fun <QT : Quantity<QT>> Float32.toQuantity(unit: PhysicalUnit<QT>): Quantity<QT> = unit.quantityOf(this.toFloat64())
 
-public fun <QT : Quantity<QT>> Double.toQuantity(unit: PhysicalUnit<QT>): Quantity<QT> = unit.quantityOf(this)
+public fun <QT : Quantity<QT>> Float64.toQuantity(unit: PhysicalUnit<QT>): Quantity<QT> = unit.quantityOf(this)
 
 public interface PhysicalUnit<QT : Quantity<QT>> {
     /**
@@ -152,9 +152,9 @@ public interface PhysicalUnit<QT : Quantity<QT>> {
      */
     public val default: PhysicalUnit<QT>
 
-    public fun quantityOf(amount: Double): Quantity<QT>
+    public fun quantityOf(amount: Float64): Quantity<QT>
 
-    public fun quantityOfInDefaultUnit(amount: Double): Quantity<QT>
+    public fun quantityOfInDefaultUnit(amount: Float64): Quantity<QT>
 
     public companion object {
         private val serializer = PolymorphicSerializer(PhysicalUnit::class)

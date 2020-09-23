@@ -18,6 +18,7 @@
 package physikal.types
 
 import kotlinx.serialization.*
+import org.tenkiv.coral.*
 import physikal.*
 import kotlin.reflect.*
 import kotlin.time.*
@@ -32,7 +33,7 @@ public fun Quantity<Time>.toDuration(): Duration = this.inDefaultUnit.seconds
 
 @Serializable
 @SerialName(Second.SYMBOL)
-public class Seconds(public override val inOwnUnit: Double) : Quantity<Time> {
+public class Seconds(public override val inOwnUnit: Float64) : Quantity<Time> {
     public override val unit: PhysicalUnit<Time> get() = Second
 
     public override fun convertToDefaultUnit(): Quantity<Time> = this
@@ -41,7 +42,7 @@ public class Seconds(public override val inOwnUnit: Double) : Quantity<Time> {
 }
 
 // Name doesn't follow standard convention to avoid conflicts with kotlin.time Duration name.
-public val Double.secondsQuantity: Seconds get() = Seconds(this)
+public val Float64.secondsQuantity: Seconds get() = Seconds(this)
 
 @Serializable
 @SerialName(Second.SYMBOL)
@@ -52,9 +53,9 @@ public object Second : PhysicalUnit<Time> {
     public override val symbol: String get() = SYMBOL
     public override val default: PhysicalUnit<Time> get() = this
 
-    public override fun quantityOf(amount: Double): Quantity<Time> = amount.secondsQuantity
+    public override fun quantityOf(amount: Float64): Quantity<Time> = amount.secondsQuantity
 
-    public override fun quantityOfInDefaultUnit(amount: Double): Quantity<Time> = amount.secondsQuantity
+    public override fun quantityOfInDefaultUnit(amount: Float64): Quantity<Time> = amount.secondsQuantity
 
     public override fun toString(): String = SYMBOL
 }
