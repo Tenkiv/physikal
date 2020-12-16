@@ -15,13 +15,31 @@
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-object Info {
-    const val pomDescription = "A units of measurement extensions library."
-    const val pomLicense = "MIT License"
-    const val pomLicenseUrl = "https://opensource.org/licenses/MIT"
-    const val pomOrg = "Tenkiv, Inc."
-    const val projectUrl = "https://git.jetbrains.space/tenkiv/physikal/physikal.git"
-    const val projectCloneUrl = "git@git.jetbrains.space/tenkiv/physikal/physikal.git"
-    const val projectDevEmail = "zjuhasz@tenkiv.org"
-    const val projectDevEmail2 = "skern@tenkiv.org"
+fun Job.jdk8Container(action: Container.() -> Unit) = this.container("openjdk:11") {
+    action()
+}
+
+fun Container.gradleTask(task: String) = kotlinScript { api ->
+    api.gradlew(task)
+}
+
+job("Build, Test, Publish") {
+    //assemble step
+    jdk8Container {
+        gradleTask("assemble")
+    }
+
+    //test step
+    jdk8Container {
+        gradleTask("allTests")
+    }
+
+    //publish step
+    jdk8Container {
+        shellScript {
+            content = """
+                if grep -q "SNAPSHOT" gradle.properties; then ./gradlew publish; fi
+            """
+        }
+    }
 }

@@ -18,8 +18,6 @@
 import org.gradle.api.*
 import org.gradle.api.publish.*
 import org.gradle.api.publish.maven.*
-import org.gradle.api.tasks.bundling.*
-import org.gradle.api.tasks.testing.*
 import org.gradle.kotlin.dsl.*
 import java.io.*
 import java.net.*
@@ -28,7 +26,8 @@ import java.util.*
 /**
  * Check if the project is release based on version name. If it has "SNAPSHOT", it is not a release version.
  */
-fun Project.isRelease() = !version.toString().endsWith("SNAPSHOT")
+val Project.isRelease: Boolean
+    get()= !version.toString().contains("dev")
 
 /**
  * Creates a properties object from local.properties file.
@@ -67,13 +66,13 @@ fun Project.setSigningExtrasFromProperties(properties: Properties) {
 /**
  * Sets up POM for Tenkiv specific projects.
  */
-fun MavenPublication.configureMavenPom(isRelease: Boolean, project: Project) {
+fun MavenPublication.configureMavenPom(project: Project) {
     version = project.version.toString()
 
     pom {
         name.set(project.name)
         description.set(Info.pomDescription)
-        url.set(if (isRelease) Info.projectUrl else System.getenv("CI_PROJECT_URL"))
+        url.set(Info.projectUrl)
 
         licenses {
             license {
@@ -93,8 +92,8 @@ fun MavenPublication.configureMavenPom(isRelease: Boolean, project: Project) {
             name.set(Info.pomOrg)
         }
         scm {
-            connection.set(if (isRelease) Info.projectCloneUrl else System.getenv("CI_REPOSITORY_URL"))
-            url.set(if (isRelease) Info.projectUrl else System.getenv("CI_PROJECT_URL"))
+            connection.set(Info.projectCloneUrl)
+            url.set(Info.projectUrl)
         }
     }
 }
@@ -102,22 +101,14 @@ fun MavenPublication.configureMavenPom(isRelease: Boolean, project: Project) {
 /**
  * Sets Maven repositories for Tenkiv organization projects.
  */
-fun PublishingExtension.setMavenRepositories(isRelease: Boolean, properties: Properties) {
+fun PublishingExtension.setMavenRepositories() {
     repositories {
         maven {
-            url = URI(if (isRelease) Info.sonatypeReleaseRepoUrl else Info.sonatypeSnapshotRepoUrl)
+            url = URI("https://maven.pkg.jetbrains.space/tenkiv/p/physikal/physikal-maven-repo")
 
             credentials {
-                username = if (isRelease) {
-                    properties.getProperty("MAVEN_USER")
-                } else {
-                    System.getenv("MAVEN_REPO_USER")
-                }
-                password = if (isRelease) {
-                    properties.getProperty("MAVEN_PASSWORD")
-                } else {
-                    System.getenv("MAVEN_REPO_PASSWORD")
-                }
+                username = System.getenv("JB_SPACE_CLIENT_ID")
+                password = System.getenv("JB_SPACE_CLIENT_SECRET")
             }
         }
     }

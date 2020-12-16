@@ -15,8 +15,6 @@
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-@file:Suppress("UNUSED_VARIABLE")
-
 buildscript {
     repositories {
         mavenCentral()
@@ -29,11 +27,15 @@ buildscript {
 
 }
 
+val properties = createPropertiesFromLocal()
+setSigningExtrasFromProperties(properties)
+
 repositories {
     mavenCentral()
     jcenter()
-    google()
-    maven(url = "https://oss.sonatype.org/content/repositories/snapshots/")
+    maven {
+        url = uri("https://maven.pkg.jetbrains.space/tenkiv/p/coral/coral-maven-repo")
+    }
 }
 
 plugins {
@@ -43,10 +45,6 @@ plugins {
     id("maven-publish")
     signing
 }
-
-val isRelease = isRelease()
-val properties = createPropertiesFromLocal()
-setSigningExtrasFromProperties(properties)
 
 kotlin {
     explicitApi()
@@ -81,25 +79,19 @@ kotlin {
                 implementation(kotlin("test-junit", Vof.kotlin))
             }
         }
-
-        tasks {
-            register<Jar>("javadocJar") {
-                from(dokkaJavadoc)
-                archiveClassifier.set("javadoc")
-            }
-        }
     }
 
     publishing {
         publications.withType<MavenPublication>().apply {
-            val jvm by getting {
-                artifact(tasks.getByName("javadocJar"))
+            val kotlinMultiplatform by getting {
+                artifact(tasks.getByName("metadataSourcesJar")) {
+                    classifier = "sources"
+                }
             }
-        }.forEach {
-            it.configureMavenPom(isRelease, project)
-            signing { if (isRelease) sign(it) }
+        }.all {
+            configureMavenPom(project)
+            signing { if (isRelease) sign(this@all) }
         }
-
-        setMavenRepositories(isRelease, properties)
+        setMavenRepositories()
     }
 }
