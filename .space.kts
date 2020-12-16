@@ -15,7 +15,7 @@
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-fun Job.jdk8Container(action: Container.() -> Unit) = this.container("openjdk:11") {
+fun CompositeStep.jdk11Container(action: Container.() -> Unit) = container("openjdk:11") {
     action()
 }
 
@@ -24,18 +24,20 @@ fun Container.gradleTask(task: String) = kotlinScript { api ->
 }
 
 job("Build, Test, Publish") {
-    //assemble step
-    jdk8Container {
-        gradleTask("assemble")
-    }
+    parallel {
+        //assemble step
+        jdk11Container {
+            gradleTask("assemble")
+        }
 
-    //test step
-    jdk8Container {
-        gradleTask("allTests")
+        //test step
+        jdk11Container {
+            gradleTask("allTests")
+        }
     }
 
     //publish step
-    jdk8Container {
+    jdk11Container {
         shellScript {
             content = """
                 if grep -q "SNAPSHOT" gradle.properties; then ./gradlew publish; fi
